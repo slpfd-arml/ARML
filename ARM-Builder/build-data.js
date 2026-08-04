@@ -307,6 +307,30 @@ const ARM_DATA = {
 // That matters: meta carries a build timestamp, so including it would make
 // every single build look like new content and tell every device to
 // re-download the whole library even when nothing actually changed.
+//
+// CRITICAL: this hash must also react to CODE changes (app.js, index.html,
+// style.css, manifest.json), not just resource-data changes. Without this,
+// editing app.js and rebuilding produces the exact same BUILD_ID as before
+// whenever the workbook itself didn't change - which means the shell cache
+// key never changes, which means the service worker has no signal to ever
+// replace its cached (and now-outdated) copy of app.js. A code fix would
+// silently never reach any device already running the app. This is not a
+// hypothetical: it happened during development, on a PDF-link fix that
+// touched only app.js.
+//
+// service-worker.js is deliberately EXCLUDED from this list - it's the file
+// build-data.js writes BUILD_ID *into*, so including its own content in the
+// hash that determines BUILD_ID would be self-referential and never settle
+// on a stable value.
+const HASHED_SHELL_FILES = ["index.html", "app.js", "style.css", "manifest.json"];
+
+function readShellFileForHash(relName) {
+  const p = path.join(siteRoot, relName);
+  return fs.existsSync(p) ? fs.readFileSync(p, "utf8") : `MISSING:${relName}`;
+}
+
+const shellContent = HASHED_SHELL_FILES.map(readShellFileForHash).join("\u0000");
+
 const dataHash = crypto
   .createHash("sha256")
   .update(
@@ -318,12 +342,14 @@ const dataHash = crypto
       insurance_guide_path: ARM_DATA.insurance_guide_path
     })
   )
+  .update(shellContent)
   .digest("hex")
   .slice(0, 12);
 
-// BUILD_ID changes whenever the version OR the data changes. This is what
-// devices compare to decide whether an update is available, and what busts
-// the shell cache. Content edits don't require a manual version bump.
+// BUILD_ID changes whenever the version, the resource data, OR the app code
+// changes. This is what devices compare to decide whether an update is
+// available, and what busts the shell cache. Neither content edits nor code
+// fixes require a manual version bump to actually take effect on a device.
 const BUILD_ID = `${VERSION}+${dataHash}`;
 
 // Stamped into the data itself so the running app knows which build it IS,
