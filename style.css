@@ -1,0 +1,747 @@
+:root {
+  --slp-red: #961200;
+  --left-pane: #2A2A2A;
+  --detail-pane: #1F1F28;
+  --chrome-bg: #0D0D0F;  /* header/footer/search bar chrome */
+  --text-light: #F2F2F2;
+}
+
+/* GLOBAL */
+/* iOS RUBBER-BAND FIX
+   position:fixed + inset:0 on the body is what actually stops the whole app
+   bouncing when you drag past the end of a list in standalone mode.
+   overscroll-behavior alone is not enough on iOS Safari, and height:100vh is
+   unreliable there because 100vh counts the browser chrome that isn't
+   present once the app is installed to the home screen. Pinning the body
+   means nothing outside the designated scroll containers can move at all. */
+html {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Inter, sans-serif;
+  background-color: var(--left-pane);
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  /* Removes the legacy ~300ms tap delay - the single biggest "feels sluggish"
+     culprit on iOS once momentum scrolling is already handled. */
+  touch-action: manipulation;
+  /* Stop iOS from auto-inflating font sizes on rotation. */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Tap highlight: replace the default grey flash with the app's own red */
+#resourceItems li,
+button,
+a {
+  -webkit-tap-highlight-color: rgba(150, 18, 0, 0.25);
+}
+
+/* MOMENTUM SCROLLING — every scrollable container in the app.
+   Add any new scroll container to this list. */
+#resourceItems,
+.resource-detail,
+.tools-modal-content {
+  -webkit-overflow-scrolling: touch;
+  /* "none" rather than "contain": contain still lets the container itself
+     rubber-band at its own limits, which is the judder you see at the top
+     and bottom of the resource list. */
+  overscroll-behavior: none;
+}
+
+/* BIGGER RED SCROLLBARS */
+*::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--slp-red);
+  border-radius: 10px;
+  border: 3px solid #000;
+}
+
+*::-webkit-scrollbar-track {
+  background: #000;
+}
+
+/* HEADER */
+.app-header {
+  display: flex;
+  align-items: center;
+  background-color: var(--slp-red);
+  color: white;
+  /* env(safe-area-inset-*) keeps the header clear of the iOS status bar and
+     the landscape notch. Required because the app uses viewport-fit=cover
+     with a translucent status bar. */
+  padding: calc(0.4rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right))
+           0.4rem calc(1rem + env(safe-area-inset-left));
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  flex-shrink: 0;
+}
+
+.patch {
+  height: 72px;
+  margin-right: 1rem;
+}
+
+.title-block h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* SPLIT PANE */
+.split-pane {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* LEFT SIDE */
+.resource-list {
+  width: 40%;
+  background-color: var(--left-pane);
+  border-right: 2px solid #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar {
+  padding: 0.5rem;
+  background: var(--chrome-bg);
+  border-bottom: 1px solid #000;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.search-bar input {
+  width: calc(100% - 10px);
+  padding: 0.5rem;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background: var(--chrome-bg);
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+/* CATEGORY MODE — left pane turns red while browsing categories */
+.resource-list.category-mode {
+  background-color: var(--slp-red);
+}
+
+.list-back-bar {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--chrome-bg);
+  border-bottom: 1px solid #000;
+}
+
+.list-back-bar.visible {
+  display: flex;
+}
+
+.back-btn {
+  background: var(--slp-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.list-back-label {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-row .cat-count {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.75);
+  margin-right: 0.4rem;
+}
+
+.category-row .chev {
+  color: rgba(255,255,255,0.6);
+}
+
+/* "See all resources" - a real element above the scroll container now,
+   not a position:sticky first-child inside it. Sticky elements inside an
+   iOS momentum-scrolling list judder during the rubber-band, which is
+   exactly the landscape bounce this replaced. */
+.all-resources-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.35);
+  background-color: var(--slp-red);
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.all-resources-row[hidden] {
+  display: none;
+}
+
+.all-resources-row:active {
+  background-color: rgba(0,0,0,0.15);
+}
+
+.resource-list.category-mode #resourceItems li {
+  color: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+
+.resource-list.category-mode #resourceItems li:hover {
+  background-color: rgba(0,0,0,0.15);
+}
+
+/* RESOURCE LIST */
+#resourceItems {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+#resourceItems li {
+  padding: 0.75rem;
+  border-bottom: 1px solid #000;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+#resourceItems li:hover {
+  background-color: #1A1A1A;
+}
+
+/* SELECTED RESOURCE — MAIN RED */
+#resourceItems li.selected {
+  background-color: var(--slp-red) !important;
+  color: white !important;
+}
+
+.resource-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.resource-row .chev {
+  color: var(--slp-red);
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+#resourceItems li.selected .chev {
+  color: #fff;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.6rem 0 0.75rem;
+}
+
+.detail-action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  background: #33333d;
+  color: var(--text-light);
+}
+
+.detail-action-btn.primary {
+  background: var(--slp-red);
+  color: #fff;
+}
+
+.detail-content svg {
+  vertical-align: -2px;
+  color: #F0997B;
+  margin-right: 2px;
+}
+
+.detail-action-btn svg {
+  vertical-align: -2px;
+  color: currentColor;
+  margin-right: 3px;
+}
+
+/* RIGHT SIDE */
+.resource-detail {
+  flex: 1;
+  padding: 0.85rem 1rem;
+  overflow-y: auto;
+  background: #16161b;
+  color: var(--text-light);
+}
+
+.detail-content {
+  background: var(--detail-pane);
+  border: 0.5px solid #3a3a44;
+  border-radius: 12px;
+  padding: 1rem 1.15rem;
+}
+
+.detail-content p {
+  margin: 0.3rem 0;
+}
+
+.detail-content h2 {
+  color: #FFFFFF;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.25rem;
+}
+
+.detail-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.fav-heart {
+  background: none;
+  border: none;
+  color: var(--slp-red);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.1rem 0.2rem;
+  flex-shrink: 0;
+}
+
+.fav-heart.active {
+  color: #ff4d3d;
+}
+
+.detail-parent {
+  font-size: 0.95rem;
+  color: #d9d9d9;
+  margin-top: 0.15rem;
+}
+
+.detail-type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #C9A0A0;
+  margin-top: 0.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.detail-section {
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #333;
+}
+
+.detail-section h3 {
+  margin: 0;
+  padding: 0.3rem 0;
+  color: var(--slp-red);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid rgba(150,18,0,0.4);
+}
+
+.detail-section-content {
+  padding: 0.4rem 0 0.1rem 0;
+}
+
+/* SUB-CONTACTS (e.g. St. Stephen's individual shelter/program contacts) */
+.sub-contact {
+  border-left: 3px solid var(--slp-red);
+  padding: 0.5rem 0 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.sub-contact h4 {
+  margin: 0 0 0.15rem 0;
+  color: #FFFFFF;
+}
+
+.sub-contact-meta {
+  font-size: 0.8rem;
+  color: #C9A0A0;
+  margin: 0 0 0.4rem 0;
+}
+
+.sub-contact p {
+  margin: 0.2rem 0;
+}
+
+/* FOOTER */
+.app-footer {
+  background-color: var(--chrome-bg);
+  color: white;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 0.35rem calc(0.25rem + env(safe-area-inset-right))
+           calc(0.35rem + env(safe-area-inset-bottom)) calc(0.25rem + env(safe-area-inset-left));
+  flex-shrink: 0;
+}
+
+.footer-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  flex: 1 1 0;
+  max-width: 110px;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 0.3rem 0.15rem;
+  border-radius: 8px;
+}
+
+.footer-btn:hover,
+.footer-btn:active {
+  background: rgba(150,18,0,0.25);
+}
+
+.footer-btn svg,
+.footer-btn img {
+  color: var(--slp-red);
+  flex-shrink: 0;
+}
+
+.footer-btn span {
+  font-size: 0.68rem;
+  line-height: 1.15;
+  text-align: center;
+  /* Reserves space for TWO lines on every button, not just the ones that
+     need it. Without this, a flex column with justify-content:center
+     centers icon+label as one block - and a two-line label makes that
+     block taller, which shifts ITS icon higher than a one-line button's
+     icon. Reserving the same height for all labels means every block is
+     the same total height, so every icon lands on the same row.
+     A single-line label just sits at the top of this space rather than
+     centering within it - equivalent to your "phantom second line" idea,
+     but without literal invisible text a screen reader would otherwise
+     read aloud. */
+  min-height: calc(0.68rem * 1.15 * 2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Version stamp - now a button in the header subtitle. Tapping it forces an
+   update check. Styled to read as text, not as a control, so it doesn't
+   compete with the actual buttons. */
+.version-tag {
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.72);
+  padding: 0.1rem 0.25rem;
+  margin-left: 0.15rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.version-tag:active {
+  background: rgba(0,0,0,0.18);
+}
+
+/* SCREENING TOOLS MODAL */
+.tools-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(3px);
+  z-index: 999;
+}
+
+.tools-modal.open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tools-modal-content {
+  background: var(--detail-pane);
+  width: 70%;
+  max-width: 900px;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  max-height: 80%;
+  overflow-y: auto;
+  color: var(--text-light);
+}
+
+.tools-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #333;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tools-close-btn {
+  background: var(--slp-red);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.tool-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tool-table th {
+  background: var(--slp-red);
+  color: white;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.tool-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #333;
+  color: var(--text-light);
+}
+
+.roi-sub {
+  font-size: 0.8rem;
+  color: #B5B5B5;
+  margin-top: 0.2rem;
+}
+
+.roi-sub a {
+  display: inline-block;
+  padding: 0.3rem 0;
+  font-size: 0.95rem;
+}
+
+.fav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fav-list li {
+  padding: 0.75rem;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+.fav-list li:hover {
+  background-color: rgba(150,18,0,0.2);
+}
+
+.fav-empty {
+  color: #9a9a9a;
+  padding: 1rem 0;
+}
+
+/* PANE SPLIT
+   flex-basis rather than vh: with the body pinned via position:fixed, vh on
+   iOS measures a viewport that includes browser chrome the installed app
+   doesn't have, so the panes end up taller than the screen and the footer
+   gets pushed off. Percentages of the flex container are exact. */
+
+/* iPad Portrait */
+@media screen and (max-width: 900px) {
+  .split-pane {
+    flex-direction: column;
+  }
+
+  .resource-list {
+    width: 100%;
+    flex: 0 0 45%;
+    min-height: 0;
+    border-right: none;
+    border-bottom: 2px solid #000;
+  }
+
+  .resource-detail {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+}
+
+/* iPhone - divider moved UP so the contact card gets more room.
+   The scroll index copes fine with less real estate; the detail card is
+   what someone is actually reading off during a call. iPad split above is
+   deliberately left alone. */
+@media screen and (max-width: 500px) {
+  .resource-list {
+    flex: 0 0 32%;
+  }
+
+  .patch {
+    height: 46px;
+    margin-right: 0.6rem;
+  }
+
+  .title-block h1 {
+    font-size: 1.1rem;
+  }
+
+  .subtitle {
+    font-size: 0.72rem;
+  }
+
+  .footer-btn span {
+    font-size: 0.6rem;
+    /* Must match the desktop rule's line-height math, just against the
+       smaller iPhone font-size - otherwise the reserved 2-line space is
+       taller than the smaller text actually needs. */
+    min-height: calc(0.6rem * 1.15 * 2);
+  }
+}
+
+/* iPad Landscape / Desktop */
+@media screen and (min-width: 901px) {
+  .split-pane {
+    flex-direction: row;
+  }
+
+  .resource-list {
+    width: 40%;
+    height: auto;
+    border-right: 2px solid #000;
+    border-bottom: none;
+  }
+
+  .resource-detail {
+    width: 60%;
+    height: auto;
+  }
+}
+
+
+
+/* ============================================================
+   UPDATE BUTTON (header, right side)
+   Hidden entirely unless there is something to report, so the
+   normal state of the app is uncluttered.
+   ============================================================ */
+.update-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  align-self: center;
+  background: rgba(0,0,0,0.28);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+  /* Comfortably tappable with a gloved hand. */
+  min-height: 36px;
+}
+
+.update-btn[hidden] {
+  display: none;
+}
+
+.update-btn:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+/* An update is waiting - the one state that should draw the eye. */
+.update-btn.available {
+  background: #fff;
+  color: var(--slp-red);
+  border-color: #fff;
+  animation: update-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes update-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); }
+  50%      { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+}
+
+/* Respect the OS reduced-motion setting - the pulse is decoration, and the
+   text already says everything the animation does. */
+@media (prefers-reduced-motion: reduce) {
+  .update-btn.available {
+    animation: none;
+  }
+}
+
+.update-btn.busy {
+  background: rgba(0,0,0,0.35);
+  border-color: rgba(255,255,255,0.25);
+}
+
+.update-btn.problem {
+  background: #2b2b33;
+  border-color: rgba(255,255,255,0.3);
+  color: #ffd9d2;
+}
+
+.subtitle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+}
