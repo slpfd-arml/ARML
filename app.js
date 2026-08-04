@@ -63,6 +63,30 @@ function toFileUrl(relPath) {
   return base + relPath.replace(/^\/*/, "");
 }
 
+// navigator.standalone is iOS-only and true only when the app was launched
+// from a home-screen icon (not a normal Safari tab). This matters because
+// target="_blank" is silently ignored in that mode - there's no browser
+// chrome to open a "new tab" into, so a PDF link just navigates the app's
+// own view away from itself, with no back button and no address bar to
+// recover with. Regular Safari tabs and desktop/Android browsers are
+// unaffected and keep the normal new-tab behavior.
+const IS_IOS_STANDALONE = typeof navigator !== "undefined" && navigator.standalone === true;
+
+// Builds the href/target (or href/download) attribute string for a PDF
+// link, generated once per render site so all four call sites (sub-contact
+// files, screening tools, insurance guide, ROI files) stay consistent.
+// In iOS standalone mode this forces a download instead of a navigation -
+// iOS reliably hands that off to its native Share/Save sheet, which escapes
+// the trap target="_blank" can't, and has the side benefit of leaving a
+// real copy in the Files app for offline reference.
+function fileLinkAttrs(url, label) {
+  if (IS_IOS_STANDALONE) {
+    const safeName = (label || "document").replace(/[^\w\-. ]+/g, "").trim() || "document";
+    return `href="${url}" download="${safeName}.pdf"`;
+  }
+  return `href="${url}" target="_blank" rel="noopener"`;
+}
+
 // Formats "123 Main St, Anytown, MN 55555" as two lines (street / city-state-zip),
 // wrapped in a clickable Apple Maps link. Handles multiple semicolon-separated
 // locations, trailing parenthetical notes, and addresses missing the comma
@@ -297,7 +321,7 @@ function fileBlock(r) {
 
   return r.files
     .map(file => {
-      return `<p><a href="${toFileUrl(file.path)}" target="_blank">${file.label}</a></p>`;
+      return `<p><a ${fileLinkAttrs(toFileUrl(file.path), file.label)}>${file.label}</a></p>`;
     })
     .join("");
 }
@@ -358,7 +382,7 @@ function renderScreeningTools() {
 
     const toolLink = (tool.files && tool.files.length)
       ? tool.files
-          .map(f => `<a href="${toFileUrl(f.path)}" target="_blank">${f.label}</a>`)
+          .map(f => `<a ${fileLinkAttrs(toFileUrl(f.path), f.label)}>${f.label}</a>`)
           .join(", ")
       : tool.tool;
 
@@ -378,7 +402,21 @@ insuranceBtn.addEventListener("click", () => {
     alert("The Insurance Guide PDF couldn't be found when the app was last built. Check the build console output and confirm the file is in /Assets.");
     return;
   }
-  window.open(toFileUrl(ARM_DATA.insurance_guide_path), "_blank");
+  const url = toFileUrl(ARM_DATA.insurance_guide_path);
+  if (IS_IOS_STANDALONE) {
+    // window.open() has no "download" equivalent - only an <a> tag does.
+    // Build one, click it programmatically, then discard it. Same escape
+    // hatch as fileLinkAttrs() above, just triggered from JS instead of
+    // rendered into innerHTML.
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Insurance Guide.pdf";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  } else {
+    window.open(url, "_blank");
+  }
 });
 
 /* PULLED-OUT TOOLS — too heavily used to bury in the resource list */
@@ -428,7 +466,7 @@ function renderRoiContacts() {
 
     const emailCell = org.email ? `<a href="mailto:${org.email}">${org.email}</a>` : "";
     const formsCell = (org.files && org.files.length)
-      ? org.files.map(f => `<div class="roi-sub"><a href="${toFileUrl(f.path)}" target="_blank">${f.label}</a></div>`).join("")
+      ? org.files.map(f => `<div class="roi-sub"><a ${fileLinkAttrs(toFileUrl(f.path), f.label)}>${f.label}</a></div>`).join("")
       : "";
 
     row.innerHTML = `
