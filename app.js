@@ -124,6 +124,27 @@ function formatAddress(raw) {
 // -> one line per semicolon-separated day-group, with "and" between two time
 // ranges (only when it sits between an AM/PM marker and a digit, so it doesn't
 // touch "Saturday, Sunday, and holidays"-style day lists) turned into a comma.
+// Text wrapped in [[expire:YYYY-MM-DD]]...[[/expire]] is automatically
+// removed once the current date reaches that date - no rebuild needed,
+// no manual cleanup required later. Meant for genuinely time-sensitive
+// notes (a seasonal program's current-cycle dates, a temporary closure)
+// that would otherwise linger as stale, misleading clutter long after
+// they stop being true. Whoever edits the workbook wraps the sentence
+// that should self-delete; everything else is untouched either way.
+// `now` is an optional override purely for testing - production calls
+// never pass it, so it always defaults to the real current date.
+function stripExpiredText(raw, now) {
+  if (!raw) return raw;
+  now = now || new Date();
+  return raw
+    .replace(/\[\[expire:(\d{4}-\d{2}-\d{2})\]\]([\s\S]*?)\[\[\/expire\]\]/g, (match, dateStr, inner) => {
+      const expiry = new Date(dateStr + "T00:00:00");
+      return now >= expiry ? "" : inner;
+    })
+    .replace(/[ \t]{2,}/g, " ")
+    .trim();
+}
+
 function formatHours(raw) {
   if (!raw) return "";
   return String(raw)
@@ -297,18 +318,37 @@ function subContactsBlock(r) {
 
   return r.subContacts
     .map(c => {
-      const meta = [c.category, c.audience].filter(Boolean).join(" · ");
+      // Category only in the meta line now - audience/eligibility text
+      // moved into Notes, where a full sentence reads better than being
+      // crammed into a short subtitle next to the category.
+      const meta = c.category || "";
+
+      // A real street address (ends in state+zip) gets the same clickable
+      // Apple Maps pin treatment as the main resource card. Free-text
+      // location descriptions (e.g. "any of our 3 offices") are shown as
+      // plain text instead - wrapping a whole descriptive sentence in a
+      // single map link would be misleading, not helpful.
+      const looksLikeAddress = c.location && /\d{5}(-\d{4})?\s*(\([^)]*\))?\s*$/.test(c.location);
+      const locationHtml = c.location
+        ? (looksLikeAddress ? formatAddress(c.location) : `${icon("pin")} ${c.location}`)
+        : "";
+
+      const purpose = stripExpiredText(c.purpose);
+      const access = stripExpiredText(c.access);
+      const notes = stripExpiredText(c.notes);
+
       return `
         <div class="sub-contact">
           <h4>${c.name}</h4>
           ${meta ? `<p class="sub-contact-meta">${meta}</p>` : ""}
-          ${c.purpose ? `<p>${c.purpose}</p>` : ""}
-          ${c.phone ? `<p><strong>Phone:</strong> ${formatPhone(c.phone)}</p>` : ""}
-          ${c.location ? `<p><strong>Location:</strong> ${c.location}</p>` : ""}
-          ${c.hours ? `<p><strong>Hours:</strong> ${c.hours}</p>` : ""}
-          ${c.access ? `<p><strong>Access:</strong> ${c.access}</p>` : ""}
-          ${c.notes ? `<p><strong>Notes:</strong> ${c.notes}</p>` : ""}
-          ${c.website ? `<p>${icon("globe")} <a href="${c.website}" target="_blank">Visit Website</a></p>` : ""}
+          ${purpose ? `<p>${purpose}</p>` : ""}
+          ${c.phone ? `<p>${icon("phone")} <a href="${telHref(c.phone)}">${formatPhone(c.phone)}</a></p>` : ""}
+          ${c.email ? `<p>${icon("mail")} <a href="mailto:${c.email}">${c.email}</a></p>` : ""}
+          ${c.website ? `<p>${icon("globe")} <a href="${c.website}" target="_blank" rel="noopener">Visit Website</a></p>` : ""}
+          ${locationHtml ? `<p>${locationHtml}</p>` : ""}
+          ${c.hours ? `<p><strong>Hours:</strong><br>${formatHours(c.hours)}</p>` : ""}
+          ${access ? `<p><strong>Access:</strong> ${access}</p>` : ""}
+          ${notes ? `<p><strong>Notes:</strong> ${notes}</p>` : ""}
         </div>
       `;
     })
@@ -336,7 +376,7 @@ searchInput.addEventListener("input", e => {
   }
 
   const filtered = ARM_DATA.resources.filter(r => {
-    const haystack = [r.name, r.keywords, r.serviceTags, r.services, r.parent]
+    const haystack = [r.name, r.keywords, r.services, r.parent]
       .filter(Boolean)
       .join(" ")
       .toLowerCase();
@@ -396,27 +436,143 @@ function renderScreeningTools() {
   });
 }
 
-/* INSURANCE GUIDE BUTTON */
+/* INSURANCE GUIDE MODAL
+   Replaces the old "launch the PDF" behavior - jarring on iOS standalone
+   (see the fileLinkAttrs comment above for why), and inconsistent with
+   every other reference screen in the app, which are all in-app modals.
+   The guide's text lives in insurance-guide-text.js as a single constant,
+   kept out of app.js so updating the wording is a one-file edit rather
+   than digging through application logic. */
+const insuranceModal = document.getElementById("insuranceModal");
+const closeInsuranceModal = document.getElementById("closeInsuranceModal");
+const insuranceGuideBody = document.getElementById("insuranceGuideBody");
+
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// Finds emails, URLs, and phone numbers in a single line and wraps each in
+// the right kind of link (mailto:, the URL itself, or tel:), HTML-escaping
+// everything else.
+//
+// The phone pattern intentionally has no word-boundary lookaround (e.g.
+// distinguishing "6125550123" from "abc6125550123def"). Modern iOS Safari
+// supports lookbehind, but this app may end up on older devices than
+// expected, and this content is a small, human-written guide rather than
+// arbitrary data - the realistic risk of an accidental over-match here is
+// low enough that the simpler, more broadly-compatible pattern wins.
+function linkifyLine(line) {
+  const PATTERN = new RegExp(
+    [
+      "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+      "(?:https?:\\/\\/[^\\s<>\")]+|www\\.[^\\s<>\")]+)",
+      "(?:\\+?1[\\s.-]?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}"
+    ].join("|"),
+    "g"
+  );
+
+  let result = "";
+  let lastIndex = 0;
+  let match;
+  while ((match = PATTERN.exec(line)) !== null) {
+    result += escapeHtml(line.slice(lastIndex, match.index));
+    const token = match[0];
+
+    if (token.includes("@")) {
+      result += `<a href="mailto:${token}">${escapeHtml(token)}</a>`;
+    } else if (/^(https?:\/\/|www\.)/i.test(token)) {
+      const href = /^https?:\/\//i.test(token) ? token : `https://${token}`;
+      result += `<a href="${href}" target="_blank" rel="noopener">${escapeHtml(token)}</a>`;
+    } else {
+      const digits = token.replace(/\D/g, "");
+      result += `<a href="tel:${digits}">${escapeHtml(token)}</a>`;
+    }
+    lastIndex = match.index + token.length;
+  }
+  result += escapeHtml(line.slice(lastIndex));
+  return result;
+}
+
+// Converts the guide's plain-text source into structured HTML, preserving
+// the original document's visual hierarchy rather than flattening
+// everything into uniform paragraphs:
+//   "## "   at the start of a line -> a major section header
+//   "### "  at the start of a line -> a minor section header
+//   "- "    at the start of a line -> a bullet list item (consecutive
+//           bullet lines group into one <ul>)
+//   blank line                     -> ends the current paragraph/list
+//   anything else                  -> plain body text; consecutive lines
+//                                     with no blank line between them join
+//                                     into one paragraph with <br> between,
+//                                     so wrapped lines in the source don't
+//                                     each become their own paragraph
+// Every line still runs through linkifyLine, so phone numbers, emails, and
+// URLs get linked whether they appear in a header, a bullet, or a plain
+// paragraph line.
+function linkifyGuideText(raw) {
+  const lines = raw.replace(/\r\n/g, "\n").split("\n");
+  let html = "";
+  let paragraphLines = [];
+  let inList = false;
+
+  function flushParagraph() {
+    if (paragraphLines.length) {
+      html += `<p>${paragraphLines.map(linkifyLine).join("<br>")}</p>`;
+      paragraphLines = [];
+    }
+  }
+  function closeList() {
+    if (inList) {
+      html += "</ul>";
+      inList = false;
+    }
+  }
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+
+    if (line === "") {
+      flushParagraph();
+      closeList();
+      continue;
+    }
+    if (line.startsWith("## ")) {
+      flushParagraph();
+      closeList();
+      html += `<h3 class="guide-section">${linkifyLine(line.slice(3))}</h3>`;
+    } else if (line.startsWith("### ")) {
+      flushParagraph();
+      closeList();
+      html += `<h4 class="guide-subsection">${linkifyLine(line.slice(4))}</h4>`;
+    } else if (line.startsWith("- ")) {
+      flushParagraph();
+      if (!inList) {
+        html += '<ul class="guide-list">';
+        inList = true;
+      }
+      html += `<li>${linkifyLine(line.slice(2))}</li>`;
+    } else {
+      closeList();
+      paragraphLines.push(line);
+    }
+  }
+  flushParagraph();
+  closeList();
+
+  return html;
+}
+
 insuranceBtn.addEventListener("click", () => {
-  if (!ARM_DATA.insurance_guide_path) {
-    alert("The Insurance Guide PDF couldn't be found when the app was last built. Check the build console output and confirm the file is in /Assets.");
+  if (typeof INSURANCE_GUIDE_TEXT === "undefined" || !INSURANCE_GUIDE_TEXT.trim()) {
+    alert("The Insurance Guide content hasn't been added yet.");
     return;
   }
-  const url = toFileUrl(ARM_DATA.insurance_guide_path);
-  if (IS_IOS_STANDALONE) {
-    // window.open() has no "download" equivalent - only an <a> tag does.
-    // Build one, click it programmatically, then discard it. Same escape
-    // hatch as fileLinkAttrs() above, just triggered from JS instead of
-    // rendered into innerHTML.
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "Insurance Guide.pdf";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  } else {
-    window.open(url, "_blank");
-  }
+  insuranceGuideBody.innerHTML = linkifyGuideText(INSURANCE_GUIDE_TEXT);
+  insuranceModal.classList.add("open");
+});
+
+closeInsuranceModal.addEventListener("click", () => {
+  insuranceModal.classList.remove("open");
 });
 
 /* PULLED-OUT TOOLS — too heavily used to bury in the resource list */

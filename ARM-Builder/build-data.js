@@ -47,6 +47,35 @@ function cleanText(str) {
   return String(str).replace(/\r?\n|\r/g, " ").replace(/\s+/g, " ").trim();
 }
 
+// Keywords and Service Tags used to be two separate columns with the same
+// actual purpose (invisible search fuel - neither is ever shown to the
+// user). Consolidated into one field. Rather than rewriting the workbook
+// itself - risky against 161 rows of real production data for zero real
+// benefit - this merges both columns at BUILD time. Existing resources
+// that still have data split across both columns keep working exactly as
+// before; nothing is lost. The Add-Resource-Tool now only writes to the
+// "Keywords" column going forward, so a resource's data fully
+// consolidates onto one column the next time someone edits it through the
+// tool - no bulk migration, no risk to rows nobody's touching.
+// KEEP IN SYNC: Add-Resource-Tool/server.js has an identical function for
+// the same reason (its /resources endpoint needs to show the merged set
+// too) - small and stable enough that duplicating it beats sharing a
+// module across two separate local tools.
+function mergeLegacyTags(keywordsRaw, serviceTagsRaw) {
+  const kw = String(keywordsRaw || "").split(",").map(s => s.trim()).filter(Boolean);
+  const st = String(serviceTagsRaw || "").split(";").map(s => s.trim()).filter(Boolean);
+  const seen = new Set();
+  const merged = [];
+  for (const term of [...kw, ...st]) {
+    const key = term.toLowerCase();
+    if (!seen.has(key)) {
+      seen.add(key);
+      merged.push(term);
+    }
+  }
+  return merged;
+}
+
 // Same as cleanText, but for Hours fields specifically: a line break in the
 // spreadsheet cell is a meaningful day-group separator (someone typed
 // alt-enter between "Mon-Fri 8-4" and "Sat 8-2"), not just stray whitespace.
@@ -179,8 +208,7 @@ const resources = resourcesRaw
       website: normalizeUrl(row["Website"]),
       address: cleanText(row["Street Address"]),
       notes: cleanText(row["Notes"]),
-      keywords: cleanText(row["Keywords"]),
-      serviceTags: cleanText(row["Service Tags"]),
+      keywords: mergeLegacyTags(row["Keywords"], row["Service Tags"]).join(", "),
       categories: [broadCategory].filter(Boolean),
       files: parseFiles(row["Files"], name),
       subContacts: [] // filled in below, after St Stephens Contacts (or similar) sheets are parsed
@@ -230,7 +258,7 @@ if (!roiSheet) console.log('(No "Release of Information" sheet found - skipping 
 // under the matching resource's detail view, keyed by exact Resource Name.
 // Currently just "St Stephens Contacts", but this isn't hardcoded to it -
 // add more sheets in the same shape and they'll join the same way.
-const SUB_CONTACT_SHEETS = ["St Stephens Contacts"];
+const SUB_CONTACT_SHEETS = ["St Stephens Contacts", "CAP-HC Contacts"];
 let subContactCount = 0;
 
 SUB_CONTACT_SHEETS.forEach(sheetName => {
@@ -268,6 +296,7 @@ SUB_CONTACT_SHEETS.forEach(sheetName => {
       audience: cleanText(row["Audience"]),
       purpose: cleanText(row["Services / Purpose"]),
       phone: cleanText(row["Phone"]),
+      email: cleanText(row["Email"]),
       website: normalizeUrl(row["Website"]),
       location: cleanText(row["Location"]),
       hours: cleanHours(row["Hours / Availability"]),
@@ -278,13 +307,6 @@ SUB_CONTACT_SHEETS.forEach(sheetName => {
     subContactCount++;
   });
 });
-
-// The Insurance Guide button isn't a resource row, so it doesn't go through
-// parseFiles/resolveFile automatically like everything else - resolve it
-// here explicitly so it's just as tolerant of case/spacing drift, and so a
-// missing file gets the same build-time warning instead of silently 404ing
-// only after deployment.
-const insuranceGuidePath = resolveFile("Navigating_Health_Insurance_Options_ARM_Guide.pdf", "Insurance Guide button");
 
 // ---------- FINAL OUTPUT ----------
 const ARM_DATA = {
@@ -298,8 +320,7 @@ const ARM_DATA = {
   categories: [...new Set(resources.map(r => r.categories[0]).filter(Boolean))].sort(),
   resources,
   screening_tools,
-  release_of_information,
-  insurance_guide_path: insuranceGuidePath
+  release_of_information
 };
 
 // ---------- VERSION / BUILD ID ----------
@@ -322,7 +343,7 @@ const ARM_DATA = {
 // build-data.js writes BUILD_ID *into*, so including its own content in the
 // hash that determines BUILD_ID would be self-referential and never settle
 // on a stable value.
-const HASHED_SHELL_FILES = ["index.html", "app.js", "style.css", "manifest.json"];
+const HASHED_SHELL_FILES = ["index.html", "app.js", "style.css", "manifest.json", "insurance-guide-text.js"];
 
 function readShellFileForHash(relName) {
   const p = path.join(siteRoot, relName);
@@ -338,8 +359,7 @@ const dataHash = crypto
       categories: ARM_DATA.categories,
       resources: ARM_DATA.resources,
       screening_tools: ARM_DATA.screening_tools,
-      release_of_information: ARM_DATA.release_of_information,
-      insurance_guide_path: ARM_DATA.insurance_guide_path
+      release_of_information: ARM_DATA.release_of_information
     })
   )
   .update(shellContent)
@@ -384,6 +404,7 @@ const shellFiles = [
   "data.js",
   "manifest.json",
   "version.json",
+  "insurance-guide-text.js",
   ...listIcons()
 ];
 

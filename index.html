@@ -89,18 +89,19 @@
       <img src="icons/ysn-icon.svg" alt="" width="20" height="20">
       <span>Youth Services Network</span>
     </button>
-    <button id="favBtn" class="footer-btn">
+<button id="favBtn" class="footer-btn">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>
       <span>Favorites</span>
     </button>
   </footer>
 
   <div id="toolsModal" class="tools-modal">
-  <div class="tools-modal-content">
-    <div class="tools-modal-header">
-      <h2>Screening Tools</h2>
-      <button id="closeToolsModal" class="tools-close-btn">✕</button>
-    </div>
+  <div class="tools-modal-box">
+    <button id="closeToolsModal" class="tools-close-btn tools-close-btn-floating">✕</button>
+    <div class="tools-modal-content">
+      <div class="tools-modal-header">
+        <h2>Screening Tools</h2>
+      </div>
 
     <table class="tool-table">
       <thead>
@@ -112,15 +113,17 @@
       </thead>
       <tbody id="toolsTableBody"></tbody>
     </table>
+    </div>
   </div>
 </div>
 
   <div id="roiModal" class="tools-modal">
-  <div class="tools-modal-content">
-    <div class="tools-modal-header">
-      <h2>Release of Information Contacts</h2>
-      <button id="closeRoiModal" class="tools-close-btn">✕</button>
-    </div>
+  <div class="tools-modal-box">
+    <button id="closeRoiModal" class="tools-close-btn tools-close-btn-floating">✕</button>
+    <div class="tools-modal-content">
+      <div class="tools-modal-header">
+        <h2>Release of Information Contacts</h2>
+      </div>
 
     <table class="tool-table">
       <thead>
@@ -134,23 +137,39 @@
       </thead>
       <tbody id="roiTableBody"></tbody>
     </table>
+    </div>
+  </div>
+</div>
+
+  <div id="insuranceModal" class="tools-modal">
+  <div class="tools-modal-box">
+    <button id="closeInsuranceModal" class="tools-close-btn tools-close-btn-floating">✕</button>
+    <div class="tools-modal-content">
+      <div class="tools-modal-header">
+        <h2>Insurance Guide</h2>
+      </div>
+
+    <div id="insuranceGuideBody" class="insurance-guide-body"></div>
+    </div>
   </div>
 </div>
 
   <div id="favModal" class="tools-modal">
-  <div class="tools-modal-content">
-    <div class="tools-modal-header">
-      <h2>Favorites</h2>
-      <button id="closeFavModal" class="tools-close-btn">✕</button>
-    </div>
+  <div class="tools-modal-box">
+    <button id="closeFavModal" class="tools-close-btn tools-close-btn-floating">✕</button>
+    <div class="tools-modal-content">
+      <div class="tools-modal-header">
+        <h2>Favorites</h2>
+      </div>
 
     <ul id="favList" class="fav-list"></ul>
     <p id="favEmpty" class="fav-empty">No favorites yet — tap the heart on a resource to add it here.</p>
+    </div>
   </div>
 </div>
 
-
   <script src="data.js"></script>
+  <script src="insurance-guide-text.js"></script>
   <script src="app.js"></script>
 
   <script>

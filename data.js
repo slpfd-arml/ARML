@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-04T19:54:30.525Z",
+    "generated": "2026-08-07T02:35:43.587Z",
     "resource_count": 161,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 7,
-    "version": "2.8.0",
-    "buildId": "2.8.0+2de446686142",
-    "dataHash": "2de446686142"
+    "sub_contact_count": 16,
+    "version": "3.0.0",
+    "buildId": "3.0.0+6ce85085c589",
+    "dataHash": "6ce85085c589"
   },
   "categories": [
     "Benefits & Insurance",
@@ -40,7 +40,6 @@ const ARM_DATA = {
       "address": "510 S 8th St, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "house, charity, food, center, daily, hot, meals, addiction, recovery",
-      "serviceTags": "house; charity; food; center; daily; hot; meals; addiction; recovery",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -64,7 +63,6 @@ const ARM_DATA = {
       "address": "1729 Lyndale Ave N, Minneapolis, MN 55411",
       "notes": "",
       "keywords": "maa'uun, food, shelf, halal, basic, needs",
-      "serviceTags": "maa'uun; food; shelf; halal; basic; needs",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -88,7 +86,6 @@ const ARM_DATA = {
       "address": "1801 Nicollet Ave S, Minneapolis, MN 55403; 3638 Central Ave NE, Minneapolis, MN 55418; 1 W Lake St, Minneapolis, MN 55408",
       "notes": "",
       "keywords": "Axis, community health center, medical care, uninsured, sliding fee",
-      "serviceTags": "Axis; community health center; medical care; uninsured; sliding fee",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -112,7 +109,6 @@ const ARM_DATA = {
       "address": "3400 Yankee Dr, Eagan, MN 55121",
       "notes": "",
       "keywords": "BlueRide, medical transportation, insurance rides",
-      "serviceTags": "BlueRide; medical transportation; insurance rides",
       "categories": [
         "Transportation"
       ],
@@ -136,7 +132,6 @@ const ARM_DATA = {
       "address": "3702 E Lake St, Minneapolis, MN 55406",
       "notes": "",
       "keywords": "mnsure, navigators, health, insurance, enrollment, low, income, individuals",
-      "serviceTags": "mnsure; navigators; health; insurance; enrollment; low; income; individuals",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -160,7 +155,6 @@ const ARM_DATA = {
       "address": "6064 Shingle Creek Pkwy, Brooklyn Center, MN 55429",
       "notes": "Eligibility: Household income at or below 300% of the federal poverty guidelines.",
       "keywords": "CAPI, food shelf, culturally specific food, fresh produce, client choice groceries, immigrant families, nutrition assistance, Brooklyn Center",
-      "serviceTags": "CAPI; food shelf; culturally specific food; fresh produce; client choice groceries; immigrant families; nutrition assistance; Brooklyn Center",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -184,7 +178,6 @@ const ARM_DATA = {
       "address": "435 Dorothy Day Pl, St. Paul, MN 55102",
       "notes": "",
       "keywords": "higher, ground, paul, medical, respite, care, shelter, supportive, housing",
-      "serviceTags": "higher; ground; paul; medical; respite; care; shelter; supportive; housing",
       "categories": [
         "Housing & Shelter"
       ],
@@ -208,7 +201,6 @@ const ARM_DATA = {
       "address": "555 Park St, Suite 410, St. Paul, MN 55103",
       "notes": "",
       "keywords": "bridge, benefits, financial, resources, working, families",
-      "serviceTags": "bridge; benefits; financial; resources; working; families",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -232,7 +224,6 @@ const ARM_DATA = {
       "address": "525 Jackson St, Anoka, MN 55303",
       "notes": "",
       "keywords": "stephen's, catholic, church, groceries, personal, care, products, household, items",
-      "serviceTags": "stephen's; catholic; church; groceries; personal; care; products; household; items",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -256,7 +247,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "",
       "keywords": "minneapolis, food, shelf, map, interactive, locations",
-      "serviceTags": "minneapolis; food; shelf; map; interactive; locations",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -280,7 +270,6 @@ const ARM_DATA = {
       "address": "6812 West Lake Street St. Louis Park, MN 55426",
       "notes": "transportation support for SLP residents at 952-297-5235 ext. 24",
       "keywords": "food, clothing closet, baby supplies, transportation, grocery delivery, curbside food, rental assistance, emergency rental assistance, school supplies, winter coats, birthday gifts, holiday toys, step, shelf, youth, seasonal",
-      "serviceTags": "food; clothing closet; baby supplies; transportation; grocery delivery; curbside food; rental assistance; emergency rental assistance; school supplies; winter coats; birthday gifts; holiday toys; step; shelf; youth; seasonal",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -296,25 +285,151 @@ const ARM_DATA = {
       "name": "CAP-HC",
       "parent": "Community Action Partnership of Hennepin County",
       "type": "Nonprofit Assistance Program",
-      "services": "Vehicle repair assistance for income-qualified residents; Support services for low-income tenants and homeowners, housing resources",
+      "services": "Financial assistance and free workshops/counseling for Hennepin County residents: vehicle repair assistance, rental assistance (past-due rent/deposit), energy assistance (seasonal, Oct-May), MNsure health insurance application help, employment readiness services, financial wellness counseling, renter's rights counseling, and homebuyer counseling. See individual program contacts below for details, eligibility, and how to apply.",
       "contact": "",
-      "email": "vehiclerepair@caphennepin.org",
+      "email": "info@caphennepin.org",
       "phone": "9529339639",
       "altPhone": "",
       "fax": "",
       "altFax": "",
-      "hours": "",
+      "hours": "Monday-Thursday 8:00 AM-4:00 PM; Friday 8:00 AM-11:30 AM; Closed on federal holidays",
       "tty": "",
       "website": "https://www.caphennepin.org",
-      "address": "7101 Northland Circle N, Suite 123, Brooklyn Park, MN 55428",
-      "notes": "",
-      "keywords": "vehicle repair, transportation assistance, income-qualified, community, action, partnership, hennepin, county, low, income, tenants, homeowners, housing, resources",
-      "serviceTags": "vehicle repair; transportation assistance; income-qualified; community; action; partnership; hennepin; county; low; income; tenants; homeowners; housing; resources",
+      "address": "7101 Northland Circle N, Suite 123, Brooklyn Park, MN 55428 (HQ); 1101 East 78th St, Suite 110, Bloomington, MN 55420; 2100 Plymouth Ave N, Suite 104, Minneapolis, MN 55411",
+      "notes": "All 3 locations offer the full menu of programs. Water Assistance program is currently paused (funding). Energy Assistance is seasonal (closed June-Sept). CAP-HC also maintains a large community resources referral directory (caphennepin.org/community-resources) and lists free tax-filing resources (caphennepin.org/tax-filing-resources), though CAP-HC is not itself taking tax-prep appointments this season.",
+      "keywords": "CAP-HC, Community Action Partnership, vehicle repair, car repair, rental assistance, past due rent, security deposit, eviction prevention, energy assistance, utility bill help, LIHEAP, EAP, water assistance, MNsure, health insurance application, navigator, employment readiness, job search, resume help, financial wellness, budgeting, credit counseling, renter's rights, renter counseling, homebuyer counseling, HUD certified, Home Stretch, Hennepin County, Brooklyn Park, Bloomington, Minneapolis, income eligible, low income",
       "categories": [
         "Benefits & Insurance"
       ],
       "files": [],
-      "subContacts": []
+      "subContacts": [
+        {
+          "name": "Energy Assistance Program (EAP)",
+          "category": "Financial Assistance",
+          "audience": "",
+          "purpose": "Grant paid directly to utility provider to help cover gas/electric bills. Funded by LIHEAP.",
+          "phone": "9529303541",
+          "email": "eap@caphennepin.org",
+          "website": "https://caphennepin.org/energy-assistance/",
+          "location": "",
+          "hours": "Phone/in-person: Mon-Thu 8:00 AM-4:00 PM; Fri 8:00 AM-11:30 AM; closed federal holidays",
+          "access": "Applications open seasonally Oct-May; check website for current status. Weatherization referrals: Sustainable Resource Center, 612-870-4255.",
+          "notes": "Income-eligible Hennepin County residents. [[expire:2027-01-01]]SEASONAL: 2025-26 program year closed May 31, 2026; new applications open Oct 1, 2026. Crisis Assistance (up to $600, through June 30 2026) available only to households with an already-approved 2025-26 application.[[/expire]] If closed for the season, refer to Hennepin County Emergency Services, Salvation Army, or United Way 211.",
+          "source": "caphennepin.org (fetched 2026-08)"
+        },
+        {
+          "name": "Vehicle Repair Assistance",
+          "category": "Financial Assistance",
+          "audience": "",
+          "purpose": "Pays for vehicle repairs to maintain safe/reliable transportation to work. Requires completing CAP-HC's Financial Wellness Workshop as part of the application.",
+          "phone": "9529339639",
+          "email": "vehiclerepair@caphennepin.org",
+          "website": "https://caphennepin.org/vehicle-repair/",
+          "location": "",
+          "hours": "Phone/in-person: Mon-Thu 8:00 AM-4:00 PM; Fri 8:00 AM-11:30 AM; closed federal holidays",
+          "access": "Apply online (preliminary eligibility check), download application, or pick up in person. Submit by mail, email, or in person.",
+          "notes": "Income-eligible (≤200% FPL Hennepin County residents), valid MN driver's license, current insurance, car less than 20 years old.",
+          "source": "caphennepin.org (fetched 2026-08)"
+        },
+        {
+          "name": "Rental Assistance",
+          "category": "Financial Assistance",
+          "audience": "",
+          "purpose": "One-time payment up to $1,000 for past-due rent or security deposit. Requires completing Financial Wellness OR Renter's Rights Workshop as part of the application.",
+          "phone": "9529339639",
+          "email": "rentalassistance@caphennepin.org",
+          "website": "https://caphennepin.org/rental-assistance/",
+          "location": "",
+          "hours": "Phone/in-person: Mon-Thu 8:00 AM-4:00 PM; Fri 8:00 AM-11:30 AM; closed federal holidays",
+          "access": "Apply online, download application, or pick up in person. Submit by mail, email, or in person. Processing can take 60+ days due to demand.",
+          "notes": "Income-eligible (≤200% FPL), no existing rental subsidy/Section 8, past-due rent, once per 24 months. Does not cover mortgage payments.",
+          "source": "caphennepin.org (fetched 2026-08)"
+        },
+        {
+          "name": "Water Assistance",
+          "category": "Financial Assistance",
+          "audience": "",
+          "purpose": "PROGRAM PAUSED indefinitely (funding exceeded demand). Normally helps pay past-due water bills. Will reopen when funding allows; no timeline available.",
+          "phone": "",
+          "email": "water@caphennepin.org",
+          "website": "https://caphennepin.org/water-assistance/",
+          "location": "",
+          "hours": "Phone/in-person: Mon-Thu 8:00 AM-4:00 PM; Fri 8:00 AM-11:30 AM; closed federal holidays",
+          "access": "Not currently accepting applications.",
+          "notes": "N/A - program currently paused. While paused, refer to MNbenefits (mnbenefits.mn.gov), United Way 211, or Hennepin County Emergency Programs (612-596-1900).",
+          "source": "caphennepin.org (fetched 2026-08)"
+        },
+        {
+          "name": "MNsure Application Assistance",
+          "category": "Health Insurance Navigation",
+          "audience": "",
+          "purpose": "In-person Navigator help completing MNsure health insurance applications for low/no-cost coverage. Does NOT itself process MNsure applications - a separate CAP-HC intake application is required first.",
+          "phone": "9529339639",
+          "email": "CAPHCMNsure@caphennepin.org",
+          "website": "https://caphennepin.org/mnsure-assistance/",
+          "location": "",
+          "hours": "Phone/in-person: Mon-Thu 8:00 AM-4:00 PM; Fri 8:00 AM-11:30 AM; closed federal holidays",
+          "access": "Download or pick up the CAP-HC application; submit by mail, email, or in person. CAP-HC will contact you to schedule an appointment if eligible.",
+          "notes": "Uninsured or underinsured Hennepin County residents. Bring SSNs, DOBs, ID, last year's tax form, 2 recent pay stubs to the appointment.",
+          "source": "caphennepin.org (fetched 2026-08)"
+        },
+        {
+          "name": "Employment Readiness Services",
+          "category": "Workshops & Counseling",
+          "audience": "",
+          "purpose": "Resume support, interview training, job search assistance, and more to help find a living-wage job.",
+          "phone": "9529339639",
+          "email": "employmentreadiness@caphennepin.org",
+          "website": "https://caphennepin.org/employment-readiness-services/",
+          "location": "",
+          "hours": "Phone/in-person: Mon-Thu 8:00 AM-4:00 PM; Fri 8:00 AM-11:30 AM; closed federal holidays",
+          "access": "Download application or pick up in person. Submit by mail, email, or in person.",
+          "notes": "Income-eligible (≤200% FPL), 18+, able/willing to work full-time.",
+          "source": "caphennepin.org (fetched 2026-08)"
+        },
+        {
+          "name": "Financial Wellness Workshops & Counseling",
+          "category": "Workshops & Counseling",
+          "audience": "",
+          "purpose": "Free workshops (FDIC Money Smart curriculum) on budgeting, credit, and asset protection, plus free 1:1 counseling with a certified counselor (credit report review, goal planning).",
+          "phone": "9529339639",
+          "email": "financialwellness@caphennepin.org",
+          "website": "https://caphennepin.org/financial-wellness/",
+          "location": "",
+          "hours": "Phone/in-person: Mon-Thu 8:00 AM-4:00 PM; Fri 8:00 AM-11:30 AM; closed federal holidays",
+          "access": "Workshops require advance registration (see website for schedule). Counseling scheduled via request form on website.",
+          "notes": "Open to all Hennepin County residents (no income restriction).",
+          "source": "caphennepin.org (fetched 2026-08)"
+        },
+        {
+          "name": "Renter Workshops & Counseling",
+          "category": "Workshops & Counseling",
+          "audience": "",
+          "purpose": "Free workshops on renter rights/responsibilities, fair housing law, and affordable housing, plus 1:1 counseling on budgeting for rent, lease/deposit guidance, and landlord-tenant issues.",
+          "phone": "9529339639",
+          "email": "renterrights@caphennepin.org",
+          "website": "https://caphennepin.org/renter-workshops-counseling/",
+          "location": "",
+          "hours": "Phone/in-person: Mon-Thu 8:00 AM-4:00 PM; Fri 8:00 AM-11:30 AM; closed federal holidays",
+          "access": "Workshops require advance registration (see website for schedule). Counseling scheduled via request form on website.",
+          "notes": "Open to all Hennepin County residents (no income restriction).",
+          "source": "caphennepin.org (fetched 2026-08)"
+        },
+        {
+          "name": "Homebuyer Workshops & Counseling",
+          "category": "Workshops & Counseling",
+          "audience": "",
+          "purpose": "HUD-certified Home Stretch homebuyer workshops (mortgage process, home shopping; $40 fee waived if income-eligible) plus free 1:1 HUD-certified counseling (credit review, mortgage readiness, down-payment assistance programs).",
+          "phone": "9529339639",
+          "email": "homebuyereducation@caphennepin.org",
+          "website": "https://caphennepin.org/homebuyer-services/",
+          "location": "",
+          "hours": "Phone/in-person: Mon-Thu 8:00 AM-4:00 PM; Fri 8:00 AM-11:30 AM; closed federal holidays",
+          "access": "Workshops require advance registration (see website for schedule). Counseling scheduled via request form on website.",
+          "notes": "Open to all Hennepin County residents (no income restriction).",
+          "source": "caphennepin.org (fetched 2026-08)"
+        }
+      ]
     },
     {
       "name": "Grace Evangelical Free Church Food Distribution",
@@ -333,7 +448,6 @@ const ARM_DATA = {
       "address": "755 73rd Ave NE, Fridley, MN 55432",
       "notes": "",
       "keywords": "grace, evangelical, free, church, food, distribution, shelf, groceries, spiritual",
-      "serviceTags": "grace; evangelical; free; church; food; distribution; shelf; groceries; spiritual",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -357,7 +471,6 @@ const ARM_DATA = {
       "address": "1500 6th St NE, Minneapolis, MN 55413",
       "notes": "",
       "keywords": "little, kitchen, food, shelf, hygiene, items, fresh, produce",
-      "serviceTags": "little; kitchen; food; shelf; hygiene; items; fresh; produce",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -381,7 +494,6 @@ const ARM_DATA = {
       "address": "404 S 8th St, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "united, way, 211, access, community, resources, housing, financial, healthcare, emergency",
-      "serviceTags": "united; way; 211; access; community; resources; housing; financial; healthcare; emergency",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -405,7 +517,6 @@ const ARM_DATA = {
       "address": "8170 33rd Ave S, Minneapolis, MN 55425",
       "notes": "",
       "keywords": "HealthPartners, RideCare, medical transportation",
-      "serviceTags": "HealthPartners; RideCare; medical transportation",
       "categories": [
         "Transportation"
       ],
@@ -434,7 +545,6 @@ const ARM_DATA = {
       "address": "6500 Excelsior Blvd, St. Louis Park, MN 55426",
       "notes": "",
       "keywords": "hospital, emergency department, crisis social worker, case managers",
-      "serviceTags": "hospital; emergency department; crisis social worker; case managers",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -458,7 +568,6 @@ const ARM_DATA = {
       "address": "300 S 6th St, Minneapolis, MN 55487",
       "notes": "",
       "keywords": "mental health crisis, crisis response, 24/7",
-      "serviceTags": "mental health crisis; crisis response; 24/7",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -482,7 +591,6 @@ const ARM_DATA = {
       "address": "300 S 6th St, Room A-0650, Minneapolis, MN 55487",
       "notes": "",
       "keywords": "domestic, abuse, service, center, protection, orders, legal, advocacy, safety, planning, housing, referrals",
-      "serviceTags": "domestic; abuse; service; center; protection; orders; legal; advocacy; safety; planning; housing; referrals",
       "categories": [
         "Domestic Violence & Safety"
       ],
@@ -506,7 +614,6 @@ const ARM_DATA = {
       "address": "525 Portland Ave, Suite 1000, Minneapolis, MN 55415",
       "notes": "",
       "keywords": "adult representation, civil legal help, Hennepin County",
-      "serviceTags": "adult representation; civil legal help; Hennepin County",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -530,7 +637,6 @@ const ARM_DATA = {
       "address": "300 S 6th St, Minneapolis, MN 55487",
       "notes": "",
       "keywords": "county intake, housing, food, mental health, seniors",
-      "serviceTags": "county intake; housing; food; mental health; seniors",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -554,7 +660,6 @@ const ARM_DATA = {
       "address": "525 Portland Ave S, Minneapolis, MN 55415",
       "notes": "",
       "keywords": "homeless health care, public health clinic, medical care, behavioral health, Hennepin County",
-      "serviceTags": "homeless health care; public health clinic; medical care; behavioral health; Hennepin County",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -583,7 +688,6 @@ const ARM_DATA = {
       "address": "300 S 6th St, Minneapolis, MN 55487",
       "notes": "",
       "keywords": "hennepin, county, homelessness, housing, resources",
-      "serviceTags": "hennepin; county; homelessness; housing; resources",
       "categories": [
         "Housing & Shelter"
       ],
@@ -607,7 +711,6 @@ const ARM_DATA = {
       "address": "300 South 6th Street Minneapolis, MN 55487",
       "notes": "Multiple Service Center addresses; PO Box 107 Minneapolis, MN 55440",
       "keywords": "Hennepin County, human services, public health, medical care, behavioral health, housing, civil commitment",
-      "serviceTags": "Hennepin County; human services; public health; medical care; behavioral health; housing; civil commitment",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -648,7 +751,6 @@ const ARM_DATA = {
       "address": "300 S 6th St, Minneapolis, MN 55487",
       "notes": "Urgent requests should leave a message. TRC responds within 2 business days.",
       "keywords": "tenant resources, eviction prevention, housing court, renter help, housing stability, Hennepin County, tenant, resource, center, advocacy, housing, legal",
-      "serviceTags": "tenant resources; eviction prevention; housing court; renter help; housing stability; Hennepin County; tenant; resource; center; advocacy; housing; legal",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -677,7 +779,6 @@ const ARM_DATA = {
       "address": "300 S 6th St, MC 604, Minneapolis, MN 55487-0604",
       "notes": "",
       "keywords": "Hennepin Health, medical transportation, Medical Assistance, health plan transportation",
-      "serviceTags": "Hennepin Health; medical transportation; Medical Assistance; health plan transportation",
       "categories": [
         "Transportation"
       ],
@@ -706,7 +807,6 @@ const ARM_DATA = {
       "address": "701 Park Ave, Minneapolis, MN 55415",
       "notes": "",
       "keywords": "hospital, emergency department, social worker, clinical coordinator",
-      "serviceTags": "hospital; emergency department; social worker; clinical coordinator",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -730,7 +830,6 @@ const ARM_DATA = {
       "address": "2215 E Lake Street Minneapolis, MN 55407",
       "notes": "",
       "keywords": "acute, psychiatric, emergency, mobile, outreach",
-      "serviceTags": "acute; psychiatric; emergency; mobile; outreach",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -754,7 +853,6 @@ const ARM_DATA = {
       "address": "1315 E 24th St, Minneapolis, MN 55404; 2101 Minnehaha Ave, Minneapolis, MN 55404 (counseling)",
       "notes": "",
       "keywords": "Indian Health Board, Native health, medical care, dental care, behavioral health",
-      "serviceTags": "Indian Health Board; Native health; medical care; dental care; behavioral health",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -783,7 +881,6 @@ const ARM_DATA = {
       "address": "1600 E Lake St, Suite 1, Minneapolis, MN 55407",
       "notes": "",
       "keywords": "isuroon, somali, food, shelf, halal, distribution, culturally, specific, advocacy, cultural, economic, empowerment",
-      "serviceTags": "isuroon; somali; food; shelf; halal; distribution; culturally; specific; advocacy; cultural; economic; empowerment",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -807,7 +904,6 @@ const ARM_DATA = {
       "address": "1628 E 33rd St, Minneapolis, MN 55407",
       "notes": "",
       "keywords": "jericho, food, shelf, emergency, groceries, personal, care, items, family",
-      "serviceTags": "jericho; food; shelf; emergency; groceries; personal; care; items; family",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -831,7 +927,6 @@ const ARM_DATA = {
       "address": "721 Kasota Ave SE, Minneapolis, MN 55414",
       "notes": "",
       "keywords": "loaves, fishes, free, community, meals, mobile, dining, sites, takeaway",
-      "serviceTags": "loaves; fishes; free; community; meals; mobile; dining; sites; takeaway",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -855,7 +950,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "",
       "keywords": "telephone assistance, MTAP, phone discount, Lumen, CenturyLink, low income",
-      "serviceTags": "telephone assistance; MTAP; phone discount; Lumen; CenturyLink; low income",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -884,7 +978,6 @@ const ARM_DATA = {
       "address": "2400 Park Ave S, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "lutheran, social, service, refugee, legal, refugees, asylum, seekers",
-      "serviceTags": "lutheran; social; service; refugee; legal; refugees; asylum; seekers",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -908,7 +1001,6 @@ const ARM_DATA = {
       "address": "2485 Como Ave, St. Paul, MN 55108",
       "notes": "Behavioral health services are available statewide through telehealth and at select in-person, in-home, school, workplace, and community locations.",
       "keywords": "Lutheran Social Service, LSS, behavioral health, counseling, therapy, mental health, family therapy, couples therapy, children, psychological testing, veterans, telehealth",
-      "serviceTags": "Lutheran Social Service; LSS; behavioral health; counseling; therapy; mental health; family therapy; couples therapy; children; psychological testing; veterans; telehealth",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -932,7 +1024,6 @@ const ARM_DATA = {
       "address": "2485 Como Ave, St. Paul, MN 55108",
       "notes": "Financial counseling is available by phone, virtually, and in person. LSS Financial Counseling also operates from 1330 E Superior St, Suite 203, Duluth, MN 55805.",
       "keywords": "Lutheran Social Service, LSS, financial counseling, legal services, debt counseling, debt management, credit reports, student loans, housing counseling, foreclosure prevention, reverse mortgage",
-      "serviceTags": "Lutheran Social Service; LSS; financial counseling; legal services; debt counseling; debt management; credit reports; student loans; housing counseling; foreclosure prevention; reverse mortgage",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -956,7 +1047,6 @@ const ARM_DATA = {
       "address": "2485 Como Ave, St. Paul, MN 55108",
       "notes": "Programs vary by area. People seeking housing support should first contact their local Coordinated Entry System provider for screening and referral.",
       "keywords": "Lutheran Social Service, LSS, housing assistance, supportive housing, transitional housing, affordable housing, rental assistance, rapid rehousing, energy assistance, homelessness, veterans",
-      "serviceTags": "Lutheran Social Service; LSS; housing assistance; supportive housing; transitional housing; affordable housing; rental assistance; rapid rehousing; energy assistance; homelessness; veterans",
       "categories": [
         "Housing & Shelter"
       ],
@@ -980,7 +1070,6 @@ const ARM_DATA = {
       "address": "401 Carlson Pkwy, Minnetonka, MN 55305",
       "notes": "",
       "keywords": "Medica, Provide-A-Ride, medical transportation, Medical Assistance, health plan transportation",
-      "serviceTags": "Medica; Provide-A-Ride; medical transportation; Medical Assistance; health plan transportation",
       "categories": [
         "Transportation"
       ],
@@ -1009,7 +1098,6 @@ const ARM_DATA = {
       "address": "500 Montgomery Street, Suite 820, Alexandria, VA 22314",
       "notes": "",
       "keywords": "pets, mental health, emotional support, companion animals, Mental Health America",
-      "serviceTags": "pets; mental health; emotional support; companion animals; Mental Health America",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -1038,7 +1126,6 @@ const ARM_DATA = {
       "address": "1200 Washington Ave S, Suite 380, Minneapolis, MN 55415",
       "notes": "Enrollment form: https://store.metrotransit.org/Tap/New",
       "keywords": "metro, meals, wheels, home, delivered, seniors, people, disabilities",
-      "serviceTags": "metro; meals; wheels; home; delivered; seniors; people; disabilities",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -1062,7 +1149,6 @@ const ARM_DATA = {
       "address": "390 Robert St N St Paul, MN 55101",
       "notes": "",
       "keywords": "Transportation, STS, NEMT, metro, mobility, shared, ride, public, certified, individuals, disabilities",
-      "serviceTags": "Transportation; STS; NEMT; metro; mobility; shared; ride; public; certified; individuals; disabilities",
       "categories": [
         "Transportation"
       ],
@@ -1095,7 +1181,6 @@ const ARM_DATA = {
       "address": "560 Sixth Ave N, Minneapolis, MN 55411",
       "notes": "",
       "keywords": "public transportation, discounted fares, disability rides, Metro Mobility, TAP, transit, program, discounted, public, fares, metro",
-      "serviceTags": "public transportation; discounted fares; disability rides; Metro Mobility; TAP; transit; program; discounted; public; fares; metro",
       "categories": [
         "Transportation"
       ],
@@ -1119,7 +1204,6 @@ const ARM_DATA = {
       "address": "111 N 5th St, Minneapolis, MN 55403",
       "notes": "Serves ages 0–99. LGBTQ friendly. Accepts undocumented youths. ID is not required. Safe Harbor Program. No free sexual health items.",
       "keywords": "Youth Law Project, youth legal services, civil legal help, emancipation, CHIPS, birth certificates, Social Security card, immigration, collections, school suspension, expulsion, special education, LGBTQ friendly, undocumented, no ID required, Safe Harbor",
-      "serviceTags": "Youth Law Project; youth legal services; civil legal help; emancipation; CHIPS; birth certificates; Social Security card; immigration; collections; school suspension; expulsion; special education; LGBTQ friendly; undocumented; no ID required; Safe Harbor",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -1143,7 +1227,6 @@ const ARM_DATA = {
       "address": "3701 E 50th St, Minneapolis, MN 55417",
       "notes": "",
       "keywords": "minnehaha, food, shelf, free, groceries, personal, care",
-      "serviceTags": "minnehaha; food; shelf; free; groceries; personal; care",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -1167,7 +1250,6 @@ const ARM_DATA = {
       "address": "2550 University Ave W, Suite 340S, St. Paul, MN 55114",
       "notes": "",
       "keywords": "community health centers, uninsured, sliding fee, medical care, dental care, behavioral health, vision care",
-      "serviceTags": "community health centers; uninsured; sliding fee; medical care; dental care; behavioral health; vision care",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -1196,7 +1278,6 @@ const ARM_DATA = {
       "address": "PO Box 64976, St. Paul, MN 55164-0976",
       "notes": "",
       "keywords": "senior services, aging, Medicare, Medical Assistance, waivers, SNAP, housing, transportation, meals, legal assistance, fraud prevention",
-      "serviceTags": "senior services; aging; Medicare; Medical Assistance; waivers; SNAP; housing; transportation; meals; legal assistance; fraud prevention",
       "categories": [
         "Seniors & Disability"
       ],
@@ -1225,7 +1306,6 @@ const ARM_DATA = {
       "address": "153 Cesar Chavez St, St. Paul, MN 55107; 895 E 7th St, St. Paul, MN 55106; 45 W 10th St, St. Paul, MN 55102; 1544 Timberlake Rd, St. Paul, MN 55117",
       "notes": "",
       "keywords": "Minnesota Community Care, medical care, dental care, behavioral health, St. Paul",
-      "serviceTags": "Minnesota Community Care; medical care; dental care; behavioral health; St. Paul",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -1249,7 +1329,6 @@ const ARM_DATA = {
       "address": "444 Lafayette Rd, St. Paul, MN 55155",
       "notes": "",
       "keywords": "child, care, program, department, children, youth, families, childcare, low, income",
-      "serviceTags": "child; care; program; department; children; youth; families; childcare; low; income",
       "categories": [
         "Youth & Family"
       ],
@@ -1273,7 +1352,6 @@ const ARM_DATA = {
       "address": "444 Lafayette Rd, St. Paul, MN 55155",
       "notes": "",
       "keywords": "early, learning, scholarships, financial, programs, eligible, children",
-      "serviceTags": "early; learning; scholarships; financial; programs; eligible; children",
       "categories": [
         "Youth & Family"
       ],
@@ -1297,7 +1375,6 @@ const ARM_DATA = {
       "address": "444 Lafayette Rd N, St. Paul, MN 55155",
       "notes": "",
       "keywords": "deaf, deafblind, hard of hearing, communication access, assistive technology, advocacy, referrals, Minnesota",
-      "serviceTags": "deaf; deafblind; hard of hearing; communication access; assistive technology; advocacy; referrals; Minnesota",
       "categories": [
         "Seniors & Disability"
       ],
@@ -1321,7 +1398,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "Apply through the local county agency or tribe; eligibility is determined through a screening process.",
       "keywords": "CADI waiver, elderly waiver, Medicaid, Medical Assistance, home and community based services, disability, seniors",
-      "serviceTags": "CADI waiver; elderly waiver; Medicaid; Medical Assistance; home and community based services; disability; seniors",
       "categories": [
         "Seniors & Disability"
       ],
@@ -1350,7 +1426,6 @@ const ARM_DATA = {
       "address": "PO Box 64253, St. Paul, MN 55164-0253",
       "notes": "includes DHS health care program information and translated assistance numbers.",
       "keywords": "Medical Assistance, MinnesotaCare, MNsure, DHS, health coverage, public health programs",
-      "serviceTags": "Medical Assistance; MinnesotaCare; MNsure; DHS; health coverage; public health programs",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -1379,7 +1454,6 @@ const ARM_DATA = {
       "address": "444 Lafayette Rd N, St. Paul, MN 55155-3814",
       "notes": "",
       "keywords": "MN ACT, assistive technology, amplified phone, captioned phone, hearing loss, speech disability, phone accessibility",
-      "serviceTags": "MN ACT; assistive technology; amplified phone; captioned phone; hearing loss; speech disability; phone accessibility",
       "categories": [
         "Seniors & Disability"
       ],
@@ -1408,7 +1482,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "",
       "keywords": "Social Security, disability benefits, SSI, SSDI, DHS advocacy, homelessness",
-      "serviceTags": "Social Security; disability benefits; SSI; SSDI; DHS advocacy; homelessness",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -1437,7 +1510,6 @@ const ARM_DATA = {
       "address": "445 Minnesota St, St. Paul, MN 55101",
       "notes": "",
       "keywords": "driver's, license, all, advocacy, access, undocumented, individuals",
-      "serviceTags": "driver's; license; all; advocacy; access; undocumented; individuals",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -1461,7 +1533,6 @@ const ARM_DATA = {
       "address": "3521 E Lake St, Minneapolis, MN 55406",
       "notes": "",
       "keywords": "volunteer, tax, program, vita, free, preparation, low, income, individuals, families",
-      "serviceTags": "volunteer; tax; program; vita; free; preparation; low; income; individuals; families",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -1485,7 +1556,6 @@ const ARM_DATA = {
       "address": "540 Cedar St, St. Paul, MN 55155",
       "notes": "",
       "keywords": "vulnerable adult abuse, adult protection, reporting hotline",
-      "serviceTags": "vulnerable adult abuse; adult protection; reporting hotline",
       "categories": [
         "Seniors & Disability"
       ],
@@ -1509,7 +1579,6 @@ const ARM_DATA = {
       "address": "3210 SE Corporate Woods Dr, Ankeny, IA 50021",
       "notes": "",
       "keywords": "mom's, meals, meal, delivery, seniors, people, disabilities",
-      "serviceTags": "mom's; meals; meal; delivery; seniors; people; disabilities",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -1533,7 +1602,6 @@ const ARM_DATA = {
       "address": "2544 Mounds View Blvd, Mounds View, MN 55112",
       "notes": "",
       "keywords": "ralph, reeder, food, shelf, clothing, closet, school, supplies",
-      "serviceTags": "ralph; reeder; food; shelf; clothing; closet; school; supplies",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -1557,7 +1625,6 @@ const ARM_DATA = {
       "address": "1010 Dale St N, St. Paul, MN 55117",
       "notes": "Medical Assistance Transportation Card lists Medicaid MNET / MTM at 1-866-467-1724.",
       "keywords": "MTM Health, Medicaid, MNET, Medical Assistance, non-emergency medical transportation, insurance transportation",
-      "serviceTags": "MTM Health; Medicaid; MNET; Medical Assistance; non-emergency medical transportation; insurance transportation",
       "categories": [
         "Transportation"
       ],
@@ -1581,7 +1648,6 @@ const ARM_DATA = {
       "address": "15 8th Ave S, Hopkins, MN 55343",
       "notes": "",
       "keywords": "youth health, teens, therapy, clinic, young adults, insurance application, pregnancy support",
-      "serviceTags": "youth health; teens; therapy; clinic; young adults; insurance application; pregnancy support",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -1610,7 +1676,6 @@ const ARM_DATA = {
       "address": "1919 University Ave W, Suite 400, St. Paul, MN 55104",
       "notes": "",
       "keywords": "nami, minnesota, national, alliance, mental, illness, health, crisis, suicide, prevention, information, referrals",
-      "serviceTags": "nami; minnesota; national; alliance; mental; illness; health; crisis; suicide; prevention; information; referrals",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -1634,7 +1699,6 @@ const ARM_DATA = {
       "address": "1100 Wayne Ave, Suite 925, Silver Spring, MD 20910-5669",
       "notes": "",
       "keywords": "school nurse, student mental health, toolkit, children, adolescents, mental health strategies",
-      "serviceTags": "school nurse; student mental health; toolkit; children; adolescents; mental health strategies",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -1663,7 +1727,6 @@ const ARM_DATA = {
       "address": "1213 E Franklin Ave, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "NACC, Native health, medical care, dental care, behavioral health",
-      "serviceTags": "NACC; Native health; medical care; dental care; behavioral health",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -1687,7 +1750,6 @@ const ARM_DATA = {
       "address": "2301 Central Ave NE, Minneapolis, MN 55418; 3300 Fremont Ave N, Minneapolis, MN 55412; 342 13th Ave NE, Minneapolis, MN 55413; 10081 Dogwood St NW #100, Coon Rapids, MN 55448",
       "notes": "",
       "keywords": "Neighborhood HealthSource, medical care, behavioral health, community health center",
-      "serviceTags": "Neighborhood HealthSource; medical care; behavioral health; community health center",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -1711,7 +1773,6 @@ const ARM_DATA = {
       "address": "179 Robie St E, St. Paul, MN 55107",
       "notes": "",
       "keywords": "neighborhood, house, social, justice, advocacy, community, mobilization, immigrant, refugee",
-      "serviceTags": "neighborhood; house; social; justice; advocacy; community; mobilization; immigrant; refugee",
       "categories": [
         "Immigrant / Culturally Specific"
       ],
@@ -1735,7 +1796,6 @@ const ARM_DATA = {
       "address": "1313 Penn Ave N, Minneapolis, MN 55411",
       "notes": "",
       "keywords": "NorthPoint, medical care, dental care, behavioral health, community health center",
-      "serviceTags": "NorthPoint; medical care; dental care; behavioral health; community health center",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -1759,7 +1819,6 @@ const ARM_DATA = {
       "address": "2500 Bloomington Ave, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "open, arms, minnesota, meal, delivery, people, critical, illness, nutrition, education",
-      "serviceTags": "open; arms; minnesota; meal; delivery; people; critical; illness; nutrition; education",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -1783,7 +1842,6 @@ const ARM_DATA = {
       "address": "409 N Dunlap St, St. Paul, MN 55104; 916 Rice St, Saint Paul, MN 55117",
       "notes": "",
       "keywords": "Open Cities, medical care, dental care, behavioral health, vision care",
-      "serviceTags": "Open Cities; medical care; dental care; behavioral health; vision care",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -1807,7 +1865,6 @@ const ARM_DATA = {
       "address": "309 Holly Lane, Mankato, MN 56001; 1617 Weston Ct, Suite 200, Shakopee, MN 55379",
       "notes": "",
       "keywords": "Open Door, medical care, dental care, behavioral health, community health center",
-      "serviceTags": "Open Door; medical care; dental care; behavioral health; community health center",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -1831,7 +1888,6 @@ const ARM_DATA = {
       "address": "436 Roy Street N, St. Paul, MN 55104",
       "notes": "",
       "keywords": "open, hands, midway, prepared, meals, groceries, hygiene, kits",
-      "serviceTags": "open; hands; midway; prepared; meals; groceries; hygiene; kits",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -1855,7 +1911,6 @@ const ARM_DATA = {
       "address": "2745 Park Ave S, Minneapolis, MN 55407",
       "notes": "",
       "keywords": "pica, head, start, early, childhood, education, care, children, prenatal, age",
-      "serviceTags": "pica; head; start; early; childhood; education; care; children; prenatal; age",
       "categories": [
         "Youth & Family"
       ],
@@ -1879,7 +1934,6 @@ const ARM_DATA = {
       "address": "3800 Park Nicollet Blvd #300 Saint Louis Park, MN 55416",
       "notes": "",
       "keywords": "DayBridge, partial hospitalization, mental health, psychiatric day treatment, Park Nicollet, Methodist Hospital",
-      "serviceTags": "DayBridge; partial hospitalization; mental health; psychiatric day treatment; Park Nicollet; Methodist Hospital",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -1912,7 +1966,6 @@ const ARM_DATA = {
       "address": "614 S 3rd St, Minneapolis, MN 55415",
       "notes": "",
       "keywords": "people, serving, family, shelter, early, education, housing, stabilization, systems, change, initiatives",
-      "serviceTags": "people; serving; family; shelter; early; education; housing; stabilization; systems; change; initiatives",
       "categories": [
         "Housing & Shelter"
       ],
@@ -1936,7 +1989,6 @@ const ARM_DATA = {
       "address": "425 20th Ave S, Minneapolis, MN 55454",
       "notes": "",
       "keywords": "People’s Center, medical care, dental care, behavioral health, community health center",
-      "serviceTags": "People’s Center; medical care; dental care; behavioral health; community health center",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -1960,7 +2012,6 @@ const ARM_DATA = {
       "address": "420 15th Ave S, Minneapolis, MN 55454",
       "notes": "",
       "keywords": "brian, coyle, community, center, food, shelf, basic, needs, pantry, goods",
-      "serviceTags": "brian; coyle; community; center; food; shelf; basic; needs; pantry; goods",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -1984,7 +2035,6 @@ const ARM_DATA = {
       "address": "420 15th Ave S, Minneapolis, MN 55454",
       "notes": "",
       "keywords": "pillsbury, united, urgent, childcare, parents, need, immediate, care",
-      "serviceTags": "pillsbury; united; urgent; childcare; parents; need; immediate; care",
       "categories": [
         "Youth & Family"
       ],
@@ -2008,7 +2058,6 @@ const ARM_DATA = {
       "address": "821 East 35th Street, Minneapolis, MN 55407",
       "notes": "",
       "keywords": "renter's, fund, low, barrier, cash, grants, minneapolis, renters",
-      "serviceTags": "renter's; fund; low; barrier; cash; grants; minneapolis; renters",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -2032,7 +2081,6 @@ const ARM_DATA = {
       "address": "10 W 7th St, St. Paul, MN 55102",
       "notes": "",
       "keywords": "Riverland, medical care, dental care, behavioral health, vision care",
-      "serviceTags": "Riverland; medical care; dental care; behavioral health; vision care",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -2056,7 +2104,6 @@ const ARM_DATA = {
       "address": "310 E 38th St, Minneapolis, MN 55409",
       "notes": "",
       "keywords": "sabathani, community, center, youth, programs, senior, housing, outreach",
-      "serviceTags": "sabathani; community; center; youth; programs; senior; housing; outreach",
       "categories": [
         "Youth & Family"
       ],
@@ -2080,7 +2127,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "SPRC serves organizations, communities, agencies, systems, professionals, and public/private partners.",
       "keywords": "suicide prevention, SPRC, mental health, toolkits, trainings, SAMHSA, crisis prevention",
-      "serviceTags": "suicide prevention; SPRC; mental health; toolkits; trainings; SAMHSA; crisis prevention",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -2109,7 +2155,6 @@ const ARM_DATA = {
       "address": "7101 Winnetka Ave N, Brooklyn Park, MN 55428",
       "notes": "",
       "keywords": "second, harvest, heartland, emergency, food, distribution, snap, application, help, produce, boxes, mobile",
-      "serviceTags": "second; harvest; heartland; emergency; food; distribution; snap; application; help; produce; boxes; mobile",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2133,7 +2178,6 @@ const ARM_DATA = {
       "address": "10201 Wayzata Blvd, Suite 335, Minnetonka, MN 55305",
       "notes": "",
       "keywords": "senior home repair, home safety, technology help, chore services, grab bars, maintenance",
-      "serviceTags": "senior home repair; home safety; technology help; chore services; grab bars; maintenance",
       "categories": [
         "Seniors & Disability"
       ],
@@ -2162,7 +2206,6 @@ const ARM_DATA = {
       "address": "525 N 7th St, Minneapolis, MN 55405",
       "notes": "",
       "keywords": "sharing, caring, hands, meal, programs, transitional, housing, clinics, clothing, distribution",
-      "serviceTags": "sharing; caring; hands; meal; programs; transitional; housing; clinics; clothing; distribution",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2186,7 +2229,6 @@ const ARM_DATA = {
       "address": "2939 12th Ave S, Minneapolis, MN 55407",
       "notes": "",
       "keywords": "vincent, paul, thrift, store, financial, housing, utilities, food, other, basic, needs",
-      "serviceTags": "vincent; paul; thrift; store; financial; housing; utilities; food; other; basic; needs",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2210,7 +2252,6 @@ const ARM_DATA = {
       "address": "627 38th Ave NE, Columbia Heights, MN 55421",
       "notes": "",
       "keywords": "southern, anoka, community, saca, food, shelf, rent, help, housing, referrals",
-      "serviceTags": "southern; anoka; community; saca; food; shelf; rent; help; housing; referrals",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2234,7 +2275,6 @@ const ARM_DATA = {
       "address": "324 E 35th St, Minneapolis, MN 55408; 4243 4th Ave S, Minneapolis, MN 55409 (dental, vision)",
       "notes": "",
       "keywords": "Southside, medical care, dental care, behavioral health, vision care",
-      "serviceTags": "Southside; medical care; dental care; behavioral health; vision care",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -2258,7 +2298,6 @@ const ARM_DATA = {
       "address": "810 E Franklin Ave, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "southside, harm, reduction, naloxone, distribution, syringe, exchange",
-      "serviceTags": "southside; harm; reduction; naloxone; distribution; syringe; exchange",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -2282,7 +2321,6 @@ const ARM_DATA = {
       "address": "6180 Hwy 65 NE, Fridley, MN 55432",
       "notes": "",
       "keywords": "philip's, lutheran, church, food, shelf, fresh, produce, hygiene, kits",
-      "serviceTags": "philip's; lutheran; church; food; shelf; fresh; produce; hygiene; kits",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2306,7 +2344,6 @@ const ARM_DATA = {
       "address": "2309 Nicollet Avenue, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "homeless outreach, shelter, Adult Shelter Connect, youth shelter, family shelter, housing resources",
-      "serviceTags": "homeless outreach; shelter; Adult Shelter Connect; youth shelter; family shelter; housing resources",
       "categories": [
         "Housing & Shelter"
       ],
@@ -2323,6 +2360,7 @@ const ARM_DATA = {
           "audience": "Single adults",
           "purpose": "Placement access for six Minneapolis shelters for single adults",
           "phone": "6122482350",
+          "email": "",
           "website": "",
           "location": "St. Olaf Church, 215 S 8th St basement, Minneapolis, MN",
           "hours": "Walk-in: 10:00 AM–5:00 PM Monday–Friday; 1:00 PM–5:00 PM Saturday–Sunday; phone access resumes after 7:30 PM",
@@ -2336,6 +2374,7 @@ const ARM_DATA = {
           "audience": "People experiencing homelessness",
           "purpose": "Shelter, housing, street outreach, and resource navigation",
           "phone": "6128740311",
+          "email": "",
           "website": "https://ststephensmpls.org",
           "location": "2309 Nicollet Avenue, Minneapolis, MN 55404",
           "hours": "",
@@ -2349,6 +2388,7 @@ const ARM_DATA = {
           "audience": "Youth",
           "purpose": "Youth shelter and services",
           "phone": "6123778800",
+          "email": "",
           "website": "",
           "location": "2200 Emerson Ave S",
           "hours": "",
@@ -2362,6 +2402,7 @@ const ARM_DATA = {
           "audience": "Youth",
           "purpose": "Youth shelter and services",
           "phone": "6122521200",
+          "email": "",
           "website": "",
           "location": "41 N 12th St",
           "hours": "",
@@ -2375,6 +2416,7 @@ const ARM_DATA = {
           "audience": "Youth",
           "purpose": "Youth shelter/resource directory available online and as an app",
           "phone": "",
+          "email": "",
           "website": "https://www.ysnmn.org",
           "location": "",
           "hours": "",
@@ -2388,6 +2430,7 @@ const ARM_DATA = {
           "audience": "Families",
           "purpose": "Family shelter access and placement",
           "phone": "6123489410",
+          "email": "",
           "website": "",
           "location": "",
           "hours": "",
@@ -2401,6 +2444,7 @@ const ARM_DATA = {
           "audience": "Families",
           "purpose": "After-hours family shelter support",
           "phone": "6512910211",
+          "email": "",
           "website": "",
           "location": "",
           "hours": "After hours",
@@ -2427,7 +2471,6 @@ const ARM_DATA = {
       "address": "444 Lafayette Rd, St. Paul, MN 55155",
       "notes": "",
       "keywords": "department, children, youth, families, financial, access, child, care, employment",
-      "serviceTags": "department; children; youth; families; financial; access; child; care; employment",
       "categories": [
         "Youth & Family"
       ],
@@ -2451,7 +2494,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "",
       "keywords": "disability support, benefits, statewide resources",
-      "serviceTags": "disability support; benefits; statewide resources",
       "categories": [
         "Seniors & Disability"
       ],
@@ -2475,7 +2517,6 @@ const ARM_DATA = {
       "address": "PO Box 64253, St. Paul, MN 55164-0253",
       "notes": "Additional contact: (855) 366-7873",
       "keywords": "MNsure, health insurance marketplace, financial help, tax credits, MinnesotaCare, Medical Assistance, health insurance, enrollement",
-      "serviceTags": "MNsure; health insurance marketplace; financial help; tax credits; MinnesotaCare; Medical Assistance; health insurance; enrollement",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -2504,7 +2545,6 @@ const ARM_DATA = {
       "address": "PO Box 64971, St. Paul, MN 55164-0971",
       "notes": "",
       "keywords": "long-term care, ombudsman, resident rights, complaints, advocacy, nursing homes, assisted living",
-      "serviceTags": "long-term care; ombudsman; resident rights; complaints; advocacy; nursing homes; assisted living",
       "categories": [
         "Seniors & Disability"
       ],
@@ -2528,7 +2568,6 @@ const ARM_DATA = {
       "address": "332 Minnesota St, Suite W1410, St. Paul, MN 55101-2117",
       "notes": "",
       "keywords": "mental health, developmental disabilities, ombudsman, complaints, client rights, advocacy",
-      "serviceTags": "mental health; developmental disabilities; ombudsman; complaints; client rights; advocacy",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -2552,7 +2591,6 @@ const ARM_DATA = {
       "address": "2395 University Ave W, Suite 200, St. Paul, MN 55114",
       "notes": "",
       "keywords": "sub, saharan, african, youth, family, immigrant, refugee, empowerment",
-      "serviceTags": "sub; saharan; african; youth; family; immigrant; refugee; empowerment",
       "categories": [
         "Immigrant / Culturally Specific"
       ],
@@ -2576,7 +2614,6 @@ const ARM_DATA = {
       "address": "2501 Minnehaha Ave, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "bond, between, pet, food, shelf, distribution, supplies, low, income, families",
-      "serviceTags": "bond; between; pet; food; shelf; distribution; supplies; low; income; families",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2600,7 +2637,6 @@ const ARM_DATA = {
       "address": "1527 E Lake St, Minneapolis, MN 55407",
       "notes": "",
       "keywords": "lead, program, family, partnership, legal, low, income, individuals, law",
-      "serviceTags": "lead; program; family; partnership; legal; low; income; individuals; law",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -2624,7 +2660,6 @@ const ARM_DATA = {
       "address": "8501 54th Ave N, New Hope, MN 55428",
       "notes": "",
       "keywords": "fare, all, low, cost, grocery, packages, fresh, produce, bulk, staples",
-      "serviceTags": "fare; all; low; cost; grocery; packages; fresh; produce; bulk; staples",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2648,7 +2683,6 @@ const ARM_DATA = {
       "address": "555 Park St, Suite 400, St. Paul, MN 55103",
       "notes": "",
       "keywords": "hunger, solutions, minnesota, statewide, food, helpline, snap, info, bank, locator",
-      "serviceTags": "hunger; solutions; minnesota; statewide; food; helpline; snap; info; bank; locator",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2672,7 +2706,6 @@ const ARM_DATA = {
       "address": "8501 54th Ave N, New Hope, MN 55428",
       "notes": "",
       "keywords": "minnesota, food, helpline, statewide, access, snap, referrals",
-      "serviceTags": "minnesota; food; helpline; statewide; access; snap; referrals",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2696,7 +2729,6 @@ const ARM_DATA = {
       "address": "1019 Payne Ave, St. Paul, MN 55130",
       "notes": "",
       "keywords": "salvation, army, eastside, food, distribution, center, grocery, produce, basic, needs",
-      "serviceTags": "salvation; army; eastside; food; distribution; center; grocery; produce; basic; needs",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2720,7 +2752,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "",
       "keywords": "full, cart, public, benefit, navigation, emergency, food, access",
-      "serviceTags": "full; cart; public; benefit; navigation; emergency; food; access",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2744,7 +2775,6 @@ const ARM_DATA = {
       "address": "500 Stinson Blvd, Minneapolis, MN 55413",
       "notes": "Medical Assistance Transportation Card also lists UCare transportation at 612-676-6830.",
       "keywords": "UCare, medical transportation, health ride",
-      "serviceTags": "UCare; medical transportation; health ride",
       "categories": [
         "Transportation"
       ],
@@ -2773,7 +2803,6 @@ const ARM_DATA = {
       "address": "2001 Bloomington Ave, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "CUHCC, community health center, medical care, dental care, behavioral health",
-      "serviceTags": "CUHCC; community health center; medical care; dental care; behavioral health",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -2797,7 +2826,6 @@ const ARM_DATA = {
       "address": "1280 Arcade St, St. Paul, MN 55106",
       "notes": "",
       "keywords": "fruit, vine, vineyard, community, emergency, food, boxes, produce, hygiene, supplies",
-      "serviceTags": "fruit; vine; vineyard; community; emergency; food; boxes; produce; hygiene; supplies",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2821,7 +2849,6 @@ const ARM_DATA = {
       "address": "73 S Leech St, St Paul, MN 55102",
       "notes": "",
       "keywords": "women, nations, eagle's, nest, shelter, domestic, violence, advocacy, legal",
-      "serviceTags": "women; nations; eagle's; nest; shelter; domestic; violence; advocacy; legal",
       "categories": [
         "Domestic Violence & Safety"
       ],
@@ -2845,7 +2872,6 @@ const ARM_DATA = {
       "address": "1601 4th Ave, Anoka, MN 55303",
       "notes": "",
       "keywords": "zion, lutheran, church, food, pantry, boxes, baby, supplies",
-      "serviceTags": "zion; lutheran; church; food; pantry; boxes; baby; supplies",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2869,7 +2895,6 @@ const ARM_DATA = {
       "address": "5203 W 73rd St, Edina, MN 55439",
       "notes": "",
       "keywords": "mobility equipment, rentals, accessibility",
-      "serviceTags": "mobility equipment; rentals; accessibility",
       "categories": [
         "Transportation"
       ],
@@ -2893,7 +2918,6 @@ const ARM_DATA = {
       "address": "236 Clifton Ave S Minnneapolis, MN 55403",
       "notes": "",
       "keywords": "youth shelter, residential treatment, reentry services, mentorship programs, 180, degrees, youth, shelter, residential, treatment, reentry, mentorship, programs",
-      "serviceTags": "youth shelter; residential treatment; reentry services; mentorship programs; 180; degrees; youth; shelter; residential; treatment; reentry; mentorship; programs",
       "categories": [
         "Housing & Shelter"
       ],
@@ -2917,7 +2941,6 @@ const ARM_DATA = {
       "address": "901 N 3rd St, Suite 150, Minneapolis, MN 55401",
       "notes": "",
       "keywords": "aeon, affordable, housing, development, property, management, resident",
-      "serviceTags": "aeon; affordable; housing; development; property; management; resident",
       "categories": [
         "Housing & Shelter"
       ],
@@ -2941,7 +2964,6 @@ const ARM_DATA = {
       "address": "2615 9th Ave N Anoka, MN 55303",
       "notes": "",
       "keywords": "acbc, food, shelf, clothing, closet, holiday, meals",
-      "serviceTags": "acbc; food; shelf; clothing; closet; holiday; meals",
       "categories": [
         "Benefits & Insurance"
       ],
@@ -2965,7 +2987,6 @@ const ARM_DATA = {
       "address": "2520 N 2nd St, Suite 102, Minneapolis, MN 55411",
       "notes": "",
       "keywords": "appetite, change, culturally, relevant, produce, meal, kits, youth, farming",
-      "serviceTags": "appetite; change; culturally; relevant; produce; meal; kits; youth; farming",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -2989,7 +3010,6 @@ const ARM_DATA = {
       "address": "4812 Park Glen Rd, Minneapolis, MN 55416",
       "notes": "",
       "keywords": "taxi, transportation",
-      "serviceTags": "taxi; transportation",
       "categories": [
         "Transportation"
       ],
@@ -3013,7 +3033,6 @@ const ARM_DATA = {
       "address": "3901 Chicago Ave, Minneapolis, MN 55407",
       "notes": "",
       "keywords": "calvary, lutheran, church, food, shelf, hot, meals, emergency",
-      "serviceTags": "calvary; lutheran; church; food; shelf; hot; meals; emergency",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3037,7 +3056,6 @@ const ARM_DATA = {
       "address": "151 6th Ave S, Anoka, MN 55303",
       "notes": "",
       "keywords": "cars, neighbors, free, car, repairs, donated, vehicles, low, income, residents",
-      "serviceTags": "cars; neighbors; free; car; repairs; donated; vehicles; low; income; residents",
       "categories": [
         "Transportation"
       ],
@@ -3061,7 +3079,6 @@ const ARM_DATA = {
       "address": "111 N 5th St, Suite 402, Minneapolis, MN 55403",
       "notes": "",
       "keywords": "central, minnesota, legal, civil, low, income, individuals, housing, family, law",
-      "serviceTags": "central; minnesota; legal; civil; low; income; individuals; housing; family; law",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -3085,7 +3102,6 @@ const ARM_DATA = {
       "address": "1201 W Broadway Ave, Minneapolis, MN 55411",
       "notes": "",
       "keywords": "change, starts, community, emergency, groceries, spiritual, family, care",
-      "serviceTags": "change; starts; community; emergency; groceries; spiritual; family; care",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3109,7 +3125,6 @@ const ARM_DATA = {
       "address": "777 E Lake St, Minneapolis, MN 55407",
       "notes": "",
       "keywords": "clues, comunidades, latinas, unidas, servicio, health, wellness, education, economic, empowerment, leadership, training",
-      "serviceTags": "clues; comunidades; latinas; unidas; servicio; health; wellness; education; economic; empowerment; leadership; training",
       "categories": [
         "Immigrant / Culturally Specific"
       ],
@@ -3133,7 +3148,6 @@ const ARM_DATA = {
       "address": "1080 Montreal Ave, St. Paul, MN 55116",
       "notes": "",
       "keywords": "commonbond, communities, affordable, housing, supportive, community, programs",
-      "serviceTags": "commonbond; communities; affordable; housing; supportive; community; programs",
       "categories": [
         "Housing & Shelter"
       ],
@@ -3157,7 +3171,6 @@ const ARM_DATA = {
       "address": "5930 Brooklyn Blvd, Brooklyn Center, MN 55429",
       "notes": "",
       "keywords": "communities, advancing, prosperity, immigrants, capi, culturally, tailored, food, shelf, immigrant, refugee",
-      "serviceTags": "communities; advancing; prosperity; immigrants; capi; culturally; tailored; food; shelf; immigrant; refugee",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3181,7 +3194,6 @@ const ARM_DATA = {
       "address": "1900 11th Ave S, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "community, emergency, service, groceries, clothing, rent, referrals",
-      "serviceTags": "community; emergency; service; groceries; clothing; rent; referrals",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3205,7 +3217,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "",
       "keywords": "Rule 25, comprehensive assessment, chemical dependency assessment, substance use treatment",
-      "serviceTags": "Rule 25; comprehensive assessment; chemical dependency assessment; substance use treatment",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -3229,7 +3240,6 @@ const ARM_DATA = {
       "address": "1508 E Franklin Ave, Suite 100, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "dream, wild, health, culturally, relevant, indigenous, produce, traditional, foods",
-      "serviceTags": "dream; wild; health; culturally; relevant; indigenous; produce; traditional; foods",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3253,7 +3263,6 @@ const ARM_DATA = {
       "address": "528 Fairview ave N St. Paul, MN 55104",
       "notes": "",
       "keywords": "esperanza, united, formerly, casa, domestic, violence, shelter, advocacy, legal",
-      "serviceTags": "esperanza; united; formerly; casa; domestic; violence; shelter; advocacy; legal",
       "categories": [
         "Domestic Violence & Safety"
       ],
@@ -3277,7 +3286,6 @@ const ARM_DATA = {
       "address": "2723 Patton Rd, Roseville, MN 55113",
       "notes": "",
       "keywords": "every, meal, weekend, bags, students, school, partnerships",
-      "serviceTags": "every; meal; weekend; bags; students; school; partnerships",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3301,7 +3309,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "",
       "keywords": "mental health providers, substance use providers, provider search",
-      "serviceTags": "mental health providers; substance use providers; provider search",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -3325,7 +3332,6 @@ const ARM_DATA = {
       "address": "3001 Russell Ave N, Minneapolis, MN 55411",
       "notes": "",
       "keywords": "first, community, ministries, emergency, groceries, clothing",
-      "serviceTags": "first; community; ministries; emergency; groceries; clothing",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3349,7 +3355,6 @@ const ARM_DATA = {
       "address": "2810 N Church Street, PMB 258182, Wilmington, DE 19802-4447",
       "notes": "",
       "keywords": "senior rides, delivery, no smartphone",
-      "serviceTags": "senior rides; delivery; no smartphone",
       "categories": [
         "Transportation"
       ],
@@ -3373,7 +3378,6 @@ const ARM_DATA = {
       "address": "1900 Nicollet Ave, Minneapolis, MN 55403",
       "notes": "",
       "keywords": "groveland, emergency, food, shelf, grocery, pickup",
-      "serviceTags": "groveland; emergency; food; shelf; grocery; pickup",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3397,7 +3401,6 @@ const ARM_DATA = {
       "address": "270 N Kent St, St. Paul, MN 55102",
       "notes": "",
       "keywords": "hallie, brown, community, center, empowerment, advocacy, housing, youth, programs",
-      "serviceTags": "hallie; brown; community; center; empowerment; advocacy; housing; youth; programs",
       "categories": [
         "Youth & Family"
       ],
@@ -3421,7 +3424,6 @@ const ARM_DATA = {
       "address": "10 E Exchange St, Suite 500, St. Paul, MN 55101",
       "notes": "",
       "keywords": "hamm, clinic, outpatient, therapy, psychiatric, trauma, informed, care",
-      "serviceTags": "hamm; clinic; outpatient; therapy; psychiatric; trauma; informed; care",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -3445,7 +3447,6 @@ const ARM_DATA = {
       "address": "8441 Wayzata Blvd, Golden Valley, MN 55426",
       "notes": "",
       "keywords": "help, your, door, grocery, transportation, appointments, home",
-      "serviceTags": "help; your; door; grocery; transportation; appointments; home",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3469,7 +3470,6 @@ const ARM_DATA = {
       "address": "8011 34th Ave S, Suite 126, Bloomington, MN 55425",
       "notes": "",
       "keywords": "tenant hotline, renters, legal advice, home, line, tenant, rights, legal",
-      "serviceTags": "tenant hotline; renters; legal advice; home; line; tenant; rights; legal",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -3493,7 +3493,6 @@ const ARM_DATA = {
       "address": "275 4th St E, Suite 590, St. Paul, MN 55101",
       "notes": "",
       "keywords": "housing, justice, center, legal, advocacy, affordable, rights",
-      "serviceTags": "housing; justice; center; legal; advocacy; affordable; rights",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -3517,7 +3516,6 @@ const ARM_DATA = {
       "address": "11588 K-Tel Dr, Minnetonka, MN 55343",
       "notes": "",
       "keywords": "food shelf, rent assistance, employment help, ica, food, shelf, financial, employment",
-      "serviceTags": "food shelf; rent assistance; employment help; ica; food; shelf; financial; employment",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3541,7 +3539,6 @@ const ARM_DATA = {
       "address": "450 N Syndicate St, Suite 200, St. Paul, MN 55104",
       "notes": "",
       "keywords": "immigrant, law, center, minnesota, immigration, legal, representation",
-      "serviceTags": "immigrant; law; center; minnesota; immigration; legal; representation",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -3565,7 +3562,6 @@ const ARM_DATA = {
       "address": "1694 Como Ave, St. Paul, MN 55108",
       "notes": "",
       "keywords": "international, institute, minnesota, immigrant, refugee, workforce, development, education, social",
-      "serviceTags": "international; institute; minnesota; immigrant; refugee; workforce; development; education; social",
       "categories": [
         "Immigrant / Culturally Specific"
       ],
@@ -3589,7 +3585,6 @@ const ARM_DATA = {
       "address": "1401 Gardena Ave NE, Minneapolis, MN 55432",
       "notes": "",
       "keywords": "islamic, center, minnesota, online, grocery, delivery, families, shelf, stable, foods",
-      "serviceTags": "islamic; center; minnesota; online; grocery; delivery; families; shelf; stable; foods",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3613,7 +3608,6 @@ const ARM_DATA = {
       "address": "3041 Fremont Ave S, Minneapolis, MN 55408",
       "notes": "",
       "keywords": "joyce, uptown, foodshelf, emergency, food, shelf, culturally, relevant, groceries",
-      "serviceTags": "joyce; uptown; foodshelf; emergency; food; shelf; culturally; relevant; groceries",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3637,7 +3631,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "",
       "keywords": "lawhelp, minnesota, lawhelpmn, org, legal, resources, guides, multiple, languages",
-      "serviceTags": "lawhelp; minnesota; lawhelpmn; org; legal; resources; guides; multiple; languages",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -3661,7 +3654,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "",
       "keywords": "legal aid, tenants, renter rights, eviction, housing court, VLN, HomeLine, Adult Representation",
-      "serviceTags": "legal aid; tenants; renter rights; eviction; housing court; VLN; HomeLine; Adult Representation",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -3690,7 +3682,6 @@ const ARM_DATA = {
       "address": "4820 Park Glen Road St. Louis Park, MN 55416",
       "notes": "",
       "keywords": "Oxygen, medical supplies, home medical equipment, durable medical equipment, CPAP",
-      "serviceTags": "Oxygen; medical supplies; home medical equipment; durable medical equipment; CPAP",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -3719,7 +3710,6 @@ const ARM_DATA = {
       "address": "111 N 5th St, Suite 100, Minneapolis, MN 55403",
       "notes": "",
       "keywords": "legal aid, renters, tenants, housing law, mid, minnesota, legal, aid, civil, low, income, individuals",
-      "serviceTags": "legal aid; renters; tenants; housing law; mid; minnesota; legal; aid; civil; low; income; individuals",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -3743,7 +3733,6 @@ const ARM_DATA = {
       "address": "520 Osborne Rd NE, Suite 110, Fridley, MN 55432",
       "notes": "",
       "keywords": "peer recovery, coaching, substance use recovery",
-      "serviceTags": "peer recovery; coaching; substance use recovery",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -3767,7 +3756,6 @@ const ARM_DATA = {
       "address": "2430 Nicollet Ave S, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "chemical dependency, treatment, outpatient, residential",
-      "serviceTags": "chemical dependency; treatment; outpatient; residential",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -3790,8 +3778,7 @@ const ARM_DATA = {
       "website": "https://prairie-care.com",
       "address": "9400 Zane Ave N, Brooklyn Park, MN 55443",
       "notes": "",
-      "keywords": "PrairieCare, psychiatric care, mental health screening, inpatient, outpatient, partial hospitalization, intensive outpatient",
-      "serviceTags": "Prairie Care; Outpatient services; Partial hospitalization",
+      "keywords": "PrairieCare, psychiatric care, mental health screening, inpatient, outpatient, partial hospitalization, intensive outpatient, Prairie Care, Outpatient services",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -3815,7 +3802,6 @@ const ARM_DATA = {
       "address": "1220 Zane Ave N, Golden Valley, MN 55422",
       "notes": "",
       "keywords": "prism, food, shelf, rent, help, employment",
-      "serviceTags": "prism; food; shelf; rent; help; employment",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3839,7 +3825,6 @@ const ARM_DATA = {
       "address": "14700 Martin Drive, Eden Prairie, MN 55344",
       "notes": "",
       "keywords": "prop, food, shelf, rent, utility, job, resources",
-      "serviceTags": "prop; food; shelf; rent; utility; job; resources",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -3863,7 +3848,6 @@ const ARM_DATA = {
       "address": "2600 7th St N, St. Cloud, MN 56303",
       "notes": "",
       "keywords": "transportation referral, rides",
-      "serviceTags": "transportation referral; rides",
       "categories": [
         "Transportation"
       ],
@@ -3887,7 +3871,6 @@ const ARM_DATA = {
       "address": "1931 W Broadway Ave, Minneapolis, MN 55411",
       "notes": "",
       "keywords": "substance use, recovery, treatment, housing",
-      "serviceTags": "substance use; recovery; treatment; housing",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -3911,7 +3894,6 @@ const ARM_DATA = {
       "address": "5821 Cedar Lake Rd S, Suite 209, St. Louis Park, MN 55416",
       "notes": "",
       "keywords": "PCA, home health, nursing, home care",
-      "serviceTags": "PCA; home health; nursing; home care",
       "categories": [
         "Seniors & Disability"
       ],
@@ -3935,7 +3917,6 @@ const ARM_DATA = {
       "address": "1111 W 22nd St, Minneapolis, MN 55405",
       "notes": "",
       "keywords": "bridge, youth, emergency, shelter, transitional, housing, outreach, programs, groups",
-      "serviceTags": "bridge; youth; emergency; shelter; transitional; housing; outreach; programs; groups",
       "categories": [
         "Housing & Shelter"
       ],
@@ -3959,7 +3940,6 @@ const ARM_DATA = {
       "address": "1527 E Lake St, Minneapolis, MN 55407",
       "notes": "",
       "keywords": "family, partnership, mental, health, therapy, early, childhood, education, home, visiting, advocacy",
-      "serviceTags": "family; partnership; mental; health; therapy; early; childhood; education; home; visiting; advocacy",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -3983,7 +3963,6 @@ const ARM_DATA = {
       "address": "9600 Aldrich Avenue South, Bloomington, MN 55420",
       "notes": "",
       "keywords": "food pantry, housing support, transportation help, veap, food, pantry, rental, transportation, employment",
-      "serviceTags": "food pantry; housing support; transportation help; veap; food; pantry; rental; transportation; employment",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -4007,7 +3986,6 @@ const ARM_DATA = {
       "address": "",
       "notes": "",
       "keywords": "volunteer lawyers, legal advice, renters, representation",
-      "serviceTags": "volunteer lawyers; legal advice; renters; representation",
       "categories": [
         "Legal / Tenant Help"
       ],
@@ -4031,7 +4009,6 @@ const ARM_DATA = {
       "address": "3104 16th Ave S, Minneapolis, MN 55407",
       "notes": "",
       "keywords": "walker, community, united, methodist, church, pantry, groceries, seasonal",
-      "serviceTags": "walker; community; united; methodist; church; pantry; groceries; seasonal",
       "categories": [
         "Food & Basic Needs"
       ],
@@ -4055,7 +4032,6 @@ const ARM_DATA = {
       "address": "2421 Chicago Ave S, Minneapolis, MN 55404",
       "notes": "",
       "keywords": "walk, counseling, center, free, anonymous, appointment, needed",
-      "serviceTags": "walk; counseling; center; free; anonymous; appointment; needed",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -4079,7 +4055,6 @@ const ARM_DATA = {
       "address": "1221 West Lake Street Suite 108 Minneapolis, MN 55408",
       "notes": "",
       "keywords": "Senior Helpers, in-home care, older adults, personal care, companion care, respite care, dementia care, transitional care, aging in place",
-      "serviceTags": "Senior Helpers; in-home care; older adults; personal care; companion care; respite care; dementia care; transitional care; aging in place",
       "categories": [
         "Health Care & Clinics"
       ],
@@ -4103,7 +4078,6 @@ const ARM_DATA = {
       "address": "41 N 12th St, Minneapolis, MN 55403",
       "notes": "",
       "keywords": "Youth Services Network, YSN, homeless youth, youth shelter, shelter beds, outreach workers, drop-in centers, food, health, mental health, crisis resources, employment, parenting",
-      "serviceTags": "Youth Services Network; YSN; homeless youth; youth shelter; shelter beds; outreach workers; drop-in centers; food; health; mental health; crisis resources; employment; parenting",
       "categories": [
         "Youth & Family"
       ],
@@ -4121,13 +4095,12 @@ const ARM_DATA = {
       "altPhone": "",
       "fax": "",
       "altFax": "",
-      "hours": "8 a.m. – 4 p.m. Monday through Friday; ; 8 a.m. – 2 p.m. Saturday",
+      "hours": "8 a.m. – 4 p.m. Monday through Friday; 8 a.m. – 2 p.m. Saturday",
       "tty": "",
       "website": "https://cctwincities.org/services-and-locations/adult-emergency-shelters/mary-f-frey-minneapolis-opportunity-center/",
       "address": "740 East 17th Street Minneapolis, MN 55404",
       "notes": "",
-      "keywords": "",
-      "serviceTags": "daytime resource center; homelessness; hot meals; showers; toiletries; laundry; lockers; mail service; phone charging; physical health care; mental health care; substance use care; employment training; job search; housing search; housing placement; veterans benefits; SNAP; Medical Assistance; financial support; legal support",
+      "keywords": "daytime resource center, homelessness, hot meals, showers, toiletries, laundry, lockers, mail service, phone charging, physical health care, mental health care, substance use care, employment training, job search, housing search, housing placement, veterans benefits, SNAP, Medical Assistance, financial support, legal support",
       "categories": [
         "Housing & Shelter"
       ],
@@ -4511,6 +4484,5 @@ const ARM_DATA = {
         }
       ]
     }
-  ],
-  "insurance_guide_path": "Assets/Navigating_Health_Insurance_Options_ARM_Guide.pdf"
+  ]
 };

@@ -512,25 +512,49 @@ a {
   align-items: center;
 }
 
-.tools-modal-content {
+/* Non-scrolling outer box - establishes the modal's visual frame (bg,
+   rounded corners, shadow, size cap) AND the positioning context for the
+   floating close button below. overflow:hidden keeps the inner scrolling
+   content from poking past the rounded corners as it scrolls.
+   display:flex + the inner content's flex:1/min-height:0 is what lets the
+   INNER area scroll independently while this outer box stays a fixed
+   size - the standard pattern for "scrollable region inside a capped-
+   height box." */
+.tools-modal-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   background: var(--detail-pane);
   width: 70%;
   max-width: 900px;
-  padding: 1rem 1.5rem;
+  max-height: 80%;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-  max-height: 80%;
-  overflow-y: auto;
+  overflow: hidden;
   color: var(--text-light);
 }
 
+/* Purely the scrolling region now - no box styling of its own, no
+   special-cased padding. The close button used to live inside this
+   element (as part of a sticky header), which is exactly what caused the
+   clipping: a bold colored section banner getting visually cut off by a
+   sticky bar mid-scroll. Moving the button OUTSIDE this element entirely
+   (see .tools-close-btn-floating) removes that interaction completely -
+   there's nothing sticky in here at all anymore, just a plain scroll. */
+.tools-modal-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 1rem 1.5rem;
+}
+
 .tools-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-bottom: 2px solid #333;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
+  /* Room on the right so the header's own text never sits underneath the
+     floating button that overlays this whole box. */
+  padding-right: 2.75rem;
 }
 
 .tools-close-btn {
@@ -541,6 +565,18 @@ a {
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+}
+
+/* Genuinely floats: positioned relative to .tools-modal-box (the
+   non-scrolling outer wrapper), and since it lives OUTSIDE
+   .tools-modal-content's DOM subtree entirely, it can't be affected by
+   that element's scrolling in any way - no sticky quirks, no clipping,
+   no interaction with whatever's scrolling underneath it. */
+.tools-close-btn-floating {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  z-index: 20;
 }
 
 .tool-table {
@@ -571,6 +607,73 @@ a {
   display: inline-block;
   padding: 0.3rem 0;
   font-size: 0.95rem;
+}
+
+/* INSURANCE GUIDE MODAL BODY */
+.insurance-guide-body {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.insurance-guide-body p {
+  margin: 0 0 1rem;
+}
+
+.insurance-guide-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ARML-red links rather than default browser blue, so the guide reads as
+   part of the app rather than a pasted document with its own styling. */
+/* Blue rather than ARML-red - keeps clickable links visually distinct
+   from the red section/subsection headers, so it's clear at a glance
+   what's a heading versus what's tappable. */
+.insurance-guide-body a {
+  color: #0200EC;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.insurance-guide-body a:active {
+  color: #1A0DB8;
+}
+
+/* Full-bleed banner bar rather than colored text - white on #961200 reads
+   more clearly against the dark modal background than red text does, and
+   gives each section a strong, easy-to-scan visual anchor. The negative
+   left/right margin cancels the modal's own side padding (1.5rem, set on
+   .tools-modal-content) so the bar genuinely spans the full width of the
+   popup edge-to-edge, rather than sitting inset within the text column
+   like everything else in the modal. */
+.insurance-guide-body .guide-section {
+  color: white;
+  background: var(--slp-red);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 1.75rem -1.5rem 0.9rem;
+  padding: 0.6rem 1.5rem;
+}
+
+.insurance-guide-body .guide-section:first-child {
+  margin-top: 0;
+}
+
+.insurance-guide-body .guide-subsection {
+  color: #F0997B;
+  font-size: 0.95rem;
+  margin: 1.1rem 0 0.4rem;
+}
+
+.insurance-guide-body .guide-list {
+  margin: 0 0 1rem;
+  padding-left: 1.3rem;
+}
+
+.insurance-guide-body .guide-list li {
+  margin-bottom: 0.3rem;
 }
 
 .fav-list {

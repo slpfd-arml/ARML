@@ -1,5 +1,5 @@
 {
-  "buildId": "2.8.0+2de446686142",
+  "buildId": "3.0.0+6ce85085c589",
   "shell": [
     "index.html",
     "style.css",
@@ -7,6 +7,7 @@
     "data.js",
     "manifest.json",
     "version.json",
+    "insurance-guide-text.js",
     "icons/icon-180.png",
     "icons/icon-192.png",
     "icons/icon-512.png",
@@ -57,7 +58,6 @@
     "Assets/Metro_Mobility_Eligibility.pdf",
     "Assets/Minnesota_Telephone_Assistance_Program_Application.pdf",
     "Assets/MyHealth.pdf",
-    "Assets/Navigating_Health_Insurance_Options_ARM_Guide.pdf",
     "Assets/ROIs/Allina-ROI.pdf",
     "Assets/ROIs/Childrens-ROI.pdf",
     "Assets/ROIs/Fairview-ROI.pdf",

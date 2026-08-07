@@ -18,7 +18,7 @@
                             PDF a medic downloaded for offline use.
    ============================================================ */
 
-const BUILD_ID = '2.8.0+2de446686142';
+const BUILD_ID = '3.0.0+6ce85085c589';
 const SHELL_FILES = [
   "index.html",
   "style.css",
@@ -26,6 +26,7 @@ const SHELL_FILES = [
   "data.js",
   "manifest.json",
   "version.json",
+  "insurance-guide-text.js",
   "icons/icon-180.png",
   "icons/icon-192.png",
   "icons/icon-512.png",
