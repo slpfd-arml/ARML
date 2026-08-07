@@ -426,24 +426,75 @@ closeToolsModal.addEventListener("click", () => {
   toolsModal.classList.remove("open");
 });
 
+const pdfViewerModal = document.getElementById("pdfViewerModal");
+const pdfViewerFrame = document.getElementById("pdfViewerFrame");
+const pdfViewerTitle = document.getElementById("pdfViewerTitle");
+const closePdfViewerModal = document.getElementById("closePdfViewerModal");
+
+function openPdfViewer(url, label) {
+  pdfViewerTitle.textContent = label || "Screening Tool";
+  pdfViewerFrame.src = url;
+  pdfViewerModal.classList.add("open");
+}
+
+closePdfViewerModal.addEventListener("click", () => {
+  pdfViewerModal.classList.remove("open");
+  // Actually unload the PDF rather than just hiding it behind the
+  // screening tools list underneath - stops it holding the file/any
+  // embedded media open in the background.
+  pdfViewerFrame.src = "about:blank";
+});
+
+// Screening tools open IN-APP now (an iframe modal) instead of a new
+// window/tab - these are short reference PDFs, not fillable forms, so
+// there's no real reason to leave the app for them, and the extra window
+// was just friction. iOS standalone mode is the one deliberate exception:
+// it keeps the existing download/Share-sheet handoff, since iOS Safari's
+// iframe PDF rendering has a real, documented history of showing blank or
+// broken content - not worth risking for a case that was already working.
+function buildScreeningToolLink(file) {
+  const url = toFileUrl(file.path);
+  const a = document.createElement("a");
+  a.textContent = file.label;
+  a.href = url;
+
+  if (IS_IOS_STANDALONE) {
+    const safeName = (file.label || "document").replace(/[^\w\-. ]+/g, "").trim() || "document";
+    a.download = `${safeName}.pdf`;
+  } else {
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      openPdfViewer(url, file.label);
+    });
+  }
+  return a;
+}
+
 function renderScreeningTools() {
   toolsTableBody.innerHTML = "";
 
   ARM_DATA.screening_tools.forEach(tool => {
     const row = document.createElement("tr");
 
-    const toolLink = (tool.files && tool.files.length)
-      ? tool.files
-          .map(f => `<a ${fileLinkAttrs(toFileUrl(f.path), f.label, f.fillable)}>${f.label}</a>`)
-          .join(", ")
-      : tool.tool;
+    const domainCell = document.createElement("td");
+    domainCell.textContent = tool.domain;
 
-    row.innerHTML = `
-      <td>${tool.domain}</td>
-      <td>${toolLink}</td>
-      <td>${tool.purpose}</td>
-    `;
+    const toolCell = document.createElement("td");
+    if (tool.files && tool.files.length) {
+      tool.files.forEach((f, i) => {
+        if (i > 0) toolCell.appendChild(document.createTextNode(", "));
+        toolCell.appendChild(buildScreeningToolLink(f));
+      });
+    } else {
+      toolCell.textContent = tool.tool;
+    }
 
+    const purposeCell = document.createElement("td");
+    purposeCell.textContent = tool.purpose;
+
+    row.appendChild(domainCell);
+    row.appendChild(toolCell);
+    row.appendChild(purposeCell);
     toolsTableBody.appendChild(row);
   });
 }
@@ -746,7 +797,7 @@ function setUpdateUI(state, info) {
       updateBtn.classList.add("busy");
       const { done, total } = info;
       updateLabel.textContent = total
-        ? `Downloading ${done} of ${total}…`
+        ? `Downloading ${done} of ${total} files…`
         : "Preparing…";
       break;
     }

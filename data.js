@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-07T02:35:43.587Z",
+    "generated": "2026-08-07T05:57:30.134Z",
     "resource_count": 161,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
-    "version": "3.0.0",
-    "buildId": "3.0.0+6ce85085c589",
-    "dataHash": "6ce85085c589"
+    "version": "3.0.2",
+    "buildId": "3.0.2+2d20cb3ac671",
+    "dataHash": "2d20cb3ac671"
   },
   "categories": [
     "Benefits & Insurance",
@@ -276,7 +276,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "STEP",
-          "path": "Assets/STEP.pdf"
+          "path": "Assets/STEP.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -523,7 +524,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Medical Assistance Transportation Card",
-          "path": "Assets/Medical_Assistance_Transportation_Card.pdf"
+          "path": "Assets/Medical_Assistance_Transportation_Card.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -666,7 +668,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "MN Health Centers",
-          "path": "Assets/MN_Health_Centers.pdf"
+          "path": "Assets/MN_Health_Centers.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -717,19 +720,23 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Hennepin County Civil Commitment",
-          "path": "Assets/Hennepin_County_Civil_Commitment.pdf"
+          "path": "Assets/Hennepin_County_Civil_Commitment.pdf",
+          "fillable": false
         },
         {
           "label": "Hennepin County Housing Guidance for Residents",
-          "path": "Assets/Hennepin_County_Housing_Guidance_for_Residents.pdf"
+          "path": "Assets/Hennepin_County_Housing_Guidance_for_Residents.pdf",
+          "fillable": false
         },
         {
           "label": "Hennepin County Human Services Business Card",
-          "path": "Assets/Hennepin_County_Human_Services_Business_Card.pdf"
+          "path": "Assets/Hennepin_County_Human_Services_Business_Card.pdf",
+          "fillable": false
         },
         {
           "label": "Hennepin County Social Services Program Registration App",
-          "path": "Assets/Hennepin_County_Social_Services_Program_Registration_App.pdf"
+          "path": "Assets/Hennepin_County_Social_Services_Program_Registration_App.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -757,7 +764,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Tenant Resource Connections",
-          "path": "Assets/Tenant_Resource_Connections.pdf"
+          "path": "Assets/Tenant_Resource_Connections.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -785,7 +793,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Medical Assistance Transportation Card",
-          "path": "Assets/Medical_Assistance_Transportation_Card.pdf"
+          "path": "Assets/Medical_Assistance_Transportation_Card.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -859,7 +868,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "MN Health Centers",
-          "path": "Assets/MN_Health_Centers.pdf"
+          "path": "Assets/MN_Health_Centers.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -956,7 +966,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Minnesota Telephone Assistance Program Application",
-          "path": "Assets/Minnesota_Telephone_Assistance_Program_Application.pdf"
+          "path": "Assets/Minnesota_Telephone_Assistance_Program_Application.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1076,7 +1087,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Medical Assistance Transportation Card",
-          "path": "Assets/Medical_Assistance_Transportation_Card.pdf"
+          "path": "Assets/Medical_Assistance_Transportation_Card.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1104,7 +1116,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "MHA Pets Resource Center",
-          "path": "Assets/MHA_Pets_Resource_Center.pdf"
+          "path": "Assets/MHA_Pets_Resource_Center.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1155,11 +1168,13 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Metro Mobility Application",
-          "path": "Assets/Metro_Mobility_Application.pdf"
+          "path": "Assets/Metro_Mobility_Application.pdf",
+          "fillable": true
         },
         {
           "label": "Metro Mobility Eligibility",
-          "path": "Assets/Metro_Mobility_Eligibility.pdf"
+          "path": "Assets/Metro_Mobility_Eligibility.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1256,7 +1271,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "MN Health Centers",
-          "path": "Assets/MN_Health_Centers.pdf"
+          "path": "Assets/MN_Health_Centers.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1284,7 +1300,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Senior LinkAge Line Overview",
-          "path": "Assets/Senior_Linkage_Line.pdf"
+          "path": "Assets/Senior_Linkage_Line.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1404,7 +1421,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "CADI Elderly Waiver Fact Sheet",
-          "path": "Assets/CADI__and__Elderly_Waiver_Fact_Sheet.pdf"
+          "path": "Assets/CADI__and__Elderly_Waiver_Fact_Sheet.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1432,7 +1450,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Minnesota Health Care Programs Guide",
-          "path": "Assets/MN_DHS_Minnesota_Health_Care_Programs.pdf"
+          "path": "Assets/MN_DHS_Minnesota_Health_Care_Programs.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1460,7 +1479,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "MN ACT Program Guide",
-          "path": "Assets/MN_ACT.pdf"
+          "path": "Assets/MN_ACT.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1488,7 +1508,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "MN Social Security Disability Benefits",
-          "path": "Assets/MN_SS__and__Disability_Benefits.pdf"
+          "path": "Assets/MN_SS__and__Disability_Benefits.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1654,7 +1675,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "MyHealth",
-          "path": "Assets/MyHealth.pdf"
+          "path": "Assets/MyHealth.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1705,7 +1727,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "School Nurse Mental Health Toolkit",
-          "path": "Assets/School_Nurse_Mental_Health_toolkit.pdf"
+          "path": "Assets/School_Nurse_Mental_Health_toolkit.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -1940,11 +1963,13 @@ const ARM_DATA = {
       "files": [
         {
           "label": "DayBridge Info",
-          "path": "Assets/DayBridge_Info.pdf"
+          "path": "Assets/DayBridge_Info.pdf",
+          "fillable": false
         },
         {
           "label": "DayBridge Application",
-          "path": "Assets/DayBridge_Application.pdf"
+          "path": "Assets/DayBridge_Application.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -2133,7 +2158,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Suicide Prevention Resource Center",
-          "path": "Assets/Suicide_Prevention_Resource_Center.pdf"
+          "path": "Assets/Suicide_Prevention_Resource_Center.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -2184,7 +2210,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "HOME Program",
-          "path": "Assets/HOME_Program.pdf"
+          "path": "Assets/HOME_Program.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -2350,7 +2377,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "St Stephens Street Outreach",
-          "path": "Assets/St_Stephens_Street_Outreach.pdf"
+          "path": "Assets/St_Stephens_Street_Outreach.pdf",
+          "fillable": false
         }
       ],
       "subContacts": [
@@ -2523,7 +2551,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "MNSure FAQ",
-          "path": "Assets/MNSure_FAQ.pdf"
+          "path": "Assets/MNSure_FAQ.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -2781,7 +2810,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Medical Assistance Transportation Card",
-          "path": "Assets/Medical_Assistance_Transportation_Card.pdf"
+          "path": "Assets/Medical_Assistance_Transportation_Card.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -3660,7 +3690,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Legal Aid Resources",
-          "path": "Assets/Legal_Aid_Resources.pdf"
+          "path": "Assets/Legal_Aid_Resources.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -3688,7 +3719,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Liberty Oxygen Catalog",
-          "path": "Assets/Liberty_Oxygen_Catalog.pdf"
+          "path": "Assets/Liberty_Oxygen_Catalog.pdf",
+          "fillable": false
         }
       ],
       "subContacts": []
@@ -4116,7 +4148,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "PHQ-2 / PHQ-9",
-          "path": "Assets/ARM Screening Tools/PHQ2-9.pdf"
+          "path": "Assets/ARM Screening Tools/PHQ2-9.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4127,7 +4160,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "GAD-2 / GAD-7",
-          "path": "Assets/ARM Screening Tools/GAD7.pdf"
+          "path": "Assets/ARM Screening Tools/GAD7.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4138,7 +4172,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Columbia Suicide Severity Rating Scale (C-SSRS)",
-          "path": "Assets/ARM Screening Tools/C-SSRS.pdf"
+          "path": "Assets/ARM Screening Tools/C-SSRS.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4149,7 +4184,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Geriatric Depression Scale (GDS)",
-          "path": "Assets/ARM Screening Tools/GDS15.pdf"
+          "path": "Assets/ARM Screening Tools/GDS15.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4160,7 +4196,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Mini Cog",
-          "path": "Assets/ARM Screening Tools/Mini-Cog.pdf"
+          "path": "Assets/ARM Screening Tools/Mini-Cog.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4171,7 +4208,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "MoCA",
-          "path": "Assets/ARM Screening Tools/moca.pdf"
+          "path": "Assets/ARM Screening Tools/moca.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4182,7 +4220,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "AUDIT",
-          "path": "Assets/ARM Screening Tools/AUDIT.pdf"
+          "path": "Assets/ARM Screening Tools/AUDIT.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4193,7 +4232,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "DAST-10",
-          "path": "Assets/ARM Screening Tools/DAST-10.pdf"
+          "path": "Assets/ARM Screening Tools/DAST-10.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4204,7 +4244,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "CAGE AID",
-          "path": "Assets/ARM Screening Tools/CAGE-AID.pdf"
+          "path": "Assets/ARM Screening Tools/CAGE-AID.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4215,7 +4256,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "ciwa ar",
-          "path": "Assets/ARM Screening Tools/ciwa-ar.pdf"
+          "path": "Assets/ARM Screening Tools/ciwa-ar.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4226,7 +4268,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "COWS",
-          "path": "Assets/ARM Screening Tools/COWS.pdf"
+          "path": "Assets/ARM Screening Tools/COWS.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4237,7 +4280,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "SBIRT Factsheet",
-          "path": "Assets/ARM Screening Tools/SBIRT_Factsheet.pdf"
+          "path": "Assets/ARM Screening Tools/SBIRT_Factsheet.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4248,7 +4292,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "PRAPARE",
-          "path": "Assets/ARM Screening Tools/PRAPARE.pdf"
+          "path": "Assets/ARM Screening Tools/PRAPARE.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4259,7 +4304,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Katz ADL",
-          "path": "Assets/ARM Screening Tools/Katz ADL.pdf"
+          "path": "Assets/ARM Screening Tools/Katz ADL.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4270,7 +4316,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Lawton IADL",
-          "path": "Assets/ARM Screening Tools/Lawton_IADL.pdf"
+          "path": "Assets/ARM Screening Tools/Lawton_IADL.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4281,7 +4328,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "TUG",
-          "path": "Assets/ARM Screening Tools/TUG.pdf"
+          "path": "Assets/ARM Screening Tools/TUG.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4292,7 +4340,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Wong Baker FACES",
-          "path": "Assets/ARM Screening Tools/Wong-Baker.pdf"
+          "path": "Assets/ARM Screening Tools/Wong-Baker.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4303,7 +4352,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "HOME FAST",
-          "path": "Assets/ARM Screening Tools/HOME_FAST.pdf"
+          "path": "Assets/ARM Screening Tools/HOME_FAST.pdf",
+          "fillable": false
         }
       ]
     },
@@ -4314,7 +4364,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "MMAS 8",
-          "path": "Assets/ARM Screening Tools/MMAS-8.pdf"
+          "path": "Assets/ARM Screening Tools/MMAS-8.pdf",
+          "fillable": false
         }
       ]
     }
@@ -4332,7 +4383,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Fairview-ROI.pdf",
-          "path": "Assets/ROIs/Fairview-ROI.pdf"
+          "path": "Assets/ROIs/Fairview-ROI.pdf",
+          "fillable": true
         }
       ]
     },
@@ -4348,7 +4400,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Allina-ROI.pdf",
-          "path": "Assets/ROIs/Allina-ROI.pdf"
+          "path": "Assets/ROIs/Allina-ROI.pdf",
+          "fillable": true
         }
       ]
     },
@@ -4364,7 +4417,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "North-Memorial-ROI.pdf",
-          "path": "Assets/ROIs/North-Memorial-ROI.pdf"
+          "path": "Assets/ROIs/North-Memorial-ROI.pdf",
+          "fillable": true
         }
       ]
     },
@@ -4380,7 +4434,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "HCMC-ROI.pdf",
-          "path": "Assets/ROIs/HCMC-ROI.pdf"
+          "path": "Assets/ROIs/HCMC-ROI.pdf",
+          "fillable": true
         }
       ]
     },
@@ -4396,7 +4451,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Healthpartners-ROI.pdf",
-          "path": "Assets/ROIs/Healthpartners-ROI.pdf"
+          "path": "Assets/ROIs/Healthpartners-ROI.pdf",
+          "fillable": true
         }
       ]
     },
@@ -4412,7 +4468,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Childrens-ROI.pdf",
-          "path": "Assets/ROIs/Childrens-ROI.pdf"
+          "path": "Assets/ROIs/Childrens-ROI.pdf",
+          "fillable": true
         }
       ]
     },
@@ -4428,7 +4485,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Gillette-ROI.pdf",
-          "path": "Assets/ROIs/Gillette-ROI.pdf"
+          "path": "Assets/ROIs/Gillette-ROI.pdf",
+          "fillable": true
         }
       ]
     },
@@ -4444,7 +4502,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "VHA Form 10-5345a Fill-revision.pdf",
-          "path": "Assets/ROIs/VHA Form 10-5345a Fill-revision.pdf"
+          "path": "Assets/ROIs/VHA Form 10-5345a Fill-revision.pdf",
+          "fillable": true
         }
       ]
     },
@@ -4460,11 +4519,13 @@ const ARM_DATA = {
       "files": [
         {
           "label": "RM.204.F01-PC.pdf",
-          "path": "Assets/ROIs/RM.204.F01-PC.pdf"
+          "path": "Assets/ROIs/RM.204.F01-PC.pdf",
+          "fillable": true
         },
         {
           "label": "RM.204.F01-ROI-Standard.pdf",
-          "path": "Assets/ROIs/RM.204.F01-ROI-Standard.pdf"
+          "path": "Assets/ROIs/RM.204.F01-ROI-Standard.pdf",
+          "fillable": true
         }
       ]
     },
@@ -4480,7 +4541,8 @@ const ARM_DATA = {
       "files": [
         {
           "label": "Mayo _ROI_Form.pdf",
-          "path": "Assets/ROIs/Mayo _ROI_Form.pdf"
+          "path": "Assets/ROIs/Mayo _ROI_Form.pdf",
+          "fillable": true
         }
       ]
     }
