@@ -70,34 +70,126 @@ function toFileUrl(relPath) {
 // own view away from itself, with no back button and no address bar to
 // recover with. Regular Safari tabs and desktop/Android browsers are
 // unaffected and keep the normal new-tab behavior.
-const IS_IOS_STANDALONE = typeof navigator !== "undefined" && navigator.standalone === true;
+// iPadOS 13+ reports itself as "MacIntel" in userAgent, so a plain
+// /iPad/ test misses modern iPads entirely - the maxTouchPoints check is
+// what actually catches them.
+const IS_IOS = typeof navigator !== "undefined" && (
+  /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+);
 
-// Builds the href/target (or href/download) attribute string for a PDF
-// link, generated once per render site so all four call sites (sub-contact
-// files, screening tools, ROI files, main resource files) stay consistent.
-//
-// Two separate reasons a link ends up using download instead of a normal
-// navigation:
-//   1. iOS standalone mode - target="_blank" is a dead end there (no
-//      browser chrome to navigate back from), so download hands off to
-//      the native Share/Save sheet instead, which escapes the trap.
-//   2. The file is flagged fillable - Safari's own built-in PDF viewer
-//      frequently renders AcroForm fields as a flat, non-interactive
-//      image (a well-documented, longstanding platform limitation, not
-//      something a smarter link can route around). Routing through the
-//      Share/Save sheet instead lets the person pick a PDF app that
-//      actually handles forms, and leaves a real copy in Files they can
-//      reopen directly next time - reliable regardless of which viewer
-//      Safari would otherwise have picked. This applies in BOTH standalone
-//      and regular browser-tab contexts, since the unreliable part is
-//      Safari's viewer itself, not which context it's opened from.
-function fileLinkAttrs(url, label, isFillable) {
-  if (IS_IOS_STANDALONE || isFillable) {
+/* ============================================================
+   OPENING PDFs
+   ------------------------------------------------------------
+   Two different jobs, deliberately handled two different ways:
+
+   NON-FILLABLE (screening tools, flyers, reference sheets):
+     Open in an in-app modal viewer on every platform. There's no
+     reason to leave the app to read a reference sheet, and the
+     modal always carries a close button so there's no dead end.
+
+   FILLABLE (ROI forms, Metro Mobility, TDAP):
+     These have to reach a real PDF app that can edit form fields,
+     because Safari's own viewer renders AcroForm fields as a flat
+     image. How we get there depends on the platform:
+
+       - iOS: the HTML `download` attribute is BROKEN in installed
+         standalone PWAs. It doesn't download - iOS shows a
+         full-screen file preview with no way back into the app,
+         which is exactly the dead end this used to cause. The Web
+         Share API is the supported path: it opens the native share
+         sheet ("Save to Files", "Open in Acrobat") WITHOUT
+         navigating away, so the app stays exactly where it was.
+
+       - Everything else (Windows/Mac/Android): the `download`
+         attribute works correctly and is simpler, so it stays.
+   ============================================================ */
+
+// Fetches the PDF and hands it to the OS share sheet. Returns false if
+// that isn't possible, so the caller can fall back.
+async function shareFileToSystem(url, label) {
+  if (!(navigator.canShare && navigator.share)) return false;
+
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return false;
+    const blob = await res.blob();
     const safeName = (label || "document").replace(/[^\w\-. ]+/g, "").trim() || "document";
-    return `href="${url}" download="${safeName}.pdf"`;
+    const file = new File([blob], `${safeName}.pdf`, { type: "application/pdf" });
+
+    if (!navigator.canShare({ files: [file] })) return false;
+    await navigator.share({ files: [file], title: label || "Document" });
+    return true;
+  } catch (err) {
+    // AbortError just means the person dismissed the share sheet - that's
+    // a completed interaction, not a failure to fall back from.
+    if (err && err.name === "AbortError") return true;
+    return false;
   }
-  return `href="${url}" target="_blank" rel="noopener"`;
 }
+
+// Last-resort path when sharing isn't available: a normal download
+// attempt. Works on desktop; on iOS this is the behavior that has the
+// known preview-trap problem, which is why it's only ever reached if
+// sharing genuinely isn't an option.
+function triggerDownload(url, label) {
+  const safeName = (label || "document").replace(/[^\w\-. ]+/g, "").trim() || "document";
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${safeName}.pdf`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+async function openFillableFile(url, label) {
+  if (IS_IOS) {
+    const shared = await shareFileToSystem(url, label);
+    if (shared) return;
+  }
+  triggerDownload(url, label);
+}
+
+function escapeAttr(str) {
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+// Emits the attributes for a PDF link. The actual behavior is attached by
+// the single delegated listener below rather than per-link, so every
+// render site (resource files, screening tools, ROI forms, sub-contacts)
+// is guaranteed to behave identically - there's only one code path to get
+// right, and no way for one call site to drift from the others.
+//
+// href is kept real (not "#") on purpose: long-press "Copy Link", middle-
+// click, and open-in-new-tab all still do something sensible, and if
+// JavaScript ever fails to load the link degrades to a plain PDF link
+// instead of doing nothing at all.
+function fileLinkAttrs(url, label, isFillable) {
+  return `href="${escapeAttr(url)}" data-arml-file="1" data-arml-fillable="${isFillable ? "1" : "0"}" data-arml-label="${escapeAttr(label)}"`;
+}
+
+document.addEventListener("click", e => {
+  const link = e.target.closest ? e.target.closest("[data-arml-file]") : null;
+  if (!link) return;
+
+  // Let modified clicks (new tab, download, etc.) behave natively.
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
+  e.preventDefault();
+  const url = link.getAttribute("href");
+  const label = link.getAttribute("data-arml-label") || "Document";
+  const isFillable = link.getAttribute("data-arml-fillable") === "1";
+
+  if (isFillable) {
+    openFillableFile(url, label);
+  } else {
+    openPdfViewer(url, label);
+  }
+});
 
 // Formats "123 Main St, Anytown, MN 55555" as two lines (street / city-state-zip),
 // wrapped in a clickable Apple Maps link. Handles multiple semicolon-separated
@@ -313,11 +405,11 @@ function section(title, content) {
 
 function contactBlock(r) {
   return `
-    ${r.phone ? `<p>${icon("phone")} ${formatPhone(r.phone)}</p>` : ""}
-    ${r.altPhone ? `<p>${icon("phone")} <strong>Alt:</strong> ${formatPhone(r.altPhone)}</p>` : ""}
+    ${r.phone ? `<p>${icon("phone")} <a href="${telHref(r.phone)}">${formatPhone(r.phone)}</a></p>` : ""}
+    ${r.altPhone ? `<p>${icon("phone")} <strong>Alt:</strong> <a href="${telHref(r.altPhone)}">${formatPhone(r.altPhone)}</a></p>` : ""}
     ${r.fax ? `<p><strong>Fax:</strong> ${formatPhone(r.fax)}</p>` : ""}
     ${r.altFax ? `<p><strong>Alt Fax:</strong> ${formatPhone(r.altFax)}</p>` : ""}
-    ${r.tty ? `<p><strong>TTY:</strong> ${formatPhone(r.tty)}</p>` : ""}
+    ${r.tty ? `<p><strong>TTY:</strong> <a href="${telHref(r.tty)}">${formatPhone(r.tty)}</a></p>` : ""}
     ${r.email ? `<p>${icon("mail")} <a href="mailto:${r.email}">${r.email}</a></p>` : ""}
     ${r.address ? `<p>${formatAddress(r.address)}</p>` : ""}
     ${r.hours ? `<p><strong>Hours:</strong><br>${formatHours(r.hours)}</p>` : ""}
@@ -430,45 +522,32 @@ const pdfViewerModal = document.getElementById("pdfViewerModal");
 const pdfViewerFrame = document.getElementById("pdfViewerFrame");
 const pdfViewerTitle = document.getElementById("pdfViewerTitle");
 const closePdfViewerModal = document.getElementById("closePdfViewerModal");
+const pdfViewerOpenExternal = document.getElementById("pdfViewerOpenExternal");
+
+let currentViewerFile = { url: "", label: "" };
 
 function openPdfViewer(url, label) {
-  pdfViewerTitle.textContent = label || "Screening Tool";
+  currentViewerFile = { url, label: label || "Document" };
+  pdfViewerTitle.textContent = label || "Document";
   pdfViewerFrame.src = url;
   pdfViewerModal.classList.add("open");
 }
 
 closePdfViewerModal.addEventListener("click", () => {
   pdfViewerModal.classList.remove("open");
-  // Actually unload the PDF rather than just hiding it behind the
-  // screening tools list underneath - stops it holding the file/any
-  // embedded media open in the background.
+  // Actually unload the PDF rather than just hiding it behind whatever's
+  // underneath - stops it holding the file open in the background.
   pdfViewerFrame.src = "about:blank";
 });
 
-// Screening tools open IN-APP now (an iframe modal) instead of a new
-// window/tab - these are short reference PDFs, not fillable forms, so
-// there's no real reason to leave the app for them, and the extra window
-// was just friction. iOS standalone mode is the one deliberate exception:
-// it keeps the existing download/Share-sheet handoff, since iOS Safari's
-// iframe PDF rendering has a real, documented history of showing blank or
-// broken content - not worth risking for a case that was already working.
-function buildScreeningToolLink(file) {
-  const url = toFileUrl(file.path);
-  const a = document.createElement("a");
-  a.textContent = file.label;
-  a.href = url;
-
-  if (IS_IOS_STANDALONE) {
-    const safeName = (file.label || "document").replace(/[^\w\-. ]+/g, "").trim() || "document";
-    a.download = `${safeName}.pdf`;
-  } else {
-    a.addEventListener("click", e => {
-      e.preventDefault();
-      openPdfViewer(url, file.label);
-    });
-  }
-  return a;
-}
+// Escape hatch. iOS in particular renders PDFs inside iframes
+// inconsistently (sometimes blank, sometimes only the first page), and a
+// blank viewer with no alternative would just be a different dead end.
+// This hands the file to the OS the same way a fillable form would be.
+pdfViewerOpenExternal.addEventListener("click", () => {
+  if (!currentViewerFile.url) return;
+  openFillableFile(currentViewerFile.url, currentViewerFile.label);
+});
 
 function renderScreeningTools() {
   toolsTableBody.innerHTML = "";
@@ -476,25 +555,18 @@ function renderScreeningTools() {
   ARM_DATA.screening_tools.forEach(tool => {
     const row = document.createElement("tr");
 
-    const domainCell = document.createElement("td");
-    domainCell.textContent = tool.domain;
+    const toolLink = (tool.files && tool.files.length)
+      ? tool.files
+          .map(f => `<a ${fileLinkAttrs(toFileUrl(f.path), f.label, f.fillable)}>${f.label}</a>`)
+          .join(", ")
+      : tool.tool;
 
-    const toolCell = document.createElement("td");
-    if (tool.files && tool.files.length) {
-      tool.files.forEach((f, i) => {
-        if (i > 0) toolCell.appendChild(document.createTextNode(", "));
-        toolCell.appendChild(buildScreeningToolLink(f));
-      });
-    } else {
-      toolCell.textContent = tool.tool;
-    }
+    row.innerHTML = `
+      <td>${tool.domain}</td>
+      <td>${toolLink}</td>
+      <td>${tool.purpose}</td>
+    `;
 
-    const purposeCell = document.createElement("td");
-    purposeCell.textContent = tool.purpose;
-
-    row.appendChild(domainCell);
-    row.appendChild(toolCell);
-    row.appendChild(purposeCell);
     toolsTableBody.appendChild(row);
   });
 }
@@ -674,8 +746,8 @@ function renderRoiContacts() {
       .join("");
 
     const phoneCell = [
-      org.phone ? formatPhone(org.phone) : "",
-      org.altPhone ? `<div class="roi-sub">Alt: ${formatPhone(org.altPhone)}</div>` : ""
+      org.phone ? `<a href="${telHref(org.phone)}">${formatPhone(org.phone)}</a>` : "",
+      org.altPhone ? `<div class="roi-sub">Alt: <a href="${telHref(org.altPhone)}">${formatPhone(org.altPhone)}</a></div>` : ""
     ].filter(Boolean).join("");
 
     const faxCell = [

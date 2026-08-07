@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-07T05:57:30.134Z",
+    "generated": "2026-08-07T07:13:51.262Z",
     "resource_count": 161,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
-    "version": "3.0.2",
-    "buildId": "3.0.2+2d20cb3ac671",
-    "dataHash": "2d20cb3ac671"
+    "version": "3.0.3",
+    "buildId": "3.0.3+7b6864e9565f",
+    "dataHash": "7b6864e9565f"
   },
   "categories": [
     "Benefits & Insurance",
@@ -736,7 +736,7 @@ const ARM_DATA = {
         {
           "label": "Hennepin County Social Services Program Registration App",
           "path": "Assets/Hennepin_County_Social_Services_Program_Registration_App.pdf",
-          "fillable": false
+          "fillable": true
         }
       ],
       "subContacts": []
@@ -967,7 +967,7 @@ const ARM_DATA = {
         {
           "label": "Minnesota Telephone Assistance Program Application",
           "path": "Assets/Minnesota_Telephone_Assistance_Program_Application.pdf",
-          "fillable": false
+          "fillable": true
         }
       ],
       "subContacts": []
@@ -1480,7 +1480,7 @@ const ARM_DATA = {
         {
           "label": "MN ACT Program Guide",
           "path": "Assets/MN_ACT.pdf",
-          "fillable": false
+          "fillable": true
         }
       ],
       "subContacts": []
@@ -1969,7 +1969,7 @@ const ARM_DATA = {
         {
           "label": "DayBridge Application",
           "path": "Assets/DayBridge_Application.pdf",
-          "fillable": false
+          "fillable": true
         }
       ],
       "subContacts": []
@@ -4245,7 +4245,7 @@ const ARM_DATA = {
         {
           "label": "CAGE AID",
           "path": "Assets/ARM Screening Tools/CAGE-AID.pdf",
-          "fillable": false
+          "fillable": true
         }
       ]
     },
@@ -4329,7 +4329,7 @@ const ARM_DATA = {
         {
           "label": "TUG",
           "path": "Assets/ARM Screening Tools/TUG.pdf",
-          "fillable": false
+          "fillable": true
         }
       ]
     },

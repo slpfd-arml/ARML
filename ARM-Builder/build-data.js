@@ -8,6 +8,7 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const { execFileSync } = require("child_process");
 const XLSX = require("xlsx");
 
 const siteRoot = path.join(__dirname, "..");
@@ -141,11 +142,49 @@ function resolveFile(filename, context) {
   return null;
 }
 
-// Parses the Files column (same format on both sheets):
+// ---------- FILLABLE PDF DETECTION ----------
+// Which PDFs actually contain form fields, detected by parsing them (see
+// detect-fillable.js). Fillable forms get handed to the device's real PDF
+// app, because Safari's built-in viewer renders form fields as a flat,
+// uneditable image. Everything else opens in the in-app viewer.
+//
+// This is automatic on purpose: tagging forms by hand in the workbook
+// meant a new form added through ARML Editor would silently open in the
+// wrong place until somebody remembered to tag it.
+const FILLABLE_FILENAMES = (() => {
+  try {
+    const out = execFileSync("node", [path.join(__dirname, "detect-fillable.js")], {
+      encoding: "utf8",
+      maxBuffer: 10 * 1024 * 1024
+    });
+    const parsed = JSON.parse(out);
+    if (!parsed.available) {
+      console.warn(
+        "\n  Note: pdf-lib isn't installed, so fillable-form detection is off.\n" +
+        "  Run 'npm install' in ARM-Builder to enable it. Until then, forms\n" +
+        "  can still be flagged by hand with |fillable in the Files column.\n"
+      );
+      return new Set();
+    }
+    return new Set(parsed.fillable.map(f => f.toLowerCase()));
+  } catch (err) {
+    console.warn("\n  Note: fillable-form detection failed (" + err.message + ").\n");
+    return new Set();
+  }
+})();
+
+// Parses the Files column (same format on Resource List + Screening Tools):
 //   ""                                  -> []
-//   "AUDIT.pdf"                         -> [{label:"AUDIT.pdf", path:"Assets/AUDIT.pdf"}]
-//   "Depression Screener|PHQ-9.pdf"     -> [{label:"Depression Screener", path:"..."}]
+//   "AUDIT.pdf"                         -> [{label:"AUDIT.pdf", path:"...", fillable:auto}]
+//   "Depression Screener|PHQ-9.pdf"     -> [{label:"...", path:"...", fillable:auto}]
 //   "A.pdf; Label|B.pdf"                -> two entries, split on ";"
+//
+// "fillable" is normally decided automatically by scanning the PDF for
+// form fields. Two optional trailing markers override that when needed:
+//   "...|fillable"  - force it to open in the device's PDF app
+//   "...|inapp"     - force it to open in the in-app viewer, even though
+//                     it has form fields (useful for a reference sheet
+//                     that happens to contain a stray field)
 function parseFiles(raw, context) {
   if (!raw) return [];
   return String(raw)
@@ -153,11 +192,20 @@ function parseFiles(raw, context) {
     .map(s => cleanText(s))
     .filter(Boolean)
     .map(entry => {
-      const pipeIdx = entry.indexOf("|");
-      const label = pipeIdx === -1 ? entry : cleanText(entry.slice(0, pipeIdx));
-      const filename = pipeIdx === -1 ? entry : cleanText(entry.slice(pipeIdx + 1));
+      let parts = entry.split("|").map(s => cleanText(s)).filter(s => s !== "");
+
+      let override = null;
+      const last = parts.length > 1 ? parts[parts.length - 1].toLowerCase() : "";
+      if (last === "fillable") { override = true; parts = parts.slice(0, -1); }
+      else if (last === "inapp") { override = false; parts = parts.slice(0, -1); }
+
+      const label = parts[0];
+      const filename = parts.length === 1 ? parts[0] : parts[parts.length - 1];
       const resolved = resolveFile(filename, context);
-      return resolved ? { label, path: resolved } : null;
+      if (!resolved) return null;
+
+      const autoFillable = FILLABLE_FILENAMES.has(path.basename(resolved).toLowerCase());
+      return { label, path: resolved, fillable: override === null ? autoFillable : override };
     })
     .filter(Boolean);
 }

@@ -603,6 +603,38 @@ a {
   flex-shrink: 0;
 }
 
+/* Title on the left, Open/Save on the right - with generous right
+   padding so neither collides with the floating ✕ overlaying the box. */
+.pdf-viewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-right: 4rem !important;
+}
+
+.pdf-viewer-header h2 {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdf-viewer-external-btn {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--slp-red);
+  color: var(--text-light);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.pdf-viewer-external-btn:active {
+  background: rgba(150, 18, 0, 0.25);
+}
+
 .pdf-viewer-frame {
   flex: 1;
   width: 100%;
