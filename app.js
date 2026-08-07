@@ -74,13 +74,25 @@ const IS_IOS_STANDALONE = typeof navigator !== "undefined" && navigator.standalo
 
 // Builds the href/target (or href/download) attribute string for a PDF
 // link, generated once per render site so all four call sites (sub-contact
-// files, screening tools, insurance guide, ROI files) stay consistent.
-// In iOS standalone mode this forces a download instead of a navigation -
-// iOS reliably hands that off to its native Share/Save sheet, which escapes
-// the trap target="_blank" can't, and has the side benefit of leaving a
-// real copy in the Files app for offline reference.
-function fileLinkAttrs(url, label) {
-  if (IS_IOS_STANDALONE) {
+// files, screening tools, ROI files, main resource files) stay consistent.
+//
+// Two separate reasons a link ends up using download instead of a normal
+// navigation:
+//   1. iOS standalone mode - target="_blank" is a dead end there (no
+//      browser chrome to navigate back from), so download hands off to
+//      the native Share/Save sheet instead, which escapes the trap.
+//   2. The file is flagged fillable - Safari's own built-in PDF viewer
+//      frequently renders AcroForm fields as a flat, non-interactive
+//      image (a well-documented, longstanding platform limitation, not
+//      something a smarter link can route around). Routing through the
+//      Share/Save sheet instead lets the person pick a PDF app that
+//      actually handles forms, and leaves a real copy in Files they can
+//      reopen directly next time - reliable regardless of which viewer
+//      Safari would otherwise have picked. This applies in BOTH standalone
+//      and regular browser-tab contexts, since the unreliable part is
+//      Safari's viewer itself, not which context it's opened from.
+function fileLinkAttrs(url, label, isFillable) {
+  if (IS_IOS_STANDALONE || isFillable) {
     const safeName = (label || "document").replace(/[^\w\-. ]+/g, "").trim() || "document";
     return `href="${url}" download="${safeName}.pdf"`;
   }
@@ -361,7 +373,7 @@ function fileBlock(r) {
 
   return r.files
     .map(file => {
-      return `<p><a ${fileLinkAttrs(toFileUrl(file.path), file.label)}>${file.label}</a></p>`;
+      return `<p><a ${fileLinkAttrs(toFileUrl(file.path), file.label, file.fillable)}>${file.label}</a></p>`;
     })
     .join("");
 }
@@ -422,7 +434,7 @@ function renderScreeningTools() {
 
     const toolLink = (tool.files && tool.files.length)
       ? tool.files
-          .map(f => `<a ${fileLinkAttrs(toFileUrl(f.path), f.label)}>${f.label}</a>`)
+          .map(f => `<a ${fileLinkAttrs(toFileUrl(f.path), f.label, f.fillable)}>${f.label}</a>`)
           .join(", ")
       : tool.tool;
 
@@ -622,7 +634,7 @@ function renderRoiContacts() {
 
     const emailCell = org.email ? `<a href="mailto:${org.email}">${org.email}</a>` : "";
     const formsCell = (org.files && org.files.length)
-      ? org.files.map(f => `<div class="roi-sub"><a ${fileLinkAttrs(toFileUrl(f.path), f.label)}>${f.label}</a></div>`).join("")
+      ? org.files.map(f => `<div class="roi-sub"><a ${fileLinkAttrs(toFileUrl(f.path), f.label, f.fillable)}>${f.label}</a></div>`).join("")
       : "";
 
     row.innerHTML = `
