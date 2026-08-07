@@ -17,7 +17,7 @@ any code, and re-run `build-data.js` (see below) after any workbook edit.
 This app was built by Kyle Jacket during an internship with the ARM program in August 2026. Kyle will attempt to be reachable for technical support or general questions for as long as practicable.
 
 # Contact info
-Phone: (763) 607-7504
+Phone: (763) 607-7504  
 email: kjacket0@gmail.com
 
 ---
