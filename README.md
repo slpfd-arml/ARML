@@ -2,7 +2,7 @@
 
 A resource library for St. Louis Park Fire's Alternative Response Medic (ARM) program. Installs like a native app on iPad, iPhone, and desktop, works fully offline once installed, and updates itself in place.
 
-**Live URL:** https://slpfd-arml.github.io/arml/
+**Live URL:** https://slpfd-arml.github.io/ARML/
 
 ## What this is
 
