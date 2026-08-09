@@ -1,0 +1,20 @@
+{
+  "name": "St. Louis Park Fire — ARML",
+  "short_name": "ARML",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#14141a",
+  "theme_color": "#961200",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

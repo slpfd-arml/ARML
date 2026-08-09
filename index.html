@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resource Library</title>
+  <!-- viewport-fit=cover is required alongside black-translucent status bar:
+       without it the header sits awkwardly under the iOS status bar. The
+       matching env(safe-area-inset-*) padding is in style.css. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#961200">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ARML">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- Applied synchronously, before the stylesheet even finishes loading,
+       so there's no flash of the wrong theme while the rest of the page
+       parses. Deliberately tiny and dependency-free - this can't wait
+       for app.js, which loads at the very end of <body>. Lives on
+       <html> (not <body>) because <html> exists the instant parsing
+       starts. Dark is the default: this only ever ADDS the light class,
+       it never has to run for dark mode to be correct. -->
+  <script>
+    try {
+      if (localStorage.getItem("armlTheme") === "light") {
+        document.documentElement.classList.add("theme-light");
+      }
+    } catch (e) { /* localStorage unavailable - default dark theme is fine */ }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <!-- Only the interactive-form-field rules pdf.js needs (~11KB) - not its
+       full ~6300-line default-viewer stylesheet, which also carries
+       toolbar/sidebar/editor CSS ARML doesn't use and generic class names
+       (.page, .dialog, .sidebar) that risk colliding with this file's own
+       styles. See vendor/pdfjs/annotation-layer.css's own header comment
+       for how it was extracted. -->
+  <link rel="stylesheet" href="vendor/pdfjs/annotation-layer.css">
+</head>
+
+<body>
+  <header class="app-header">
+    <img src="icons/slp-patch-small.png" alt="SLP Fire Patch" class="patch">
+    <div class="title-block">
+      <h1>Resource Library</h1>
+      <div class="subtitle">
+        Alternative Response Medic • St. Louis Park Fire
+        <!-- Version stamp lives here now, not in the footer. Tapping it forces
+             an update check. The version text itself is written by app.js from
+             ARM_DATA.meta.version - never hand-edit it here. -->
+        <button id="versionTag" class="version-tag" title="Tap to check for updates">ARML</button>
+      </div>
+    </div>
+    <!-- Stays hidden unless there is genuinely something to report. -->
+    <button id="updateBtn" class="update-btn" hidden aria-live="polite">
+      <span id="updateLabel">Update</span>
+    </button>
+    <!-- Single icon, top-right corner - moon while dark (default), sun
+         while light. Only ever one icon visible at a time; style.css
+         swaps which one via the html.theme-light selector, same pattern
+         everything else in the theme system already uses. -->
+    <button id="themeToggle" class="theme-toggle" type="button"
+            aria-label="Switch to light theme" aria-pressed="false"
+            title="Switch to light theme">
+      <svg class="moon-icon" width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+  </header>
+
+  <main class="split-pane">
+    <aside class="resource-list" id="resourceListPane">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search ARML resources" autocomplete="off">
+      </div>
+
+      <div id="listBackBar" class="list-back-bar">
+        <button id="backBtn" class="back-btn" aria-label="Back to categories">‹ Back</button>
+        <span id="listBackLabel" class="list-back-label"></span>
+      </div>
+
+      <!-- Pulled OUT of #resourceItems on purpose. It used to be the first <li>
+           with position:sticky, which is what made it judder during iOS
+           momentum scrolling in landscape. A real element above the scroll
+           container can't stick-jitter because it never scrolls at all. -->
+      <button id="allResourcesRow" class="all-resources-row" hidden>
+        <span>See all resources</span>
+        <span class="chev">›</span>
+      </button>
+
+      <ul id="resourceItems"></ul>
+    </aside>
+
+    <section class="resource-detail">
+      <div id="detailContent" class="detail-content">
+        <p class="placeholder">Select a resource from the list to view details.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <button id="toolsBtn" class="footer-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1H9z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span>Screening Tools</span>
+    </button>
+    <button id="roiBtn" class="footer-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 15l6-6 2 2-6 6H9v-2z"/></svg>
+      <span>ROI Contacts</span>
+    </button>
+    <button id="insuranceBtn" class="footer-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M14 10h6M14 14h4"/></svg>
+      <span>Insurance Guide</span>
+    </button>
+    <button id="waypointBtn" class="footer-btn">
+      <img src="icons/waypoint-icon.svg" alt="" width="20" height="20">
+      <span>Hennepin Waypoint</span>
+    </button>
+    <button id="ysnBtn" class="footer-btn">
+      <img src="icons/ysn-icon.svg" alt="" width="20" height="20">
+      <span>Youth Services Network</span>
+    </button>
+<button id="favBtn" class="footer-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>
+      <span>Favorites</span>
+    </button>
+  </footer>
+
+  <div id="toolsModal" class="tools-modal">
+  <div class="tools-modal-box">
+    <button id="closeToolsModal" class="tools-close-btn tools-close-btn-floating">✕</button>
+    <div class="tools-modal-content">
+      <div class="tools-modal-header">
+        <h2>Screening Tools</h2>
+      </div>
+
+    <table class="tool-table">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th>Tool</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody id="toolsTableBody"></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+  <div id="pdfViewerModal" class="tools-modal">
+  <div class="tools-modal-box">
+    <button id="closePdfViewerModal" class="tools-close-btn tools-close-btn-floating">✕</button>
+    <div class="tools-modal-content pdf-viewer-content">
+      <div class="tools-modal-header pdf-viewer-header">
+        <h2 id="pdfViewerTitle">Screening Tool</h2>
+        <!-- Label/behavior swapped by app.js per-file: fillable PDFs get
+             "Save" (fills the form fields, hands off the completed copy);
+             plain reference PDFs get "Share" (hands off the file as-is -
+             nothing to fill, this is just "get me a copy"). -->
+        <button type="button" id="pdfViewerActionBtn" class="pdf-viewer-external-btn">Save</button>
+      </div>
+      <!-- Real scrolling, not an iframe: iOS Safari's native PDF viewer
+           silently substitutes a flat image of page 1 only for multi-page
+           PDFs inside an iframe - this renders every page to its own
+           canvas instead, which iOS scrolls normally because it's just
+           looking at ordinary DOM content. -->
+      <div id="pdfPagesContainer" class="pdf-pages-container">
+        <p id="pdfViewerStatus" class="pdf-viewer-status">Loading…</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ONE-TIME SAVE-LOCATION NUDGE
+     Shown once, ever, the first time someone saves a filled form or
+     shares a reference PDF - not every time. iOS has no API that lets a
+     PWA create or write into a folder in the Files app directly, so the
+     best ARML can do is put the recommendation in front of someone right
+     before the share sheet opens, when picking a destination is the very
+     next thing they'll do. See app.js's SAVE_NUDGE_KEY. -->
+<div id="saveNudgeModal" class="tools-modal">
+  <div class="tools-modal-box save-nudge-box">
+    <div class="tools-modal-content save-nudge-content">
+      <p class="save-nudge-text">ARML recommends saving in a OneDrive folder.</p>
+      <button type="button" id="saveNudgeContinue" class="save-nudge-continue-btn">Continue</button>
+    </div>
+  </div>
+</div>
+
+  <div id="roiModal" class="tools-modal">
+  <div class="tools-modal-box">
+    <button id="closeRoiModal" class="tools-close-btn tools-close-btn-floating">✕</button>
+    <div class="tools-modal-content">
+      <div class="tools-modal-header">
+        <h2>Release of Information Contacts</h2>
+      </div>
+
+    <table class="tool-table">
+      <thead>
+        <tr>
+          <th>Organization</th>
+          <th>Phone</th>
+          <th>Fax</th>
+          <th>Email</th>
+          <th>Forms</th>
+        </tr>
+      </thead>
+      <tbody id="roiTableBody"></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+  <div id="insuranceModal" class="tools-modal">
+  <div class="tools-modal-box">
+    <button id="closeInsuranceModal" class="tools-close-btn tools-close-btn-floating">✕</button>
+    <div class="tools-modal-content">
+      <div class="tools-modal-header">
+        <h2>Insurance Guide</h2>
+      </div>
+
+    <div id="insuranceGuideBody" class="insurance-guide-body"></div>
+    </div>
+  </div>
+</div>
+
+  <div id="favModal" class="tools-modal">
+  <div class="tools-modal-box">
+    <button id="closeFavModal" class="tools-close-btn tools-close-btn-floating">✕</button>
+    <div class="tools-modal-content">
+      <div class="tools-modal-header">
+        <h2>Favorites</h2>
+      </div>
+
+    <ul id="favList" class="fav-list"></ul>
+    <p id="favEmpty" class="fav-empty">No favorites yet — tap the heart on a resource to add it here.</p>
+    </div>
+  </div>
+</div>
+
+  <script src="data.js"></script>
+  <script src="insurance-guide-text.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .catch(err => console.error('SW registration failed', err));
+      });
+    }
+  </script>
+</body>
+</html>

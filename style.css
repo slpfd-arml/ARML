@@ -1,0 +1,1180 @@
+:root {
+  --slp-red: #961200;
+  --text-light: #F2F2F2; /* kept for anything still sitting on --slp-red brand chrome, which never changes between themes */
+
+  /* THEME VARIABLES — dark is the default/original palette (unchanged
+     values), light is the override block below. Everything that sits on
+     the red brand chrome (header, footer icons, category-mode pane,
+     selected row, tool-table headers, the update button) intentionally
+     keeps using --slp-red + white directly rather than these variables -
+     that chrome doesn't change between themes, only the app's own
+     surfaces and text do. */
+  --bg-app: #2A2A2A;        /* was --left-pane: body / idle resource list */
+  --bg-chrome: #0D0D0F;     /* was --chrome-bg: search bar, list-back-bar, footer */
+  --bg-surface: #1F1F28;    /* was --detail-pane: detail card, modal boxes */
+  --bg-surface-alt: #16161b;/* .resource-detail wrapper behind the card */
+  --bg-hover: #1A1A1A;      /* list row hover */
+  --bg-pill: #33333d;       /* detail-action-btn pill background */
+
+  --text-primary: #F2F2F2;  /* was var(--text-primary) throughout the app */
+  --text-heading: #FFFFFF;  /* h2/h4 headings inside the detail card */
+  --text-secondary: #d9d9d9;/* parent-org line under a resource name */
+  --text-muted: #C9A0A0;    /* type/meta labels (dusty rose accent) */
+  --text-faint: #B5B5B5;    /* roi-sub, fav-empty */
+
+  --border-color: #000000;  /* pane dividers */
+  --border-subtle: #333333; /* section rules, table rows, tools-modal header rule */
+  --detail-border: #3a3a44; /* .detail-content card outline */
+
+  /* Default WebKit link blue (and the old #0200EC insurance-guide blue) is
+     genuinely hard to read on iPad in bright ambient light - too dark/
+     saturated against this app's dark backgrounds. #8AB4F8 is a lighter,
+     higher-contrast blue that stays legible without going full white
+     (which would make links indistinguishable from body text). Light
+     theme needs the opposite adjustment - see the override block, this
+     same light blue is too washed-out on a white background. */
+  --link-blue: #8AB4F8;
+  --link-blue-active: #5C8FE0;
+}
+
+/* LIGHT THEME
+   Toggled via a class on <html> (see the header ribbon slider + app.js),
+   not prefers-color-scheme - this is a deliberate in-app choice the
+   person can flip regardless of their OS setting, and it needs to
+   persist across launches the same way favorites do. Dark stays the
+   default: this block only ever overrides, it never has to be "turned
+   on" for the app to render correctly. Lives on <html> rather than
+   <body> specifically so the tiny inline script in index.html's <head>
+   can apply it before first paint - <html> exists the instant parsing
+   starts, so there's no flash of the wrong theme while the rest of the
+   document is still loading. */
+html.theme-light {
+  --bg-app: #F4F4F6;
+  --bg-chrome: #E4E4E9;
+  --bg-surface: #FFFFFF;
+  --bg-surface-alt: #ECECEF;
+  --bg-hover: #E2E2E7;
+  --bg-pill: #E4E4EA;
+
+  --text-primary: #1C1C1F;
+  --text-heading: #101012;
+  --text-secondary: #4B4B52;
+  --text-muted: #8C5B5B;
+  --text-faint: #6B6B72;
+
+  --border-color: #C7C7CE;
+  --border-subtle: #D9D9DE;
+  --detail-border: #D5D5DA;
+
+  /* A pastel blue this light reads fine on a dark card but nearly
+     disappears on white - light theme needs a darker, more saturated
+     blue to hit the same readability goal the dark-theme color change
+     was made for in the first place. */
+  --link-blue: #1155CC;
+  --link-blue-active: #0D3E96;
+}
+
+/* GLOBAL */
+/* iOS RUBBER-BAND FIX
+   position:fixed + inset:0 on the body is what actually stops the whole app
+   bouncing when you drag past the end of a list in standalone mode.
+   overscroll-behavior alone is not enough on iOS Safari, and height:100vh is
+   unreliable there because 100vh counts the browser chrome that isn't
+   present once the app is installed to the home screen. Pinning the body
+   means nothing outside the designated scroll containers can move at all. */
+html {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Inter, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  /* Removes the legacy ~300ms tap delay - the single biggest "feels sluggish"
+     culprit on iOS once momentum scrolling is already handled. */
+  touch-action: manipulation;
+  /* Stop iOS from auto-inflating font sizes on rotation. */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Tap highlight: replace the default grey flash with the app's own red */
+#resourceItems li,
+button,
+a {
+  -webkit-tap-highlight-color: rgba(150, 18, 0, 0.25);
+}
+
+/* Base link color for the whole app. Deliberately low-specificity (bare
+   `a`) so it never fights buttons or icon links that set their own color
+   (.detail-action-btn, footer-btn, etc. all use class selectors, which
+   win on specificity automatically). This is the one place link color is
+   set app-wide - anything that needs a different link color should have
+   its own reason documented, the way the old insurance-guide override
+   used to (see below). */
+a {
+  color: var(--link-blue);
+}
+
+a:active {
+  color: var(--link-blue-active);
+}
+
+/* MOMENTUM SCROLLING — every scrollable container in the app.
+   Add any new scroll container to this list. */
+#resourceItems,
+.resource-detail,
+.tools-modal-content {
+  -webkit-overflow-scrolling: touch;
+  /* "none" rather than "contain": contain still lets the container itself
+     rubber-band at its own limits, which is the judder you see at the top
+     and bottom of the resource list. */
+  overscroll-behavior: none;
+}
+
+/* BIGGER RED SCROLLBARS */
+*::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--slp-red);
+  border-radius: 10px;
+  border: 3px solid var(--bg-chrome);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bg-chrome);
+}
+
+/* HEADER */
+.app-header {
+  display: flex;
+  align-items: center;
+  background-color: var(--slp-red);
+  color: white;
+  /* env(safe-area-inset-*) keeps the header clear of the iOS status bar and
+     the landscape notch. Required because the app uses viewport-fit=cover
+     with a translucent status bar. */
+  padding: calc(0.4rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right))
+           0.4rem calc(1rem + env(safe-area-inset-left));
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  flex-shrink: 0;
+}
+
+.patch {
+  height: 72px;
+  margin-right: 1rem;
+}
+
+.title-block h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* SPLIT PANE */
+.split-pane {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* LEFT SIDE */
+.resource-list {
+  width: 40%;
+  background-color: var(--bg-app);
+  border-right: 2px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar {
+  padding: 0.5rem;
+  background: var(--bg-chrome);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.search-bar input {
+  width: calc(100% - 10px);
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-chrome);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+/* CATEGORY MODE — left pane turns red while browsing categories */
+.resource-list.category-mode {
+  background-color: var(--slp-red);
+}
+
+.list-back-bar {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg-chrome);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.list-back-bar.visible {
+  display: flex;
+}
+
+.back-btn {
+  background: var(--slp-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.list-back-label {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-row .cat-count {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.75);
+  margin-right: 0.4rem;
+}
+
+.category-row .chev {
+  color: rgba(255,255,255,0.6);
+}
+
+/* "See all resources" - a real element above the scroll container now,
+   not a position:sticky first-child inside it. Sticky elements inside an
+   iOS momentum-scrolling list judder during the rubber-band, which is
+   exactly the landscape bounce this replaced. */
+.all-resources-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.35);
+  background-color: var(--slp-red);
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.all-resources-row[hidden] {
+  display: none;
+}
+
+.all-resources-row:active {
+  background-color: rgba(0,0,0,0.15);
+}
+
+.resource-list.category-mode #resourceItems li {
+  color: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+
+.resource-list.category-mode #resourceItems li:hover {
+  background-color: rgba(0,0,0,0.15);
+}
+
+/* RESOURCE LIST */
+#resourceItems {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+#resourceItems li {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+#resourceItems li:hover {
+  background-color: var(--bg-hover);
+}
+
+/* SELECTED RESOURCE — MAIN RED */
+#resourceItems li.selected {
+  background-color: var(--slp-red) !important;
+  color: white !important;
+}
+
+.resource-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.resource-row .chev {
+  color: var(--slp-red);
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+#resourceItems li.selected .chev {
+  color: #fff;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.6rem 0 0.75rem;
+}
+
+.detail-action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  background: var(--bg-pill);
+  color: var(--text-primary);
+}
+
+.detail-action-btn.primary {
+  background: var(--slp-red);
+  color: #fff;
+}
+
+.detail-content svg {
+  vertical-align: -2px;
+  color: #F0997B;
+  margin-right: 2px;
+}
+
+.detail-action-btn svg {
+  vertical-align: -2px;
+  color: currentColor;
+  margin-right: 3px;
+}
+
+/* RIGHT SIDE */
+.resource-detail {
+  flex: 1;
+  padding: 0.85rem 1rem;
+  overflow-y: auto;
+  background: var(--bg-surface-alt);
+  color: var(--text-primary);
+}
+
+.detail-content {
+  background: var(--bg-surface);
+  border: 0.5px solid var(--detail-border);
+  border-radius: 12px;
+  padding: 1rem 1.15rem;
+}
+
+.detail-content p {
+  margin: 0.3rem 0;
+}
+
+.detail-content h2 {
+  color: var(--text-heading);
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.25rem;
+}
+
+.detail-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.fav-heart {
+  background: none;
+  border: none;
+  color: var(--slp-red);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.1rem 0.2rem;
+  flex-shrink: 0;
+}
+
+.fav-heart.active {
+  color: #ff4d3d;
+}
+
+.detail-parent {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-top: 0.15rem;
+}
+
+.detail-type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.detail-section {
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.detail-section h3 {
+  margin: 0;
+  padding: 0.3rem 0;
+  color: var(--slp-red);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid rgba(150,18,0,0.4);
+}
+
+.detail-section-content {
+  padding: 0.4rem 0 0.1rem 0;
+}
+
+/* SUB-CONTACTS (e.g. St. Stephen's individual shelter/program contacts) */
+.sub-contact {
+  border-left: 3px solid var(--slp-red);
+  padding: 0.5rem 0 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.sub-contact h4 {
+  margin: 0 0 0.15rem 0;
+  color: var(--text-heading);
+}
+
+.sub-contact-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0 0 0.4rem 0;
+}
+
+.sub-contact p {
+  margin: 0.2rem 0;
+}
+
+/* FOOTER */
+.app-footer {
+  background-color: var(--bg-chrome);
+  /* Was a literal "white" - harmless while every child (.footer-btn) sets
+     its own color anyway, but wrong in principle since this sits on the
+     themed chrome surface, not the red brand background. Light theme
+     would have made that latent bug visible the moment anything here
+     stopped overriding it. */
+  color: var(--text-primary);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 0.35rem calc(0.25rem + env(safe-area-inset-right))
+           calc(0.35rem + env(safe-area-inset-bottom)) calc(0.25rem + env(safe-area-inset-left));
+  flex-shrink: 0;
+}
+
+.footer-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  flex: 1 1 0;
+  max-width: 110px;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 0.3rem 0.15rem;
+  border-radius: 8px;
+}
+
+.footer-btn:hover,
+.footer-btn:active {
+  background: rgba(150,18,0,0.25);
+}
+
+.footer-btn svg,
+.footer-btn img {
+  color: var(--slp-red);
+  flex-shrink: 0;
+}
+
+.footer-btn span {
+  font-size: 0.68rem;
+  line-height: 1.15;
+  text-align: center;
+  /* Reserves space for TWO lines on every button, not just the ones that
+     need it. Without this, a flex column with justify-content:center
+     centers icon+label as one block - and a two-line label makes that
+     block taller, which shifts ITS icon higher than a one-line button's
+     icon. Reserving the same height for all labels means every block is
+     the same total height, so every icon lands on the same row.
+     A single-line label just sits at the top of this space rather than
+     centering within it - equivalent to your "phantom second line" idea,
+     but without literal invisible text a screen reader would otherwise
+     read aloud. */
+  min-height: calc(0.68rem * 1.15 * 2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Version stamp - now a button in the header subtitle. Tapping it forces an
+   update check. Styled to read as text, not as a control, so it doesn't
+   compete with the actual buttons. */
+.version-tag {
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.72);
+  padding: 0.1rem 0.25rem;
+  margin-left: 0.15rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.version-tag:active {
+  background: rgba(0,0,0,0.18);
+}
+
+/* SCREENING TOOLS MODAL */
+.tools-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(3px);
+  z-index: 999;
+}
+
+.tools-modal.open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* LAYERED MODAL STACKING
+   Every .tools-modal shares the same base z-index above, which is fine
+   right up until two of them are open at once - the "popup within a
+   popup" pattern this app deliberately uses (open a ROI/screening-tools
+   list, tap a file, the PDF viewer opens ON TOP without closing the list
+   underneath it, so closing the PDF lands you back where you were).
+   With identical z-index, which one visually wins is decided by DOM
+   source order, not by which one was opened more recently - purely
+   accidental, and exactly what caused ROI PDFs to render BEHIND the ROI
+   Contacts list instead of in front of it. These explicit overrides make
+   the actual intended stacking order permanent regardless of where each
+   modal happens to sit in the HTML: base list modals < the PDF viewer
+   (opens on top of any of them) < the save-location nudge (opens on top
+   of the PDF viewer's own Save button, so it has to win against that
+   too). */
+#pdfViewerModal.open {
+  z-index: 1000;
+}
+
+#saveNudgeModal.open {
+  z-index: 1001;
+}
+
+/* Non-scrolling outer box - establishes the modal's visual frame (bg,
+   rounded corners, shadow, size cap) AND the positioning context for the
+   floating close button below. overflow:hidden keeps the inner scrolling
+   content from poking past the rounded corners as it scrolls.
+   display:flex + the inner content's flex:1/min-height:0 is what lets the
+   INNER area scroll independently while this outer box stays a fixed
+   size - the standard pattern for "scrollable region inside a capped-
+   height box." */
+.tools-modal-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  width: 70%;
+  max-width: 900px;
+  max-height: 80%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  overflow: hidden;
+  color: var(--text-primary);
+}
+
+/* Purely the scrolling region now - no box styling of its own, no
+   special-cased padding. The close button used to live inside this
+   element (as part of a sticky header), which is exactly what caused the
+   clipping: a bold colored section banner getting visually cut off by a
+   sticky bar mid-scroll. Moving the button OUTSIDE this element entirely
+   (see .tools-close-btn-floating) removes that interaction completely -
+   there's nothing sticky in here at all anymore, just a plain scroll. */
+.tools-modal-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 1rem 1.5rem;
+}
+
+.tools-modal-header {
+  border-bottom: 2px solid var(--border-subtle);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  /* Room on the right so the header's own text never sits underneath the
+     floating button that overlays this whole box. */
+  padding-right: 2.75rem;
+}
+
+.tools-close-btn {
+  background: var(--slp-red);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Genuinely floats: positioned relative to .tools-modal-box (the
+   non-scrolling outer wrapper), and since it lives OUTSIDE
+   .tools-modal-content's DOM subtree entirely, it can't be affected by
+   that element's scrolling in any way - no sticky quirks, no clipping,
+   no interaction with whatever's scrolling underneath it. */
+.tools-close-btn-floating {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  z-index: 20;
+}
+
+/* The PDF viewer gets more screen real estate than the other modals -
+   a table of screening tools reads fine at 900px wide, a PDF page
+   doesn't. */
+#pdfViewerModal .tools-modal-box {
+  width: 92%;
+  max-width: 1200px;
+  height: 88%;
+  max-height: 88%;
+}
+
+/* No padding here specifically - the iframe should run edge to edge,
+   not sit inset like text content does. */
+.pdf-viewer-content {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-viewer-content .tools-modal-header {
+  padding: 1rem 1.5rem 0.5rem;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+/* Title on the left, Open/Save on the right - with generous right
+   padding so neither collides with the floating ✕ overlaying the box. */
+.pdf-viewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-right: 4rem !important;
+}
+
+.pdf-viewer-header h2 {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdf-viewer-external-btn {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--slp-red);
+  color: var(--text-primary);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.pdf-viewer-external-btn:active {
+  background: rgba(150, 18, 0, 0.25);
+}
+
+.pdf-viewer-external-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Real scroll container, not an iframe - see the markup comment in
+   index.html for why. Plain vertical stack of page wrappers; every page
+   renders eagerly up front rather than lazily on scroll-into-view. That
+   trade-off is deliberate: ARML's fillable/screening PDFs top out around
+   10-13 pages, which renders fast enough not to need the complexity of a
+   virtualized scroller, and eager rendering means a filled field on page
+   1 is never at risk of its canvas having been torn down by the time
+   someone scrolls back to it. */
+.pdf-pages-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  background: #525659; /* neutral page-viewer grey - same idea as every
+                           native PDF reader's canvas backdrop, so page
+                           edges are visible regardless of app theme */
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pdf-page-wrap {
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  background: white;
+  line-height: 0; /* kills the few-px gap under an inline canvas */
+}
+
+.pdf-page-wrap canvas {
+  display: block;
+}
+
+.pdf-viewer-status {
+  color: white;
+  text-align: left;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.5;
+  padding: 2rem 1.25rem;
+  font-size: 0.95rem;
+}
+
+.pdf-viewer-status.error {
+  color: #ffd9d2;
+}
+
+/* ONE-TIME SAVE-LOCATION NUDGE */
+.save-nudge-box {
+  width: 88%;
+  max-width: 380px;
+  max-height: none;
+}
+
+.save-nudge-content {
+  padding: 1.5rem !important;
+  text-align: center;
+}
+
+.save-nudge-text {
+  margin: 0 0 1.1rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.save-nudge-continue-btn {
+  background: var(--slp-red);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.save-nudge-continue-btn:active {
+  background: rgba(150, 18, 0, 0.75);
+}
+
+.tool-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tool-table th {
+  background: var(--slp-red);
+  color: white;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.tool-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.roi-sub {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  margin-top: 0.2rem;
+}
+
+.roi-sub a {
+  display: inline-block;
+  padding: 0.3rem 0;
+  font-size: 0.95rem;
+}
+
+/* INSURANCE GUIDE MODAL BODY */
+.insurance-guide-body {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.insurance-guide-body p {
+  margin: 0 0 1rem;
+}
+
+.insurance-guide-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Blue rather than ARML-red - keeps clickable links visually distinct
+   from the red section/subsection headers, so it's clear at a glance
+   what's a heading versus what's tappable. Color itself now comes from
+   the shared --link-blue app-wide (was a separate, darker #0200EC that
+   was hard to read on iPad - no reason for this modal to diverge from
+   the same fix everywhere else got). */
+.insurance-guide-body a {
+  color: var(--link-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.insurance-guide-body a:active {
+  color: var(--link-blue-active);
+}
+
+/* Full-bleed banner bar rather than colored text - white on #961200 reads
+   more clearly against the dark modal background than red text does, and
+   gives each section a strong, easy-to-scan visual anchor. The negative
+   left/right margin cancels the modal's own side padding (1.5rem, set on
+   .tools-modal-content) so the bar genuinely spans the full width of the
+   popup edge-to-edge, rather than sitting inset within the text column
+   like everything else in the modal. */
+.insurance-guide-body .guide-section {
+  color: white;
+  background: var(--slp-red);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 1.75rem -1.5rem 0.9rem;
+  padding: 0.6rem 1.5rem;
+}
+
+.insurance-guide-body .guide-section:first-child {
+  margin-top: 0;
+}
+
+.insurance-guide-body .guide-subsection {
+  color: #F0997B;
+  font-size: 0.95rem;
+  margin: 1.1rem 0 0.4rem;
+}
+
+.insurance-guide-body .guide-list {
+  margin: 0 0 1rem;
+  padding-left: 1.3rem;
+}
+
+.insurance-guide-body .guide-list li {
+  margin-bottom: 0.3rem;
+}
+
+.fav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fav-list li {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.fav-list li:hover {
+  background-color: rgba(150,18,0,0.2);
+}
+
+.fav-empty {
+  color: var(--text-faint);
+  padding: 1rem 0;
+}
+
+/* PANE SPLIT
+   flex-basis rather than vh: with the body pinned via position:fixed, vh on
+   iOS measures a viewport that includes browser chrome the installed app
+   doesn't have, so the panes end up taller than the screen and the footer
+   gets pushed off. Percentages of the flex container are exact. */
+
+/* iPad Portrait */
+@media screen and (max-width: 900px) {
+  .split-pane {
+    flex-direction: column;
+  }
+
+  .resource-list {
+    width: 100%;
+    flex: 0 0 45%;
+    min-height: 0;
+    border-right: none;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .resource-detail {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+}
+
+/* iPhone - divider moved UP so the contact card gets more room.
+   The scroll index copes fine with less real estate; the detail card is
+   what someone is actually reading off during a call. iPad split above is
+   deliberately left alone. */
+@media screen and (max-width: 500px) {
+  .resource-list {
+    flex: 0 0 32%;
+  }
+
+  .patch {
+    height: 46px;
+    margin-right: 0.6rem;
+  }
+
+  .title-block h1 {
+    font-size: 1.1rem;
+  }
+
+  .subtitle {
+    font-size: 0.72rem;
+  }
+
+  .footer-btn span {
+    font-size: 0.6rem;
+    /* Must match the desktop rule's line-height math, just against the
+       smaller iPhone font-size - otherwise the reserved 2-line space is
+       taller than the smaller text actually needs. */
+    min-height: calc(0.6rem * 1.15 * 2);
+  }
+}
+
+/* iPad Landscape / Desktop */
+@media screen and (min-width: 901px) {
+  .split-pane {
+    flex-direction: row;
+  }
+
+  .resource-list {
+    width: 40%;
+    height: auto;
+    border-right: 2px solid var(--border-color);
+    border-bottom: none;
+  }
+
+  .resource-detail {
+    width: 60%;
+    height: auto;
+  }
+}
+
+
+
+/* ============================================================
+   UPDATE BUTTON (header, right side)
+   Hidden entirely unless there is something to report, so the
+   normal state of the app is uncluttered.
+   ============================================================ */
+.update-btn {
+  margin-left: auto;
+  /* Breathing room from the theme toggle for the one case both are
+     visible at once - themeToggle now carries its own margin-left:auto
+     too (see its own rule for why), so when both are shown they'd
+     otherwise sit flush against each other with no gap. */
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+  align-self: center;
+  background: rgba(0,0,0,0.28);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+  /* Comfortably tappable with a gloved hand. */
+  min-height: 36px;
+}
+
+.update-btn[hidden] {
+  display: none;
+}
+
+.update-btn:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+/* An update is waiting - the one state that should draw the eye. */
+.update-btn.available {
+  background: #fff;
+  color: var(--slp-red);
+  border-color: #fff;
+  animation: update-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes update-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); }
+  50%      { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+}
+
+/* Respect the OS reduced-motion setting - the pulse is decoration, and the
+   text already says everything the animation does. */
+@media (prefers-reduced-motion: reduce) {
+  .update-btn.available {
+    animation: none;
+  }
+}
+
+.update-btn.busy {
+  background: rgba(0,0,0,0.35);
+  border-color: rgba(255,255,255,0.25);
+}
+
+.update-btn.problem {
+  background: #2b2b33;
+  border-color: rgba(255,255,255,0.3);
+  color: #ffd9d2;
+}
+
+.subtitle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+}
+
+/* ============================================================
+   THEME TOGGLE (single icon, top-right corner)
+   Dark stays the default look-and-feel everywhere - this is purely an
+   on/off switch for the html.theme-light override block above, not a
+   redesign. A short color-transition on the surfaces most visible at a
+   glance (not everything - transitioning 900 lines of rules is wasted
+   GPU work for something that fires once in a blue moon) keeps the
+   flip from feeling like the page just reloaded.
+   ============================================================ */
+body,
+.resource-list,
+.resource-detail,
+.detail-content,
+.app-footer,
+.tools-modal-box,
+.search-bar,
+.search-bar input,
+.list-back-bar {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+/* One small icon, nothing else - no pill, no border, no track, no
+   circular tap-target padding. That padding made sense for a touch
+   target on iPad but reads as an oversized button on desktop, which is
+   what it actually looked like next to the compact update button/version
+   text - shrunk down to match their visual weight instead. */
+.theme-toggle {
+  flex-shrink: 0;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  /* margin-left:auto of its own, not just a small fixed gap after
+     updateBtn - updateBtn is hidden by default (no pending update is the
+     common case), and a hidden element is removed from flex layout
+     entirely, taking its own margin-left:auto with it. Without this,
+     the toggle just sat close to the title with a small fixed gap
+     instead of actually reaching the right edge - only looked correct
+     in the rarer case where an update happens to be pending. */
+  margin-left: auto;
+  cursor: pointer;
+  color: rgba(255,255,255,0.75);
+}
+
+.theme-toggle:active {
+  color: rgba(255,255,255,1);
+}
+
+/* Only ever one icon showing - moon while dark (default), sun while
+   light - not both at once flanking a track. */
+.theme-toggle .sun-icon {
+  display: none;
+  color: #FFD166;
+}
+
+.theme-toggle .moon-icon {
+  display: block;
+}
+
+html.theme-light .theme-toggle .moon-icon { display: none; }
+html.theme-light .theme-toggle .sun-icon { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  body, .resource-list, .resource-detail, .detail-content, .app-footer,
+  .tools-modal-box, .search-bar, .search-bar input, .list-back-bar {
+    transition: none;
+  }
+}
