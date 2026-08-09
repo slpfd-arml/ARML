@@ -224,9 +224,17 @@ a:active {
   font-size: 1.1rem;
 }
 
-/* CATEGORY MODE — left pane turns red while browsing categories */
+/* CATEGORY MODE — the row list itself turns red while browsing
+   categories; the pane's own background stays a neutral #16161B. It used
+   to be a single red background-color on .resource-list.category-mode
+   with the rows left transparent to let it show through - which worked
+   fine as long as the rows filled the whole pane, but on a short list (11
+   categories on a tall iPhone screen) that left a solid, unlabeled red
+   block below the last row with no visual reason to be there. Coloring
+   the rows explicitly (below) means only the actual rows are red now;
+   any leftover space below them shows the pane's own #16161B instead. */
 .resource-list.category-mode {
-  background-color: var(--slp-red);
+  background-color: #16161B;
 }
 
 .list-back-bar {
@@ -308,6 +316,7 @@ a:active {
 }
 
 .resource-list.category-mode #resourceItems li {
+  background-color: var(--slp-red);
   color: #fff;
   border-bottom: 1px solid rgba(0,0,0,0.3);
 }
@@ -425,6 +434,18 @@ a:active {
 
 .detail-content p {
   margin: 0.3rem 0;
+}
+
+/* Empty-state text shown before any resource is selected - was
+   completely unstyled before (just inheriting the plain paragraph rule
+   above), which read like forgotten filler rather than a deliberate
+   "nothing selected yet" state. */
+.placeholder {
+  color: var(--text-faint);
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem 1rem;
 }
 
 .detail-content h2 {
@@ -864,57 +885,67 @@ a:active {
   color: var(--text-primary);
 }
 
-/* ROI CONTACTS TABLE — this table has 5 columns (vs Screening Tools' 3),
-   and auto table-layout was letting unbroken strings (long org names,
-   email addresses) grow their column past the modal's own width. That
-   overflow is exactly what forced the whole box to scroll horizontally
-   on iPad portrait. Fixed layout makes columns respect the table's own
-   width (100% of the modal) instead of growing to fit their content, and
-   the explicit per-column widths below give Organization/Forms the room
-   they actually need while keeping Phone/Fax narrow. overflow-wrap then
-   lets those same long strings break onto a new line instead of
-   overflowing or getting clipped now that their column has a hard cap.
-   Scoped to #roiModal specifically so Screening Tools' simpler 3-column
-   table is untouched. */
-#roiModal .tool-table {
-  table-layout: fixed;
+/* ROI CONTACTS — LIST + DETAIL CARD
+   Replaced the old 5-column table entirely (see app.js's comment on
+   renderRoiContacts for why - short version: a table just doesn't have
+   anywhere to put 5 columns of contact info on an iPhone-width screen).
+   The org list below matches #resourceItems' own row styling so this
+   reads as the same interaction pattern as the main app - tap a row, see
+   a full-width detail card, tap back to return. */
+.roi-org-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-#roiModal .tool-table th:nth-child(1),
-#roiModal .tool-table td:nth-child(1) { width: 30%; }
-#roiModal .tool-table th:nth-child(2),
-#roiModal .tool-table td:nth-child(2) { width: 15%; }
-#roiModal .tool-table th:nth-child(3),
-#roiModal .tool-table td:nth-child(3) { width: 13%; }
-#roiModal .tool-table th:nth-child(4),
-#roiModal .tool-table td:nth-child(4) { width: 20%; }
-#roiModal .tool-table th:nth-child(5),
-#roiModal .tool-table td:nth-child(5) { width: 22%; }
-
-#roiModal .tool-table th,
-#roiModal .tool-table td {
-  overflow-wrap: break-word;
-  word-break: break-word;
+.roi-org-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer;
+  color: var(--text-primary);
 }
 
-/* Belt-and-suspenders: with the table now capped to the modal's own
-   width, there's nothing left that should ever need to scroll
-   sideways - this just guarantees a stray pixel of rounding can't bring
-   the horizontal scrollbar back. */
+.roi-org-row:hover {
+  background-color: var(--bg-hover);
+}
+
+.roi-org-row .chev {
+  color: var(--slp-red);
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+/* Always visible (unlike .detail-close-btn, which only shows inside the
+   iPhone slide-over breakpoint) - this list/detail toggle happens inside
+   the modal at every screen size, not just on a phone. */
+.roi-detail-back {
+  display: inline-flex;
+  align-items: center;
+  background: var(--slp-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 0.85rem;
+}
+
+#roiDetailContent h2 {
+  color: var(--text-heading);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+/* Belt-and-suspenders: nothing in here should ever need to scroll
+   sideways, so guarantee a stray pixel of rounding can't bring a
+   horizontal scrollbar back. */
 #roiModal .tools-modal-content {
   overflow-x: hidden;
-}
-
-.roi-sub {
-  font-size: 0.8rem;
-  color: var(--text-faint);
-  margin-top: 0.2rem;
-}
-
-.roi-sub a {
-  display: inline-block;
-  padding: 0.3rem 0;
-  font-size: 0.95rem;
 }
 
 /* INSURANCE GUIDE MODAL BODY */

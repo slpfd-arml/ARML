@@ -18,7 +18,7 @@
                             PDF a medic downloaded for offline use.
    ============================================================ */
 
-const BUILD_ID = '3.1.8+4f599a198357';
+const BUILD_ID = '3.1.9+acd97ce8f8e8';
 const SHELL_FILES = [
   "index.html",
   "style.css",

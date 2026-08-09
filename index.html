@@ -205,18 +205,16 @@
         <h2>Release of Information Contacts</h2>
       </div>
 
-    <table class="tool-table">
-      <thead>
-        <tr>
-          <th>Organization</th>
-          <th>Phone</th>
-          <th>Fax</th>
-          <th>Email</th>
-          <th>Forms</th>
-        </tr>
-      </thead>
-      <tbody id="roiTableBody"></tbody>
-    </table>
+    <!-- List view: tap an organization to see its full contact card
+         (see roiDetailView below) - replaces the old 5-column table,
+         which had nowhere to put "Organization" on an iPhone-width
+         screen without breaking it mid-word. -->
+    <ul id="roiOrgList" class="roi-org-list"></ul>
+
+    <div id="roiDetailView" class="roi-detail-view" hidden>
+      <button id="roiDetailBack" class="roi-detail-back" type="button">‹ Back to organizations</button>
+      <div id="roiDetailContent"></div>
+    </div>
     </div>
   </div>
 </div>

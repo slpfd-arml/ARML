@@ -1079,9 +1079,21 @@ document.getElementById("ysnBtn").addEventListener("click", () => {
   window.open("https://ysnmn.org/", "_blank");
 });
 
-/* RELEASE OF INFORMATION MODAL */
+/* RELEASE OF INFORMATION MODAL
+   List → detail-card pattern (same idea as the main resource list), not a
+   table. A 5-column table just doesn't have anywhere to go on an iPhone-
+   width screen - even with a smaller font, "Organization" doesn't fit a
+   ~100px column without breaking mid-word, and that's before Fax/Email
+   get their own turn being too narrow. Tapping an organization now shows
+   its full contact info as a single-column card, which reuses the same
+   contactBlock()/fileBlock()/section() helpers the main resource detail
+   card already uses - identical visual language, and every column's
+   content gets the full width of the modal instead of a slice of it. */
 const roiModal = document.getElementById("roiModal");
-const roiTableBody = document.getElementById("roiTableBody");
+const roiOrgList = document.getElementById("roiOrgList");
+const roiDetailView = document.getElementById("roiDetailView");
+const roiDetailContent = document.getElementById("roiDetailContent");
+const roiDetailBack = document.getElementById("roiDetailBack");
 const closeRoiModal = document.getElementById("closeRoiModal");
 
 roiBtn.addEventListener("click", () => {
@@ -1094,43 +1106,42 @@ closeRoiModal.addEventListener("click", () => {
 });
 
 function renderRoiContacts() {
-  roiTableBody.innerHTML = "";
+  roiOrgList.innerHTML = "";
+  roiDetailView.hidden = true;
+  roiOrgList.hidden = false;
 
   (ARM_DATA.release_of_information || []).forEach(org => {
-    const row = document.createElement("tr");
-
-    const addressLine = org.address ? `<div class="roi-sub">${formatAddress(org.address)}</div>` : "";
-
-    const orgCell = [org.organization, addressLine]
-      .filter(Boolean)
-      .join("");
-
-    const phoneCell = [
-      org.phone ? `<a href="${telHref(org.phone)}">${formatPhone(org.phone)}</a>` : "",
-      org.altPhone ? `<div class="roi-sub">Alt: <a href="${telHref(org.altPhone)}">${formatPhone(org.altPhone)}</a></div>` : ""
-    ].filter(Boolean).join("");
-
-    const faxCell = [
-      org.fax ? formatPhone(org.fax) : "",
-      org.altFax ? `<div class="roi-sub">Alt: ${formatPhone(org.altFax)}</div>` : ""
-    ].filter(Boolean).join("");
-
-    const emailCell = org.email ? `<a href="mailto:${org.email}">${org.email}</a>` : "";
-    const formsCell = (org.files && org.files.length)
-      ? org.files.map(f => `<div class="roi-sub"><a ${fileLinkAttrs(toFileUrl(f.path), f.label, f.fillable)}>${f.label}</a></div>`).join("")
-      : "";
-
-    row.innerHTML = `
-      <td>${orgCell}${org.notes ? `<div class="roi-sub">${org.notes}</div>` : ""}</td>
-      <td>${phoneCell}</td>
-      <td>${faxCell}</td>
-      <td>${emailCell}</td>
-      <td>${formsCell}</td>
-    `;
-
-    roiTableBody.appendChild(row);
+    const li = document.createElement("li");
+    li.className = "roi-org-row";
+    li.innerHTML = `<span>${org.organization}</span><span class="chev">›</span>`;
+    li.addEventListener("click", () => showRoiDetail(org));
+    roiOrgList.appendChild(li);
   });
 }
+
+function showRoiDetail(org) {
+  // contactBlock()/fileBlock() already handle every field an ROI org can
+  // have (phone, altPhone, fax, altFax, email, address, files) - they
+  // were written generically enough for the main resource card that
+  // nothing ROI-specific needs to be duplicated here.
+  roiDetailContent.innerHTML = `
+    <h2>${org.organization}</h2>
+    ${section("Contact", contactBlock(org))}
+    ${section("Notes", org.notes)}
+    ${section("Forms", fileBlock(org))}
+  `;
+  roiOrgList.hidden = true;
+  roiDetailView.hidden = false;
+  // Detail card can be longer than the list it replaced (multiple forms,
+  // long notes) - always start scrolled to the top rather than wherever
+  // the list happened to be scrolled to.
+  document.querySelector("#roiModal .tools-modal-content").scrollTop = 0;
+}
+
+roiDetailBack.addEventListener("click", () => {
+  roiDetailView.hidden = true;
+  roiOrgList.hidden = false;
+});
 
 /* FAVORITES MODAL */
 const favBtn = document.getElementById("favBtn");
