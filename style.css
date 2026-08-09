@@ -408,6 +408,21 @@ a:active {
   padding: 1rem 1.15rem;
 }
 
+/* Hidden by default - only shown inside the max-width:500px slide-over
+   layout below. Matches .back-btn's styling (same red pill, same idea:
+   "leave the thing you're looking at, go back to the list behind it"). */
+.detail-close-btn {
+  display: none;
+  background: var(--slp-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 0.6rem;
+}
+
 .detail-content p {
   margin: 0.3rem 0;
 }
@@ -1035,8 +1050,74 @@ a:active {
    what someone is actually reading off during a call. iPad split above is
    deliberately left alone. */
 @media screen and (max-width: 500px) {
+  /* IPHONE SLIDE-OVER DETAIL
+     Below iPad width, .resource-list and .resource-detail already stack
+     vertically (see the 900px block above) - but at iPhone width that
+     only gives the detail pane a cramped sliver of the screen, which is
+     the actual complaint this replaces. Here .resource-detail instead
+     becomes a full-screen sheet that slides in from the right over the
+     list on selection, iOS-style, and slides back out via
+     #detailCloseBtn. Nothing here reacts to viewport size directly -
+     app.js just always toggles the .detail-active class on selection/
+     close, unconditionally, the same way it already toggles
+     .category-mode elsewhere. That class is a no-op above this
+     breakpoint (none of these rules apply there), so there's no risk of
+     the class getting toggled while a resize crosses the breakpoint and
+     leaving the layout stuck. Because .resource-detail goes
+     position:fixed, it's pulled out of the .split-pane flex flow
+     entirely - .resource-list no longer has a sibling to share space
+     with, hence the flex override right below undoing the 32% split. */
   .resource-list {
-    flex: 0 0 32%;
+    flex: 1 1 auto;
+  }
+
+  .resource-detail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* dvh accounts for iOS Safari's dynamic URL/toolbar; vh is the
+       fallback for anything that doesn't support dvh yet - declared
+       first so it's simply overridden where dvh IS supported. */
+    height: 100vh;
+    height: 100dvh;
+    z-index: 500;
+    padding: calc(0.85rem + env(safe-area-inset-top)) 1rem
+             calc(0.85rem + env(safe-area-inset-bottom));
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    will-change: transform;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .resource-detail.detail-active {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .detail-close-btn {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+  }
+
+  /* POPUP MODALS AS FULL-BLEED SHEETS
+     The shared .tools-modal-box default (70%/900px cap) is comfortable
+     on an iPad but cramped on an iPhone screen - a 70%-width box on a
+     ~375px-wide phone leaves barely 260px for a 5-column ROI table or a
+     multi-line Insurance Guide paragraph. :not(.save-nudge-box)
+     specifically excludes the one-time save-location nudge, which is
+     deliberately small/centered at ANY screen size (it's two lines of
+     text and a button, blowing it up to full-screen would look broken,
+     not fixed). */
+  .tools-modal-box:not(.save-nudge-box) {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
   }
 
   .patch {
