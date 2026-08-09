@@ -94,6 +94,14 @@
     </aside>
 
     <section class="resource-detail">
+      <!-- Only ever visible in the iPhone-width slide-over layout (see the
+           max-width:500px block in style.css) - hidden everywhere else,
+           since .resource-detail sits inline next to the list on every
+           larger breakpoint and there's nothing to "close" back out of
+           there. Lives outside #detailContent (not part of the
+           innerHTML showDetail() rewrites) so it survives every detail
+           re-render untouched. -->
+      <button id="detailCloseBtn" class="detail-close-btn" type="button" aria-label="Back to list">‹ Back to list</button>
       <div id="detailContent" class="detail-content">
         <p class="placeholder">Select a resource from the list to view details.</p>
       </div>

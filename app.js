@@ -1,6 +1,8 @@
 const searchInput = document.getElementById("searchInput");
 const resourceItems = document.getElementById("resourceItems");
 const detailContent = document.getElementById("detailContent");
+const detailPane = document.querySelector(".resource-detail");
+const detailCloseBtn = document.getElementById("detailCloseBtn");
 const resourceListPane = document.getElementById("resourceListPane");
 const listBackBar = document.getElementById("listBackBar");
 const backBtn = document.getElementById("backBtn");
@@ -444,6 +446,13 @@ allResourcesRow.addEventListener("click", () => {
   showResourceList(ARM_DATA.resources, "All resources");
 });
 
+// Slides the detail pane back out on iPhone (see the max-width:500px
+// slide-over rules in style.css). No effect above that breakpoint - the
+// list is already visible there, there's nothing to "go back" to.
+detailCloseBtn.addEventListener("click", () => {
+  detailPane.classList.remove("detail-active");
+});
+
 /* UNIFIED RESOURCE RENDERER — always alphabetical */
 function renderResources(list) {
   resourceItems.innerHTML = "";
@@ -461,6 +470,12 @@ function renderResources(list) {
       });
       li.classList.add("selected");
       showDetail(r);
+      // No-op above the iPhone slide-over breakpoint (max-width:500px) -
+      // .detail-active only has any visual effect inside that media
+      // query, so toggling it unconditionally here is safe at every
+      // screen size rather than needing a matchMedia check that could
+      // get out of sync on resize/rotation.
+      detailPane.classList.add("detail-active");
     });
 
     resourceItems.appendChild(li);
@@ -1149,6 +1164,7 @@ function renderFavorites() {
       favModal.classList.remove("open");
       showResourceList(favResources, "Favorites");
       showDetail(r);
+      detailPane.classList.add("detail-active");
     });
     favList.appendChild(li);
   });
