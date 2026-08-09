@@ -66,11 +66,11 @@ html.theme-light {
   --border-subtle: #D9D9DE;
   --detail-border: #D5D5DA;
 
-  /* A pastel blue this light reads fine on a dark card but nearly
-     disappears on white - light theme needs a darker, more saturated
-     blue to hit the same readability goal the dark-theme color change
-     was made for in the first place. */
-  --link-blue: #1155CC;
+  /* Classic web-blue #0000EE per explicit design choice - the default,
+     familiar "this is a link" color on a white background. Dark theme is
+     unaffected: it keeps its own lighter #8AB4F8 (see :root above), which
+     was tuned separately for legibility against dark surfaces. */
+  --link-blue: #0000EE;
   --link-blue-active: #0D3E96;
 }
 
@@ -849,6 +849,47 @@ a:active {
   color: var(--text-primary);
 }
 
+/* ROI CONTACTS TABLE — this table has 5 columns (vs Screening Tools' 3),
+   and auto table-layout was letting unbroken strings (long org names,
+   email addresses) grow their column past the modal's own width. That
+   overflow is exactly what forced the whole box to scroll horizontally
+   on iPad portrait. Fixed layout makes columns respect the table's own
+   width (100% of the modal) instead of growing to fit their content, and
+   the explicit per-column widths below give Organization/Forms the room
+   they actually need while keeping Phone/Fax narrow. overflow-wrap then
+   lets those same long strings break onto a new line instead of
+   overflowing or getting clipped now that their column has a hard cap.
+   Scoped to #roiModal specifically so Screening Tools' simpler 3-column
+   table is untouched. */
+#roiModal .tool-table {
+  table-layout: fixed;
+}
+
+#roiModal .tool-table th:nth-child(1),
+#roiModal .tool-table td:nth-child(1) { width: 30%; }
+#roiModal .tool-table th:nth-child(2),
+#roiModal .tool-table td:nth-child(2) { width: 15%; }
+#roiModal .tool-table th:nth-child(3),
+#roiModal .tool-table td:nth-child(3) { width: 13%; }
+#roiModal .tool-table th:nth-child(4),
+#roiModal .tool-table td:nth-child(4) { width: 20%; }
+#roiModal .tool-table th:nth-child(5),
+#roiModal .tool-table td:nth-child(5) { width: 22%; }
+
+#roiModal .tool-table th,
+#roiModal .tool-table td {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Belt-and-suspenders: with the table now capped to the modal's own
+   width, there's nothing left that should ever need to scroll
+   sideways - this just guarantees a stray pixel of rounding can't bring
+   the horizontal scrollbar back. */
+#roiModal .tools-modal-content {
+  overflow-x: hidden;
+}
+
 .roi-sub {
   font-size: 0.8rem;
   color: var(--text-faint);
@@ -975,6 +1016,17 @@ a:active {
     width: 100%;
     flex: 1 1 auto;
     min-height: 0;
+  }
+
+  /* ROI Contacts' 5 columns are cramped at the shared .tools-modal-box
+     default of 70%/900px on an iPad-portrait-width screen - widening
+     just this modal here (rather than touching .tools-modal-box itself)
+     gives those columns more room to work with before overflow-wrap has
+     to break words as hard as it can. Screening Tools' 3-column table
+     doesn't need this and keeps the narrower default. */
+  #roiModal .tools-modal-box {
+    width: 96%;
+    max-width: none;
   }
 }
 
