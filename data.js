@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-10T17:04:15.354Z",
+    "generated": "2026-08-10T20:50:45.697Z",
     "resource_count": 161,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
-    "version": "3.1.16",
-    "buildId": "3.1.16+78c529eef7ca",
-    "dataHash": "78c529eef7ca"
+    "version": "3.1.17",
+    "buildId": "3.1.17+005b4660faeb",
+    "dataHash": "005b4660faeb"
   },
   "categories": [
     "Benefits & Insurance",
@@ -1137,7 +1137,7 @@ const ARM_DATA = {
       "tty": "",
       "website": "https://meals-on-wheels.com/",
       "address": "1200 Washington Ave S, Suite 380, Minneapolis, MN 55415",
-      "notes": "",
+      "notes": "Enrollment form: https://store.metrotransit.org/Tap/New",
       "keywords": "metro, meals, wheels, home, delivered, seniors, people, disabilities",
       "categories": [
         "Food & Basic Needs"

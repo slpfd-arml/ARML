@@ -1,5 +1,5 @@
 {
-  "buildId": "3.1.16+78c529eef7ca",
+  "buildId": "3.1.17+005b4660faeb",
   "shell": [
     "index.html",
     "style.css",
@@ -8,6 +8,7 @@
     "manifest.json",
     "version.json",
     "insurance-guide-text.js",
+    "icons/arml-icon.ico",
     "icons/icon-180.png",
     "icons/icon-192.png",
     "icons/icon-512.png",
