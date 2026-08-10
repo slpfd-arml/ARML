@@ -310,7 +310,7 @@ document.addEventListener("click", e => {
 // locations, trailing parenthetical notes, and addresses missing the comma
 // before the city. Falls back to showing the address as-is, still linked, if
 // it doesn't match a recognizable "...CITY, ST ZIP" pattern at all.
-function formatAddress(raw) {
+function formatAddress(raw, plain) {
   if (!raw) return "";
 
   function parseOne(segment) {
@@ -318,7 +318,7 @@ function formatAddress(raw) {
     const m = addr.match(/^(.*?),?\s*([A-Z]{2})\s+(\d{5}(?:-\d{4})?)\s*(\([^)]*\))?$/);
     const mapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(addr)}`;
     if (!m) {
-      return `<a href="${mapsUrl}" target="_blank">${addr}</a>`;
+      return plain ? addr : `<a href="${mapsUrl}" target="_blank">${addr}</a>`;
     }
     let rest = m[1].replace(/,\s*$/, "");
     const lastComma = rest.lastIndexOf(",");
@@ -332,6 +332,14 @@ function formatAddress(raw) {
       street = words.join(" ");
     }
     const note = m[4] ? ` ${m[4]}` : "";
+    // plain: a mailing address, not a physical location someone would
+    // ever navigate to - no pin icon, no tap-to-open-Maps link, just the
+    // same two-line formatting as a flat string. Used for ROI Contacts,
+    // where every address is "where to fax/mail a records request," not
+    // "where to walk in."
+    if (plain) {
+      return `${street}<br>${city}, ${m[2]} ${m[3]}${note}`;
+    }
     return `<a href="${mapsUrl}" target="_blank">${icon("pin")} ${street}<br>${city}, ${m[2]} ${m[3]}${note}</a>`;
   }
 
@@ -530,7 +538,8 @@ function section(title, content) {
   `;
 }
 
-function contactBlock(r) {
+function contactBlock(r, opts) {
+  opts = opts || {};
   return `
     ${r.phone ? `<p>${icon("phone")} <a href="${telHref(r.phone)}">${formatPhone(r.phone)}</a></p>` : ""}
     ${r.altPhone ? `<p>${icon("phone")} <strong>Alt:</strong> <a href="${telHref(r.altPhone)}">${formatPhone(r.altPhone)}</a></p>` : ""}
@@ -538,7 +547,7 @@ function contactBlock(r) {
     ${r.altFax ? `<p><strong>Alt Fax:</strong> ${formatPhone(r.altFax)}</p>` : ""}
     ${r.tty ? `<p><strong>TTY:</strong> <a href="${telHref(r.tty)}">${formatPhone(r.tty)}</a></p>` : ""}
     ${r.email ? `<p>${icon("mail")} <a href="mailto:${r.email}">${r.email}</a></p>` : ""}
-    ${r.address ? `<p>${formatAddress(r.address)}</p>` : ""}
+    ${r.address ? `<p>${formatAddress(r.address, opts.plainAddress)}</p>` : ""}
     ${r.hours ? `<p><strong>Hours:</strong><br>${formatHours(r.hours)}</p>` : ""}
   `;
 }
@@ -1131,7 +1140,7 @@ function showRoiOrgDetail(org, li) {
   // ROI-specific needs duplicating here.
   roiDetailContent.innerHTML = `
     <h2>${org.organization}</h2>
-    ${section("Contact", contactBlock(org))}
+    ${section("Contact", contactBlock(org, { plainAddress: true }))}
     ${section("Notes", org.notes)}
     ${section("Forms", fileBlock(org))}
   `;

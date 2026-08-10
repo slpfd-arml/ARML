@@ -500,22 +500,22 @@ a:active {
 .detail-section h3 {
   margin: 0;
   padding: 0.3rem 0;
-  /* Was var(--slp-red) - dark, saturated red text directly on the dark
-     card background (var(--bg-surface)) is exactly the low-contrast
-     combination that causes eyestrain: two dark, desaturated-looking
-     colors next to each other with not enough lightness difference to
-     read comfortably. --text-muted is the same "dusty rose" family (it's
-     literally the color the phone/mail/pin icons already use elsewhere
-     in this same card via --detail-content svg), but it's light enough
-     to read easily against a dark card - and it's already defined with
-     a separate, appropriately-darker value for the light theme, so this
-     one change fixes both themes at once rather than needing its own
-     light-theme override. */
-  color: var(--text-muted);
+  /* Was var(--slp-red), then var(--text-muted) (a dusty-rose accent) -
+     both still read as low-contrast/washed-out against the dark card in
+     practice, so this is now the same var(--text-heading) white every
+     other heading in this card already uses (h2 titles, sub-contact
+     h4s). Already correctly darkened for the light theme too, so this
+     one change covers both. */
+  color: var(--text-heading);
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  border-bottom: 1px solid rgba(150,18,0,0.4);
+  /* Was rgba(150,18,0,0.4) - a thin red line under a now-white heading
+     read as an odd, slightly clashing accent rather than a clean
+     divider. var(--border-subtle) is the same neutral rule used
+     elsewhere in this card (e.g. .detail-section's own outer border),
+     so this now matches rather than introducing its own color. */
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .detail-section-content {
