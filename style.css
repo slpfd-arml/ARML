@@ -1453,12 +1453,13 @@ body,
   transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
-/* SMALL PILL SWITCH - both icons always visible, a knob slides between
+/* PILL SWITCH - both icons always visible, a knob slides between
    them. A bigger version of this same idea was tried once before and
    dropped for looking too big/distracting sitting right next to the
-   version badge - this one is deliberately smaller (40x20px track) and
-   lives in the header's own top-right corner, nowhere near the version
-   badge (that's down in the subtitle line under the title). Kept as
+   version badge - this one lives in the header's own top-right corner,
+   nowhere near the version badge (that's down in the subtitle line
+   under the title), and its icons are sized to match the original
+   single icon (17x17) exactly. Kept as
    close to the old single-icon's visual weight as a two-icon switch
    reasonably can be: a dark, low-contrast track (not a bright pill) and
    a faded inactive icon, so only the knob + active icon actually draw
@@ -1484,21 +1485,25 @@ body,
 
 .theme-toggle-track {
   position: relative;
-  width: 40px;
-  height: 20px;
-  border-radius: 10px;
+  /* Scaled up from the original 40x20 so each icon can go back to its
+     original 17x17 size (was shrunk to 11x11 to fit the smaller pill) -
+     knob and travel distance scaled up to match, same proportions as
+     before, just bigger throughout. */
+  width: 62px;
+  height: 28px;
+  border-radius: 14px;
   background: rgba(0,0,0,0.28);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 4px;
+  padding: 0 6px;
   /* This is the actual fix for the knob falling short of the sun icon -
-     width:40px was being treated as content width, with the 4px+4px of
+     width was being treated as content width, with the left/right
      padding added ON TOP of it (default content-box sizing), making the
-     real rendered track ~48px wide while the knob's travel distance
-     below was calculated assuming a true 40px. border-box makes the
-     40px include the padding, so the math and the rendered box finally
-     agree. */
+     real rendered track wider than intended while the knob's travel
+     distance below was calculated assuming the declared width. border-
+     box makes the declared width include the padding, so the math and
+     the rendered box finally agree. */
   box-sizing: border-box;
 }
 
@@ -1514,10 +1519,10 @@ body,
    generic white pill did. */
 .theme-toggle-knob {
   position: absolute;
-  left: 2px;
+  left: 3px;
   top: 2px;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: var(--slp-red);
   transition: left 0.2s ease;
@@ -1525,21 +1530,22 @@ body,
 
 html.theme-light .theme-toggle-knob {
   /* Explicit left value instead of transform:translateX() - mirrors the
-     left:2px start position exactly (40 - 16 - 2 = 22), rather than
+     left:3px start position exactly (62 - 24 - 3 = 35), rather than
      computing a travel distance that has to independently agree with
      it. Same box-sizing bug above would have silently thrown this off
      too if it were still measuring the wrong track width. */
-  left: 22px;
+  left: 35px;
 }
 
 /* Icons sit in normal flow AFTER the knob in the DOM (see index.html),
    so they naturally paint on top of it without needing z-index - that's
    what lets the "active" icon actually show up legibly while the red
-   knob sits behind it. */
+   knob sits behind it. Back to 17x17 - the same size the single icon
+   was before this became a two-icon pill. */
 .theme-toggle svg {
   position: relative;
-  width: 11px;
-  height: 11px;
+  width: 17px;
+  height: 17px;
   flex-shrink: 0;
 }
 

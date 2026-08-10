@@ -58,25 +58,25 @@
     <button id="updateBtn" class="update-btn" hidden aria-live="polite">
       <span id="updateLabel">Update</span>
     </button>
-    <!-- Small pill switch, both icons always visible - not a single
-         swapping icon anymore. The knob slides to whichever icon
-         matches the current theme (see .theme-toggle-knob in
-         style.css), and that icon recolors to the brand red for
-         contrast against the white knob sitting behind it; the other
-         icon fades to a dim white against the dark track. Kept
-         deliberately small (40x20px) and positioned exactly where the
-         old single icon lived - a previous, bigger pill version sitting
-         right next to the version badge was tried and dropped for being
-         too big/distracting; this one is smaller than that attempt and
-         nowhere near the version badge (which lives down in the
-         subtitle line, not in this header row). -->
+    <!-- Pill switch, both icons always visible - not a single swapping
+         icon anymore. The knob (red, matching the header) slides to
+         whichever side matches the current theme - position is the
+         real signal, same as any OS-level toggle; icon color only adds
+         opacity emphasis on top of that (white vs faded white), not a
+         second hue-coded signal. Icons are 17x17, the same size the
+         original single icon was. Positioned exactly where that single
+         icon lived - a much bigger pill version sitting right next to
+         the version badge was tried once before and dropped for being
+         too big/distracting; this one is nowhere near the version badge
+         (which lives down in the subtitle line, not in this header
+         row), which was the actual problem last time. -->
     <button id="themeToggle" class="theme-toggle" type="button"
             aria-label="Switch to light theme" aria-pressed="false"
             title="Switch to light theme">
       <span class="theme-toggle-track">
         <span class="theme-toggle-knob"></span>
-        <svg class="moon-icon" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="sun-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="moon-icon" width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
       </span>
     </button>
   </header>
