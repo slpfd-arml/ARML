@@ -1,0 +1,63 @@
+# Lives at: ARML repo -> .github/workflows/rebuild-on-workbook-change.yml
+#
+# Runs build-data.js on GitHub's own servers whenever the workbook changes -
+# whether that change came from someone running the local Node ARML Editor
+# and pushing directly, OR from the browser-based ARML Editor committing an
+# updated workbook via the GitHub API. Either way, this is what turns "the
+# workbook changed" into "data.js/version.json/assets-manifest.json/
+# service-worker.js are regenerated and live."
+#
+# This deliberately does NOT duplicate build-data.js's logic in JavaScript
+# that could run in a browser. build-data.js shells out to two other Node
+# scripts (detect-fillable.js, detect-ccitt-images.js) that parse PDF
+# binaries with pdf-lib against files on disk in /Assets - there's no
+# browser equivalent for that, and reimplementing it would create a second
+# copy of build logic that has to be kept in sync by hand forever. Running
+# the real, unmodified build-data.js here avoids that entirely.
+
+name: Rebuild ARM data on workbook change
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ARM-Builder/New_ARM_Library.xlsx"
+  # Lets you manually re-run the build from the Actions tab without needing
+  # to touch the workbook - useful after editing build-data.js itself, or
+  # if a run failed and you want to retry without a new commit.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install ARM-Builder dependencies
+        working-directory: ARM-Builder
+        run: npm install
+
+      - name: Run build-data.js
+        working-directory: ARM-Builder
+        run: node build-data.js
+
+      - name: Commit regenerated files
+        run: |
+          git config user.name "ARML Build Bot"
+          git config user.email "actions@github.com"
+          git add data.js version.json assets-manifest.json service-worker.js VERSION
+          # Only commit if the build actually changed something - avoids an
+          # empty, noisy commit on every workbook save where the content
+          # hash happens not to move (e.g. a save that only reordered rows
+          # back to the same values).
+          git diff --cached --quiet || git commit -m "Auto-rebuild: data.js, version.json, assets-manifest.json, service-worker.js [skip ci]"
+          git push
