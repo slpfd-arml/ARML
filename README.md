@@ -83,6 +83,28 @@ Either path ends the same way: the workbook gets updated, the build runs, and th
 
 ---
 
+## ARML Editor in depth
+
+ARML Editor lives in the `ARML Editor/` folder and is a small local tool, not a website — running `start-ARML-editor.bat` starts a tiny local web server on this machine and opens it in a browser tab. Nothing about it is hosted anywhere; it only ever talks to `localhost` and (optionally) GitHub.
+
+**What it does on every save:** writes your change into `ARM-Builder/New_ARM_Library.xlsx` → runs the same build script the manual workflow above uses → if GitHub publishing is turned on, pushes the rebuilt files straight to GitHub. All three steps happen automatically; there's nothing to run separately.
+
+**Getting it running the first time:**
+1. `ARML Editor/start-ARML-editor.bat` needs a copy of Node.js to run at all. It looks in `ARML Editor/node-portable/` first, and only falls back to checking for a system-wide Node.js install if that folder is empty.
+2. **About that portable copy of Node.js — a note on trust:** `node-portable/node.exe`, if present, is the official Node.js Windows binary downloaded directly from nodejs.org, code-signed by the OpenJS Foundation (the same organization that maintains Node.js itself) — it isn't some unofficial or repackaged executable. That said, code-signing doesn't guarantee a City IT environment will let it run: some organizations block *any* `.exe` launched from a USB drive outright via Group Policy, regardless of who signed it, and some antivirus/endpoint tools flag unfamiliar executables on first run even when legitimate (Windows SmartScreen's "Windows protected your PC" prompt is the most common form of this — it's a warning, not a block, and "More info → Run anyway" gets past it *if* the person running it has permission to do so). If this is a concern for your department's machines, it's worth testing on a representative machine (or asking IT) before relying on the portable copy for the actual hand-off. If it does get blocked, nothing is lost: **the launcher automatically falls back to a normal, system-installed Node.js** (see the "What you DO need" section below for the download link) with no code changes required — it's a fallback path, not a hard requirement.
+3. If neither a portable nor a system Node.js is found, the launcher says so plainly and points at nodejs.org rather than failing silently.
+
+**Turning on auto-publish to GitHub (optional, one-time):** by default, saves in ARML Editor stay local — the workbook and rebuilt files update, but nothing gets pushed anywhere until you push it yourself using one of the "For deployment" methods above. To have it publish automatically on every save instead:
+1. On GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens** → generate one scoped to just the ARML repo, with **Contents: Read and write** permission only (nothing broader).
+2. Open `ARML Editor/config.json` in a text editor and fill in `enabled: true`, plus `owner`, `repo`, `branch`, and `token`.
+3. Restart ARML Editor. A status line near the top of the page confirms whether it's live, and to what repo.
+
+**This token is a real credential — treat it like a password.** It lives only in `ARML Editor/config.json`, which the project's `.gitignore` already excludes from version control specifically so it's never accidentally committed anywhere, including to the very repo it publishes to. Don't email it, don't paste it into a chat tool, and if it's ever exposed, revoke it on GitHub immediately and generate a new one.
+
+**If GitHub publishing fails or isn't turned on:** ARML Editor has a built-in **"Export update bundle"** button that zips up everything needed for a manual upload via the GitHub web UI method above — useful on a restrictive City network where outbound HTTPS to GitHub's API might be blocked even though normal web browsing works.
+
+---
+
 ## For deployment: pushing updates to devices
 
 Once you've edited the workbook and run the build:
@@ -102,6 +124,8 @@ git push
 5. Done — GitHub Pages auto-deploys within 1–2 minutes
 
 Either way, the changes are live. Any medic who opens the app sees `Update available` within a few seconds, taps it, and gets the new data + all PDFs for offline use.
+
+**A brief "still shows the old update" window right after pushing is normal, not a bug.** GitHub Pages sits behind a CDN with its own 10-minute cache, independent of anything in ARML's own code — the app's update check already does everything it reasonably can (no-store fetches, retries with backoff on the files that matter), but none of that can force a CDN edge node to drop a response it's already cached. If a device checks for updates in that window, it may briefly loop between "update available" and back, or seem to "complete" an update and still report the old version - this resolves on its own within about 10 minutes with no action needed. **Practical rule of thumb: wait roughly 10 minutes after pushing before updating devices**, especially right after a batch of changes. If it's still happening after 15+ minutes, that's worth actually investigating; before that, it's just the CDN catching up.
 
 ---
 
@@ -248,6 +272,6 @@ If City IT or a future maintainer wants to add features, change the UI, or integ
 Current version number lives in `VERSION`. Version numbers follow semver: patch = fixes, minor = new features, major = a fundamental change to how the app works.
 
 **Last updated:** August 2026  
-**Version:** ARML v3.1.10  
+**Version:** ARML v3.1.11  
 **Hosting:** GitHub Pages (free, unlimited)  
 **Status:** Ready for production

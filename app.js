@@ -1113,7 +1113,7 @@ function renderRoiContacts() {
     header.type = "button";
     header.className = "roi-org-header";
     header.setAttribute("aria-expanded", "false");
-    header.innerHTML = `<span>${org.organization}</span><span class="chev">›</span>`;
+    header.innerHTML = `<span class="roi-org-tab">${org.organization}</span><span class="roi-org-chev-wrap"><span class="chev">›</span></span>`;
 
     const panel = document.createElement("div");
     panel.className = "roi-org-panel";

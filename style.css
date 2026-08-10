@@ -500,7 +500,18 @@ a:active {
 .detail-section h3 {
   margin: 0;
   padding: 0.3rem 0;
-  color: var(--slp-red);
+  /* Was var(--slp-red) - dark, saturated red text directly on the dark
+     card background (var(--bg-surface)) is exactly the low-contrast
+     combination that causes eyestrain: two dark, desaturated-looking
+     colors next to each other with not enough lightness difference to
+     read comfortably. --text-muted is the same "dusty rose" family (it's
+     literally the color the phone/mail/pin icons already use elsewhere
+     in this same card via --detail-content svg), but it's light enough
+     to read easily against a dark card - and it's already defined with
+     a separate, appropriately-darker value for the light theme, so this
+     one change fixes both themes at once rather than needing its own
+     light-theme override. */
+  color: var(--text-muted);
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -885,13 +896,41 @@ a:active {
   color: var(--text-primary);
 }
 
-/* ROI CONTACTS — ACCORDION OF RED PILL BUTTONS
-   Each organization is its own red button; tapping it slides its contact
-   card open directly beneath it, tapping again slides it shut - no
-   separate list/detail view or "back" button needed, the same tap does
-   both jobs. Applies at every screen size (not just iPhone) since a
-   clean accordion is nicer to use everywhere, not just where the old
-   5-column table used to run out of room. */
+/* SCREENING TOOLS TABLE — same fix as ROI's table used to need: auto
+   table-layout let long, unbroken-ish content (tool names like "Columbia
+   Suicide Severity Rating Scale (C-SSRS)") grow a column past the
+   table's own 100% width, and that overflow is what forced the whole
+   modal to scroll horizontally by a few pixels on iPhone even though the
+   modal itself is already full-width there. table-layout: fixed makes
+   columns respect the table's own width instead of growing to fit
+   content; overflow-wrap lets that same long content actually wrap
+   instead of pushing outward. Scoped to #toolsModal so the ROI accordion
+   (a completely different layout now) is untouched. */
+#toolsModal .tool-table {
+  table-layout: fixed;
+}
+
+#toolsModal .tool-table th:nth-child(1),
+#toolsModal .tool-table td:nth-child(1) { width: 22%; }
+#toolsModal .tool-table th:nth-child(2),
+#toolsModal .tool-table td:nth-child(2) { width: 35%; }
+#toolsModal .tool-table th:nth-child(3),
+#toolsModal .tool-table td:nth-child(3) { width: 43%; }
+
+#toolsModal .tool-table th,
+#toolsModal .tool-table td {
+  overflow-wrap: break-word;
+}
+
+/* ROI CONTACTS — ACCORDION, RED FOLDER-TAB HEADERS
+   Per the mock-up: a red tab wraps tightly around just the organization
+   name, tapering into a plain gray bar that fills the rest of the row
+   (where the chevron sits) - not a solid red button end to end. The tab
+   is a plain-cornered <span> deliberately; overflow:hidden + border-
+   radius on the parent .roi-org-header is what clips it into the same
+   rounded-pill shape as the header itself, so the tab's corners don't
+   need to duplicate that radius by hand. Tapping still slides the panel
+   open/shut exactly as before - only the visual treatment changed. */
 .roi-org-list {
   list-style: none;
   margin: 0;
@@ -905,21 +944,20 @@ a:active {
 .roi-org-header {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
-  gap: 0.5rem;
-  background: var(--slp-red);
-  color: white;
+  background: var(--bg-pill);
   border: none;
   border-radius: 8px;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
+  overflow: hidden;
+  padding: 0;
   font-family: inherit;
+  font-size: 1rem;
   text-align: left;
   cursor: pointer;
 }
 
-.roi-org-header:hover {
+.roi-org-header:hover .roi-org-tab {
   filter: brightness(1.1);
 }
 
@@ -930,6 +968,29 @@ a:active {
   border-radius: 8px 8px 0 0;
 }
 
+.roi-org-tab {
+  display: flex;
+  align-items: center;
+  background: var(--slp-red);
+  color: white;
+  padding: 0.75rem 1.75rem 0.75rem 1rem;
+  min-width: 0;
+  /* The taper: full width at top, pulled in on the right at the bottom -
+     the diagonal edge that makes this read as a "tab" rather than a
+     plain rectangle. Only the right edge tapers; the left, top, and
+     bottom stay flush with the header so overflow:hidden on the parent
+     can clip them to match its own rounded corners. */
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+}
+
+.roi-org-chev-wrap {
+  display: flex;
+  align-items: center;
+  padding: 0 1.1rem;
+  flex-shrink: 0;
+  color: var(--slp-red);
+}
+
 .roi-org-header .chev {
   flex-shrink: 0;
   transition: transform 0.25s ease;
@@ -938,6 +999,7 @@ a:active {
 .roi-org-item.expanded .roi-org-header .chev {
   transform: rotate(90deg);
 }
+
 
 /* max-height is set inline by toggleRoiPanel() in app.js (0 or the
    panel's own scrollHeight) - CSS only owns the transition and the
@@ -957,10 +1019,14 @@ a:active {
   padding: 0.9rem 1rem 1rem;
 }
 
-/* Belt-and-suspenders: nothing in here should ever need to scroll
-   sideways, so guarantee a stray pixel of rounding can't bring a
-   horizontal scrollbar back. */
-#roiModal .tools-modal-content {
+/* Belt-and-suspenders: nothing in these two popups should ever need to
+   scroll sideways, so guarantee a stray pixel of rounding can't bring a
+   horizontal scrollbar back. Deliberately NOT applied to every
+   .tools-modal-content - the PDF viewer shares that class too, and its
+   zoomed-in canvas may legitimately need to pan horizontally, which this
+   would silently break. */
+#roiModal .tools-modal-content,
+#toolsModal .tools-modal-content {
   overflow-x: hidden;
 }
 
