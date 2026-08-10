@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-10T01:31:16.444Z",
+    "generated": "2026-08-10T03:22:44.014Z",
     "resource_count": 161,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
-    "version": "3.1.11",
-    "buildId": "3.1.11+779bb44c0bc5",
-    "dataHash": "779bb44c0bc5"
+    "version": "3.1.12",
+    "buildId": "3.1.12+bb6a176637fd",
+    "dataHash": "bb6a176637fd"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4423,7 +4423,7 @@ const ARM_DATA = {
       ]
     },
     {
-      "organization": "Hennepin Healthcare (HCMC)",
+      "organization": "Hennepin Healthcare",
       "email": "releaseofinformation@hcmed.org",
       "phone": "6128733180",
       "altPhone": "",
@@ -4491,7 +4491,7 @@ const ARM_DATA = {
       ]
     },
     {
-      "organization": "Minneapolis VA Health Care System",
+      "organization": "Minneapolis VA",
       "email": "",
       "phone": "6124671992",
       "altPhone": "",

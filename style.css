@@ -922,101 +922,111 @@ a:active {
   overflow-wrap: break-word;
 }
 
-/* ROI CONTACTS — ACCORDION, RED FOLDER-TAB HEADERS
-   Per the mock-up: a red tab wraps tightly around just the organization
-   name, tapering into a plain gray bar that fills the rest of the row
-   (where the chevron sits) - not a solid red button end to end. The tab
-   is a plain-cornered <span> deliberately; overflow:hidden + border-
-   radius on the parent .roi-org-header is what clips it into the same
-   rounded-pill shape as the header itself, so the tab's corners don't
-   need to duplicate that radius by hand. Tapping still slides the panel
-   open/shut exactly as before - only the visual treatment changed. */
+/* ROI CONTACTS — LIST/DETAIL SPLIT-PANE
+   Same interaction pattern as the main resource browser, not a bespoke
+   accordion or tab shape - pick an organization from a list on the
+   left, its full card renders on the right. The active row's red left
+   border flows directly into the detail panel's own red left border
+   (see .roi-org-row.selected / .roi-detail-pane.active below), so
+   they read as one continuous shape rather than two disconnected
+   pieces - that continuity is the whole visual idea from the approved
+   mock-up. .roi-modal-box gets an explicit height (not just the shared
+   max-height cap) because a side-by-side flex layout needs a real
+   number to divide between its two columns, the same reason the PDF
+   viewer modal does the same thing above. */
+.roi-modal-box {
+  height: 80%;
+}
+
+/* Was inside .tools-modal-content before, which supplied this padding
+   for free - now that the header sits directly in the flex column
+   (so .roi-split can be its own independently-scrolling flex child
+   instead of everything scrolling together as one block), it needs
+   its own horizontal/top inset to match every other modal's look.
+   Longhand properties only (not the padding shorthand) - the base
+   .tools-modal-header rule already sets padding-right: 2.75rem to
+   clear the floating close button, and a shorthand here would silently
+   overwrite that back to nothing. */
+.roi-modal-header {
+  padding-top: 1rem;
+  padding-left: 1.5rem;
+  margin-bottom: 0;
+}
+
+.roi-split {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .roi-org-list {
+  width: 38%;
+  flex-shrink: 0;
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow-y: auto;
+  border-right: 2px solid var(--border-color);
 }
 
-.roi-org-item {
-  margin-bottom: 0.6rem;
-}
-
-.roi-org-header {
-  width: 100%;
+.roi-org-row {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: space-between;
-  background: var(--bg-pill);
-  border: none;
-  border-radius: 8px;
-  overflow: hidden;
-  padding: 0;
-  font-family: inherit;
-  font-size: 1rem;
-  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  border-left: 3px solid transparent;
   cursor: pointer;
+  color: var(--text-primary);
 }
 
-.roi-org-header:hover .roi-org-tab {
-  filter: brightness(1.1);
+.roi-org-row:hover {
+  background-color: var(--bg-hover);
 }
 
-/* Bottom corners square off when open, so the header visually merges
-   into the panel sliding open beneath it instead of looking like two
-   separate, disconnected boxes stacked on top of each other. */
-.roi-org-item.expanded .roi-org-header {
-  border-radius: 8px 8px 0 0;
-}
-
-.roi-org-tab {
-  display: flex;
-  align-items: center;
-  background: var(--slp-red);
-  color: white;
-  padding: 0.75rem 1.75rem 0.75rem 1rem;
-  min-width: 0;
-  /* The taper: full width at top, pulled in on the right at the bottom -
-     the diagonal edge that makes this read as a "tab" rather than a
-     plain rectangle. Only the right edge tapers; the left, top, and
-     bottom stay flush with the header so overflow:hidden on the parent
-     can clip them to match its own rounded corners. */
-  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
-}
-
-.roi-org-chev-wrap {
-  display: flex;
-  align-items: center;
-  padding: 0 1.1rem;
-  flex-shrink: 0;
+.roi-org-row .chev {
   color: var(--slp-red);
-}
-
-.roi-org-header .chev {
   flex-shrink: 0;
-  transition: transform 0.25s ease;
+  margin-left: 0.5rem;
 }
 
-.roi-org-item.expanded .roi-org-header .chev {
-  transform: rotate(90deg);
+/* Solid red fill on selection - same treatment #resourceItems li.selected
+   already uses in the main app, so this reads as the same app rather
+   than a new pattern invented just for this modal. */
+.roi-org-row.selected {
+  background-color: var(--slp-red);
+  border-left-color: var(--slp-red);
+  color: #fff;
 }
 
-
-/* max-height is set inline by toggleRoiPanel() in app.js (0 or the
-   panel's own scrollHeight) - CSS only owns the transition and the
-   clipping, since the actual "how tall is this content" number can only
-   be known once the content exists in the DOM. */
-.roi-org-panel {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.3s ease;
-  background: var(--bg-surface);
-  border: 1px solid var(--detail-border);
-  border-top: none;
-  border-radius: 0 0 8px 8px;
+.roi-org-row.selected .chev {
+  color: #fff;
 }
 
-.roi-org-panel-inner {
-  padding: 0.9rem 1rem 1rem;
+.roi-detail-pane {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 1rem 1.25rem;
+  background: var(--bg-surface-alt);
+  /* Transparent until a row is selected (below) - this is the other
+     half of the "continuous shape" effect: the selected row's left
+     border and this pane's left border are the exact same color and
+     width, so the eye reads them as one unbroken line rather than two
+     separately-colored edges that happen to line up. */
+  border-left: 3px solid transparent;
+}
+
+.roi-detail-pane.active {
+  border-left-color: var(--slp-red);
+}
+
+#roiDetailContent h2 {
+  color: var(--text-heading);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
 }
 
 /* Belt-and-suspenders: nothing in these two popups should ever need to
@@ -1146,12 +1156,11 @@ a:active {
     min-height: 0;
   }
 
-  /* ROI Contacts' 5 columns are cramped at the shared .tools-modal-box
-     default of 70%/900px on an iPad-portrait-width screen - widening
-     just this modal here (rather than touching .tools-modal-box itself)
-     gives those columns more room to work with before overflow-wrap has
-     to break words as hard as it can. Screening Tools' 3-column table
-     doesn't need this and keeps the narrower default. */
+  /* ROI Contacts keeps its list/detail split side-by-side all the way
+     down to the iPhone breakpoint below (only iPhone gets the full
+     slide-over) - widening the modal here on iPad-portrait-width
+     screens just gives both columns more breathing room than the
+     shared .tools-modal-box default (70%/900px cap) would leave them. */
   #roiModal .tools-modal-box {
     width: 96%;
     max-width: none;
@@ -1214,6 +1223,53 @@ a:active {
     display: inline-flex;
     align-items: center;
     width: fit-content;
+  }
+
+  /* ROI CONTACTS: same slide-over treatment as .resource-detail above,
+     applied to this modal's own detail pane - .roi-org-list loses its
+     38% width now that .roi-detail-pane is pulled out of the flex flow
+     by position:fixed, same reasoning as the .resource-list override
+     above. #roiDetailBack already reuses the shared .detail-close-btn
+     class (see the rule right above this one), so it doesn't need its
+     own hidden-by-default/shown-here rule duplicated. */
+  .roi-org-list {
+    width: 100%;
+  }
+
+  .roi-detail-pane {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 500;
+    padding: calc(0.85rem + env(safe-area-inset-top)) 1rem
+             calc(0.85rem + env(safe-area-inset-bottom));
+    /* No red edge here - that border exists to visually connect the
+       detail pane to the selected row sitting right next to it, and at
+       this width there's no adjacent row for it to connect to (the list
+       is a full-screen view of its own now). */
+    border-left: none;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    will-change: transform;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .roi-detail-pane.active {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Same reasoning as .tools-modal-content's own safe-area padding
+     below - .roi-modal-header sits directly in the flex column rather
+     than inheriting inset from .tools-modal-content, so it needs this
+     spelled out for itself specifically. */
+  .roi-modal-header {
+    padding-top: calc(1rem + env(safe-area-inset-top));
   }
 
   /* POPUP MODALS AS FULL-BLEED SHEETS

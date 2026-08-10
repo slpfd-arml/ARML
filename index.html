@@ -198,18 +198,26 @@
 </div>
 
   <div id="roiModal" class="tools-modal">
-  <div class="tools-modal-box">
+  <div class="tools-modal-box roi-modal-box">
     <button id="closeRoiModal" class="tools-close-btn tools-close-btn-floating">✕</button>
-    <div class="tools-modal-content">
-      <div class="tools-modal-header">
-        <h2>Release of Information Contacts</h2>
-      </div>
+    <div class="tools-modal-header roi-modal-header">
+      <h2>Release of Information Contacts</h2>
+    </div>
 
-    <!-- Accordion: each organization is a red pill button (roi-org-header);
-         tapping it slides its contact card (roi-org-panel) open in place,
-         tapping again slides it shut. Populated by renderRoiContacts() in
-         app.js, which builds both the header and panel for every org. -->
-    <ul id="roiOrgList" class="roi-org-list"></ul>
+    <!-- List/detail split-pane, same pattern as the main resource
+         browser: pick an organization on the left, see its full card on
+         the right. On iPhone the detail pane becomes a full-screen
+         slide-over (see the max-width:500px block in style.css) with
+         roiDetailBack as its own close affordance, exactly like
+         #detailCloseBtn does for the main resource list. -->
+    <div class="roi-split">
+      <ul id="roiOrgList" class="roi-org-list"></ul>
+      <div id="roiDetailPane" class="roi-detail-pane">
+        <button id="roiDetailBack" class="detail-close-btn" type="button">‹ Back to organizations</button>
+        <div id="roiDetailContent">
+          <p class="placeholder">Select an organization from the list to view details.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

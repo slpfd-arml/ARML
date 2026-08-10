@@ -272,6 +272,6 @@ If City IT or a future maintainer wants to add features, change the UI, or integ
 Current version number lives in `VERSION`. Version numbers follow semver: patch = fixes, minor = new features, major = a fundamental change to how the app works.
 
 **Last updated:** August 2026  
-**Version:** ARML v3.1.11  
+**Version:** ARML v3.1.12  
 **Hosting:** GitHub Pages (free, unlimited)  
 **Status:** Ready for production
