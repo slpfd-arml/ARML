@@ -436,6 +436,30 @@ a:active {
   margin: 0.3rem 0;
 }
 
+/* ADDRESS BLOCK - icon and the two text lines (street / city-state-zip) as
+   separate flex items, so both lines share the same left edge. Previously
+   the pin icon was just inline-prefixed onto the street line only, which
+   pushed that line rightward without pushing the city/state/zip line
+   underneath it by the same amount - the two lines ended up visibly
+   unaligned instead of stacked like a normal two-line address. Used for
+   both the clickable (<a>) and plain (<span>, ROI Contacts) variants -
+   same class either way, since the alignment fix applies regardless of
+   whether the address is a tappable Maps link. */
+.address-block {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.address-block .icon-pin {
+  flex-shrink: 0;
+  margin-top: 0.2rem; /* optical alignment against the text's first line, not its own box top */
+}
+
+.address-lines {
+  display: inline-block;
+}
+
 /* Empty-state text shown before any resource is selected - was
    completely unstyled before (just inheriting the plain paragraph rule
    above), which read like forgotten filler rather than a deliberate
@@ -1315,6 +1339,50 @@ a:active {
   .patch {
     height: 46px;
     margin-right: 0.6rem;
+  }
+
+  /* THEME TOGGLE, TUCKED UNDER THE BADGE (iPhone only)
+     Above this breakpoint the toggle stays in its normal flex position at
+     the far right of the header row (see the base .theme-toggle rule) -
+     that's untouched. Here specifically, the header becomes a 2-row grid:
+     patch top-left, toggle directly beneath it, title block filling the
+     remaining space to the right and spanning both rows. Grid placement
+     doesn't care about DOM order, so this needed no HTML changes - just
+     assigning each existing header child to a grid cell. updateBtn (only
+     ever visible when an update is actually pending) rides along in the
+     top row, right-aligned next to the title. */
+  .app-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: start;
+    column-gap: 0.6rem;
+    row-gap: 0.35rem;
+  }
+
+  .patch {
+    grid-column: 1;
+    grid-row: 1;
+    margin-right: 0;
+  }
+
+  .title-block {
+    grid-column: 2 / 4;
+    grid-row: 1;
+    min-width: 0; /* lets the subtitle/h1 ellipsis or wrap instead of forcing the grid track wide */
+  }
+
+  #updateBtn {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .theme-toggle {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    margin-left: 0; /* overrides the margin-left:auto that pushes it right in the default flex layout */
   }
 
   .title-block h1 {

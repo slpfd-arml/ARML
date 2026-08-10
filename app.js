@@ -310,15 +310,35 @@ document.addEventListener("click", e => {
 // locations, trailing parenthetical notes, and addresses missing the comma
 // before the city. Falls back to showing the address as-is, still linked, if
 // it doesn't match a recognizable "...CITY, ST ZIP" pattern at all.
+//
+// The pin icon and the two text lines are separate flex items now (icon in
+// its own column, both lines sharing one text column next to it) rather than
+// the icon just being inline-prefixed onto the street line. That inline
+// version was the actual cause of the street/city misalignment bug: the icon
+// only pushed the FIRST line over, so the street line started further right
+// than the city/state/zip line beneath it, leaving them visibly unaligned
+// instead of stacked like a normal two-line address block.
 function formatAddress(raw, plain) {
   if (!raw) return "";
+
+  function wrap(linesHtml, mapsUrl) {
+    const body = `${icon("pin")}<span class="address-lines">${linesHtml}</span>`;
+    // plain: a mailing address, not a physical location someone would ever
+    // navigate to - no tap-to-open-Maps link. Still gets the pin icon
+    // (visual consistency with every other address in the app), just not
+    // wrapped in an <a>. Used for ROI Contacts, where every address is
+    // "where to fax/mail a records request," not "where to walk in."
+    return plain
+      ? `<span class="address-block">${body}</span>`
+      : `<a class="address-block" href="${mapsUrl}" target="_blank">${body}</a>`;
+  }
 
   function parseOne(segment) {
     const addr = segment.replace(/\s+/g, " ").trim();
     const m = addr.match(/^(.*?),?\s*([A-Z]{2})\s+(\d{5}(?:-\d{4})?)\s*(\([^)]*\))?$/);
     const mapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(addr)}`;
     if (!m) {
-      return plain ? addr : `<a href="${mapsUrl}" target="_blank">${addr}</a>`;
+      return wrap(addr, mapsUrl);
     }
     let rest = m[1].replace(/,\s*$/, "");
     const lastComma = rest.lastIndexOf(",");
@@ -332,15 +352,7 @@ function formatAddress(raw, plain) {
       street = words.join(" ");
     }
     const note = m[4] ? ` ${m[4]}` : "";
-    // plain: a mailing address, not a physical location someone would
-    // ever navigate to - no pin icon, no tap-to-open-Maps link, just the
-    // same two-line formatting as a flat string. Used for ROI Contacts,
-    // where every address is "where to fax/mail a records request," not
-    // "where to walk in."
-    if (plain) {
-      return `${street}<br>${city}, ${m[2]} ${m[3]}${note}`;
-    }
-    return `<a href="${mapsUrl}" target="_blank">${icon("pin")} ${street}<br>${city}, ${m[2]} ${m[3]}${note}</a>`;
+    return wrap(`${street}<br>${city}, ${m[2]} ${m[3]}${note}`, mapsUrl);
   }
 
   return String(raw).split(";").map(s => s.trim()).filter(Boolean).map(parseOne).join("<br><br>");
