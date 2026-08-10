@@ -885,60 +885,76 @@ a:active {
   color: var(--text-primary);
 }
 
-/* ROI CONTACTS — LIST + DETAIL CARD
-   Replaced the old 5-column table entirely (see app.js's comment on
-   renderRoiContacts for why - short version: a table just doesn't have
-   anywhere to put 5 columns of contact info on an iPhone-width screen).
-   The org list below matches #resourceItems' own row styling so this
-   reads as the same interaction pattern as the main app - tap a row, see
-   a full-width detail card, tap back to return. */
+/* ROI CONTACTS — ACCORDION OF RED PILL BUTTONS
+   Each organization is its own red button; tapping it slides its contact
+   card open directly beneath it, tapping again slides it shut - no
+   separate list/detail view or "back" button needed, the same tap does
+   both jobs. Applies at every screen size (not just iPhone) since a
+   clean accordion is nicer to use everywhere, not just where the old
+   5-column table used to run out of room. */
 .roi-org-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.roi-org-row {
+.roi-org-item {
+  margin-bottom: 0.6rem;
+}
+
+.roi-org-header {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 0.25rem;
-  border-bottom: 1px solid var(--border-subtle);
-  cursor: pointer;
-  color: var(--text-primary);
-}
-
-.roi-org-row:hover {
-  background-color: var(--bg-hover);
-}
-
-.roi-org-row .chev {
-  color: var(--slp-red);
-  flex-shrink: 0;
-  margin-left: 0.5rem;
-}
-
-/* Always visible (unlike .detail-close-btn, which only shows inside the
-   iPhone slide-over breakpoint) - this list/detail toggle happens inside
-   the modal at every screen size, not just on a phone. */
-.roi-detail-back {
-  display: inline-flex;
-  align-items: center;
+  gap: 0.5rem;
   background: var(--slp-red);
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  text-align: left;
   cursor: pointer;
-  margin-bottom: 0.85rem;
 }
 
-#roiDetailContent h2 {
-  color: var(--text-heading);
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1.25rem;
+.roi-org-header:hover {
+  filter: brightness(1.1);
+}
+
+/* Bottom corners square off when open, so the header visually merges
+   into the panel sliding open beneath it instead of looking like two
+   separate, disconnected boxes stacked on top of each other. */
+.roi-org-item.expanded .roi-org-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.roi-org-header .chev {
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.roi-org-item.expanded .roi-org-header .chev {
+  transform: rotate(90deg);
+}
+
+/* max-height is set inline by toggleRoiPanel() in app.js (0 or the
+   panel's own scrollHeight) - CSS only owns the transition and the
+   clipping, since the actual "how tall is this content" number can only
+   be known once the content exists in the DOM. */
+.roi-org-panel {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+  background: var(--bg-surface);
+  border: 1px solid var(--detail-border);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+}
+
+.roi-org-panel-inner {
+  padding: 0.9rem 1rem 1rem;
 }
 
 /* Belt-and-suspenders: nothing in here should ever need to scroll
@@ -1149,6 +1165,29 @@ a:active {
     height: 100%;
     max-height: 100%;
     border-radius: 0;
+  }
+
+  /* Same reasoning as the close button below: once the box is full-bleed,
+     this padding is the only thing standing between the header title and
+     the status bar. Overriding just padding-top (not the full shorthand)
+     keeps the existing left/right/bottom spacing intact. */
+  .tools-modal-content {
+    padding-top: calc(1rem + env(safe-area-inset-top));
+  }
+
+  /* Once the modal box goes full-bleed (above), its top edge IS the true
+     screen edge - which on an iPhone with a notch/Dynamic Island is
+     exactly where the status bar (time, signal, wifi, battery) lives.
+     The close button's `top: 1rem` was measured from that same edge, so
+     it landed directly under the status bar icons - visible, but not
+     reliably tappable, since the icons/the OS's own touch targets sit on
+     top of it. Adding the safe-area inset on top of the existing 1rem
+     nudges it down to start where content is actually supposed to
+     start. Scoped to this breakpoint only: on iPad/desktop the modal
+     never touches the true screen edge (see the 70%/900px-capped
+     default), so there's no status bar to collide with there. */
+  .tools-close-btn-floating {
+    top: calc(1rem + env(safe-area-inset-top));
   }
 
   .patch {

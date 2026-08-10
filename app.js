@@ -1080,20 +1080,17 @@ document.getElementById("ysnBtn").addEventListener("click", () => {
 });
 
 /* RELEASE OF INFORMATION MODAL
-   List → detail-card pattern (same idea as the main resource list), not a
-   table. A 5-column table just doesn't have anywhere to go on an iPhone-
-   width screen - even with a smaller font, "Organization" doesn't fit a
-   ~100px column without breaking mid-word, and that's before Fax/Email
-   get their own turn being too narrow. Tapping an organization now shows
-   its full contact info as a single-column card, which reuses the same
-   contactBlock()/fileBlock()/section() helpers the main resource detail
-   card already uses - identical visual language, and every column's
-   content gets the full width of the modal instead of a slice of it. */
+   Accordion of organizations - each is a red pill button; tapping it
+   slides its contact card open in place, tapping again slides it shut.
+   Replaced the earlier separate list->detail-card view because a single
+   in-place accordion reads better visually (see the red-pill mock-up)
+   and doesn't need its own "back" affordance - the same tap that opened
+   a card closes it again. Still reuses contactBlock()/fileBlock()/
+   section() - same helpers the main resource detail card and the
+   original ROI detail view both used, just rendered into a panel under
+   each row instead of a separate view. */
 const roiModal = document.getElementById("roiModal");
 const roiOrgList = document.getElementById("roiOrgList");
-const roiDetailView = document.getElementById("roiDetailView");
-const roiDetailContent = document.getElementById("roiDetailContent");
-const roiDetailBack = document.getElementById("roiDetailBack");
 const closeRoiModal = document.getElementById("closeRoiModal");
 
 roiBtn.addEventListener("click", () => {
@@ -1107,40 +1104,58 @@ closeRoiModal.addEventListener("click", () => {
 
 function renderRoiContacts() {
   roiOrgList.innerHTML = "";
-  roiDetailView.hidden = true;
-  roiOrgList.hidden = false;
 
   (ARM_DATA.release_of_information || []).forEach(org => {
     const li = document.createElement("li");
-    li.className = "roi-org-row";
-    li.innerHTML = `<span>${org.organization}</span><span class="chev">›</span>`;
-    li.addEventListener("click", () => showRoiDetail(org));
+    li.className = "roi-org-item";
+
+    const header = document.createElement("button");
+    header.type = "button";
+    header.className = "roi-org-header";
+    header.setAttribute("aria-expanded", "false");
+    header.innerHTML = `<span>${org.organization}</span><span class="chev">›</span>`;
+
+    const panel = document.createElement("div");
+    panel.className = "roi-org-panel";
+    const inner = document.createElement("div");
+    inner.className = "roi-org-panel-inner";
+    inner.innerHTML = `
+      ${section("Contact", contactBlock(org))}
+      ${section("Notes", org.notes)}
+      ${section("Forms", fileBlock(org))}
+    `;
+    panel.appendChild(inner);
+
+    header.addEventListener("click", () => toggleRoiPanel(li, header, panel));
+
+    li.appendChild(header);
+    li.appendChild(panel);
     roiOrgList.appendChild(li);
   });
 }
 
-function showRoiDetail(org) {
-  // contactBlock()/fileBlock() already handle every field an ROI org can
-  // have (phone, altPhone, fax, altFax, email, address, files) - they
-  // were written generically enough for the main resource card that
-  // nothing ROI-specific needs to be duplicated here.
-  roiDetailContent.innerHTML = `
-    <h2>${org.organization}</h2>
-    ${section("Contact", contactBlock(org))}
-    ${section("Notes", org.notes)}
-    ${section("Forms", fileBlock(org))}
-  `;
-  roiOrgList.hidden = true;
-  roiDetailView.hidden = false;
-  // Detail card can be longer than the list it replaced (multiple forms,
-  // long notes) - always start scrolled to the top rather than wherever
-  // the list happened to be scrolled to.
-  document.querySelector("#roiModal .tools-modal-content").scrollTop = 0;
+// Plain max-height transition rather than CSS grid-template-rows
+// animation - grid-row animation is a newer CSS feature that older
+// Safari versions (the ones this app's iOS 11+ offline claim needs to
+// keep working on) don't support. max-height + scrollHeight is the old,
+// boring, universally-supported way to animate something to "its natural
+// height" when that height isn't known ahead of time.
+function toggleRoiPanel(li, header, panel) {
+  const opening = !li.classList.contains("expanded");
+  li.classList.toggle("expanded", opening);
+  header.setAttribute("aria-expanded", String(opening));
+  panel.style.maxHeight = opening ? panel.scrollHeight + "px" : "0px";
 }
 
-roiDetailBack.addEventListener("click", () => {
-  roiDetailView.hidden = true;
-  roiOrgList.hidden = false;
+// Re-measure any open panel after a resize/rotation - the max-height set
+// at open-time was a snapshot of scrollHeight at that width, and text
+// reflowing at a new width (e.g. iPhone rotating landscape<->portrait)
+// can change how tall the content actually is, otherwise leaving a gap
+// or a clipped line.
+window.addEventListener("resize", () => {
+  document.querySelectorAll(".roi-org-item.expanded .roi-org-panel").forEach(panel => {
+    panel.style.maxHeight = panel.scrollHeight + "px";
+  });
 });
 
 /* FAVORITES MODAL */

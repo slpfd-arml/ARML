@@ -205,16 +205,11 @@
         <h2>Release of Information Contacts</h2>
       </div>
 
-    <!-- List view: tap an organization to see its full contact card
-         (see roiDetailView below) - replaces the old 5-column table,
-         which had nowhere to put "Organization" on an iPhone-width
-         screen without breaking it mid-word. -->
+    <!-- Accordion: each organization is a red pill button (roi-org-header);
+         tapping it slides its contact card (roi-org-panel) open in place,
+         tapping again slides it shut. Populated by renderRoiContacts() in
+         app.js, which builds both the header and panel for every org. -->
     <ul id="roiOrgList" class="roi-org-list"></ul>
-
-    <div id="roiDetailView" class="roi-detail-view" hidden>
-      <button id="roiDetailBack" class="roi-detail-back" type="button">‹ Back to organizations</button>
-      <div id="roiDetailContent"></div>
-    </div>
     </div>
   </div>
 </div>
