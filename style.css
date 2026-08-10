@@ -84,6 +84,14 @@ html.theme-light {
    means nothing outside the designated scroll containers can move at all. */
 html {
   height: 100%;
+  /* -webkit-fill-available is a WebKit-specific unit that resolves to the
+     TRUE available space in exactly the situation regular percentage/vh
+     units are unreliable for: iOS standalone (home-screen) PWAs with
+     viewport-fit=cover. This is additive - if the browser doesn't
+     understand this property value at all, the whole declaration is
+     ignored and the plain height:100% above stands; browsers don't
+     partially apply an unrecognized value. */
+  height: -webkit-fill-available;
   overflow: hidden;
   overscroll-behavior: none;
 }
@@ -102,14 +110,20 @@ body {
   bottom: 0;
   /* Explicit height, not just the top/bottom:0 insets above - same dvh
      fallback already used for .resource-detail/.roi-detail-pane below
-     ("accounts for iOS Safari's dynamic URL/toolbar"). Confirmed via a
-     real device screenshot that body's rendered box was falling short of
-     the true screen height in standalone PWA mode: color-sampling the gap
-     below the footer showed it was exactly --bg-app (#2A2A2A) - i.e.
-     genuinely bare body background, not footer padding - meaning body
-     itself wasn't reaching the true bottom edge on top:0/bottom:0 alone. */
+     ("accounts for iOS Safari's dynamic URL/toolbar"). A real device
+     screenshot confirmed the gap below the footer was exactly --bg-app
+     (#2A2A2A) - bare body background, not footer padding - meaning body
+     wasn't reaching the true bottom edge on top:0/bottom:0 alone.
+     100vh/100dvh alone did NOT fully resolve it on iPhone in standalone
+     (home-screen) mode - -webkit-fill-available is a WebKit-specific unit
+     built for exactly that situation, added here as a further, more
+     specific fallback. Cascade order matters: least-supported/most-
+     correct value listed last, so it wins where the browser understands
+     it and is silently skipped (falling back to the line above) where it
+     doesn't. */
   height: 100vh;
   height: 100dvh;
+  height: -webkit-fill-available;
   overflow: hidden;
   overscroll-behavior: none;
   /* Removes the legacy ~300ms tap delay - the single biggest "feels sluggish"
