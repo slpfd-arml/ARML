@@ -2,6 +2,7 @@
   "name": "St. Louis Park Fire — ARML",
   "short_name": "ARML",
   "start_url": "index.html",
+  "display_override": ["fullscreen", "standalone"],
   "display": "standalone",
   "background_color": "#14141a",
   "theme_color": "#961200",

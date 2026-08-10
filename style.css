@@ -84,14 +84,6 @@ html.theme-light {
    means nothing outside the designated scroll containers can move at all. */
 html {
   height: 100%;
-  /* -webkit-fill-available is a WebKit-specific unit that resolves to the
-     TRUE available space in exactly the situation regular percentage/vh
-     units are unreliable for: iOS standalone (home-screen) PWAs with
-     viewport-fit=cover. This is additive - if the browser doesn't
-     understand this property value at all, the whole declaration is
-     ignored and the plain height:100% above stands; browsers don't
-     partially apply an unrecognized value. */
-  height: -webkit-fill-available;
   overflow: hidden;
   overscroll-behavior: none;
 }
@@ -108,22 +100,21 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  /* Explicit height, not just the top/bottom:0 insets above - same dvh
-     fallback already used for .resource-detail/.roi-detail-pane below
-     ("accounts for iOS Safari's dynamic URL/toolbar"). A real device
-     screenshot confirmed the gap below the footer was exactly --bg-app
-     (#2A2A2A) - bare body background, not footer padding - meaning body
-     wasn't reaching the true bottom edge on top:0/bottom:0 alone.
-     100vh/100dvh alone did NOT fully resolve it on iPhone in standalone
-     (home-screen) mode - -webkit-fill-available is a WebKit-specific unit
-     built for exactly that situation, added here as a further, more
-     specific fallback. Cascade order matters: least-supported/most-
-     correct value listed last, so it wins where the browser understands
-     it and is silently skipped (falling back to the line above) where it
-     doesn't. */
-  height: 100vh;
-  height: 100dvh;
-  height: -webkit-fill-available;
+  /* NOTE: the bottom "gray band" on iPhone standalone was NOT a height
+     bug here. Measured in a headless browser at a real iPhone viewport
+     (393x852): header + .split-pane + footer already sum to exactly 852,
+     i.e. the footer's bottom edge lands precisely on the viewport bottom
+     with zero gap. Adding explicit 100vh/100dvh/-webkit-fill-available
+     here changed nothing on-device, because the layout was never falling
+     short of the viewport - iOS was handing the page a viewport ~59 CSS
+     px SHORTER than the physical screen (the reserved status-bar +
+     home-indicator strip) because manifest.json requested plain
+     "standalone" display. The actual fix is in manifest.json's
+     display_override, which asks for fullscreen so iOS hands over the
+     whole screen and lets this file's own env(safe-area-inset-*) padding
+     (already present in .app-header and .app-footer) do the insetting.
+     Don't re-add viewport-height hacks here; they treat a symptom that
+     measurement showed doesn't exist. */
   overflow: hidden;
   overscroll-behavior: none;
   /* Removes the legacy ~300ms tap delay - the single biggest "feels sluggish"
