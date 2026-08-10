@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-10T22:29:49.731Z",
-    "resource_count": 161,
+    "generated": "2026-08-10T23:06:37.788Z",
+    "resource_count": 162,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
     "version": "3.1.17",
-    "buildId": "3.1.17+cb9285a6b41d",
-    "dataHash": "cb9285a6b41d"
+    "buildId": "3.1.17+56aeb6954328",
+    "dataHash": "56aeb6954328"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4135,6 +4135,29 @@ const ARM_DATA = {
       "keywords": "daytime resource center, homelessness, hot meals, showers, toiletries, laundry, lockers, mail service, phone charging, physical health care, mental health care, substance use care, employment training, job search, housing search, housing placement, veterans benefits, SNAP, Medical Assistance, financial support, legal support",
       "categories": [
         "Housing & Shelter"
+      ],
+      "files": [],
+      "subContacts": []
+    },
+    {
+      "name": "Violet Directory",
+      "parent": "Rainbow Health",
+      "type": "LGBT+ Healthcare",
+      "services": "Directories for LGBT+ friendly providers. Includes directories for providers specializing in HIV Care & Prevention and Aging.",
+      "contact": "",
+      "email": "",
+      "phone": "",
+      "altPhone": "",
+      "fax": "",
+      "altFax": "",
+      "hours": "",
+      "tty": "",
+      "website": "https://rainbowhealth.org/violet/",
+      "address": "",
+      "notes": "Rainbow Health ceased operations in 2024. Directory is likely not maintained and subject to link rot.",
+      "keywords": "LGBT, Queer, Gay, HIV, AIDS, Aging, Directory, Rainbow, Violet",
+      "categories": [
+        "Health Care & Clinics"
       ],
       "files": [],
       "subContacts": []
