@@ -1453,17 +1453,21 @@ body,
   transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
-/* One small icon, nothing else - no pill, no border, no track, no
-   circular tap-target padding. That padding made sense for a touch
-   target on iPad but reads as an oversized button on desktop, which is
-   what it actually looked like next to the compact update button/version
-   text - shrunk down to match their visual weight instead. */
+/* SMALL PILL SWITCH - both icons always visible, a knob slides between
+   them. A bigger version of this same idea was tried once before and
+   dropped for looking too big/distracting sitting right next to the
+   version badge - this one is deliberately smaller (40x20px track) and
+   lives in the header's own top-right corner, nowhere near the version
+   badge (that's down in the subtitle line under the title). Kept as
+   close to the old single-icon's visual weight as a two-icon switch
+   reasonably can be: a dark, low-contrast track (not a bright pill) and
+   a faded inactive icon, so only the knob + active icon actually draw
+   the eye. */
 .theme-toggle {
   flex-shrink: 0;
   align-self: center;
   display: flex;
   align-items: center;
-  justify-content: center;
   background: none;
   border: none;
   padding: 0;
@@ -1476,30 +1480,100 @@ body,
      in the rarer case where an update happens to be pending. */
   margin-left: auto;
   cursor: pointer;
-  color: rgba(255,255,255,0.75);
 }
 
-.theme-toggle:active {
-  color: rgba(255,255,255,1);
+.theme-toggle-track {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.28);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  /* This is the actual fix for the knob falling short of the sun icon -
+     width:40px was being treated as content width, with the 4px+4px of
+     padding added ON TOP of it (default content-box sizing), making the
+     real rendered track ~48px wide while the knob's travel distance
+     below was calculated assuming a true 40px. border-box makes the
+     40px include the padding, so the math and the rendered box finally
+     agree. */
+  box-sizing: border-box;
 }
 
-/* Only ever one icon showing - moon while dark (default), sun while
-   light - not both at once flanking a track. */
-.theme-toggle .sun-icon {
-  display: none;
-  color: #FFD166;
+.theme-toggle:active .theme-toggle-track {
+  background: rgba(0,0,0,0.4);
 }
 
+/* Red knob, matching the header/ribbon red, rather than white - the
+   knob's POSITION is what actually signals which theme is active (the
+   same thing every OS-level toggle relies on); color was never doing
+   real signaling work here; it's decoration. Switching it to match the
+   surrounding chrome reads as more "this app's own control" than a
+   generic white pill did. */
+.theme-toggle-knob {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--slp-red);
+  transition: left 0.2s ease;
+}
+
+html.theme-light .theme-toggle-knob {
+  /* Explicit left value instead of transform:translateX() - mirrors the
+     left:2px start position exactly (40 - 16 - 2 = 22), rather than
+     computing a travel distance that has to independently agree with
+     it. Same box-sizing bug above would have silently thrown this off
+     too if it were still measuring the wrong track width. */
+  left: 22px;
+}
+
+/* Icons sit in normal flow AFTER the knob in the DOM (see index.html),
+   so they naturally paint on top of it without needing z-index - that's
+   what lets the "active" icon actually show up legibly while the red
+   knob sits behind it. */
+.theme-toggle svg {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+}
+
+/* Both icons the same color (white) at every state - only opacity
+   changes between active/inactive, not hue. The knob's position is
+   already the primary signal for which mode is active; color-coding
+   moon=red/sun=white on top of that would be relying on color to carry
+   meaning a second time, which is both redundant and weaker for anyone
+   who has trouble distinguishing red from white/pale colors. Full
+   opacity reads clearly against the red knob (white-on-var(--slp-red)
+   is the same contrast ratio the earlier red-on-white version had -
+   contrast is symmetric either direction), the dimmed one reads as
+   "not currently selected" against the dark track without needing its
+   own separate color. */
 .theme-toggle .moon-icon {
-  display: block;
+  color: #fff;
 }
 
-html.theme-light .theme-toggle .moon-icon { display: none; }
-html.theme-light .theme-toggle .sun-icon { display: block; }
+.theme-toggle .sun-icon {
+  color: rgba(255,255,255,0.45);
+}
+
+html.theme-light .theme-toggle .moon-icon {
+  color: rgba(255,255,255,0.45);
+}
+
+html.theme-light .theme-toggle .sun-icon {
+  color: #fff;
+}
 
 @media (prefers-reduced-motion: reduce) {
   body, .resource-list, .resource-detail, .detail-content, .app-footer,
-  .tools-modal-box, .search-bar, .search-bar input, .list-back-bar {
+  .tools-modal-box, .search-bar, .search-bar input, .list-back-bar,
+  .theme-toggle-knob {
     transition: none;
   }
 }
