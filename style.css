@@ -100,6 +100,16 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  /* Explicit height, not just the top/bottom:0 insets above - same dvh
+     fallback already used for .resource-detail/.roi-detail-pane below
+     ("accounts for iOS Safari's dynamic URL/toolbar"). Confirmed via a
+     real device screenshot that body's rendered box was falling short of
+     the true screen height in standalone PWA mode: color-sampling the gap
+     below the footer showed it was exactly --bg-app (#2A2A2A) - i.e.
+     genuinely bare body background, not footer padding - meaning body
+     itself wasn't reaching the true bottom edge on top:0/bottom:0 alone. */
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   overscroll-behavior: none;
   /* Removes the legacy ~300ms tap delay - the single biggest "feels sluggish"
