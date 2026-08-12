@@ -842,7 +842,38 @@ async function renderPdfPage(pdfjsLib, pdfDoc, pageNum, availableWidth, isFillab
 
   const ctx = canvas.getContext("2d");
   const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
-  await page.render({ canvasContext: ctx, viewport, transform }).promise;
+
+  // Checkbox and radio widgets carry their own on/off appearance streams
+  // that pdf.js renders into a per-field <canvas> rather than onto the flat
+  // page canvas (annotation.hasOwnCanvas === true - confirmed for every
+  // checkbox on ARML's ROI forms). pdf.js hands those canvases back through
+  // an annotationCanvasMap that page.render() fills and the AnnotationLayer
+  // then inserts as the [data-canvas-name="checked"|"unchecked"] elements
+  // annotation-layer.css shows/hides based on the input's :checked state.
+  // Two things are required for that, and BOTH were missing - which is why
+  // checkboxes rendered as invisible inputs (appearance:none in the CSS,
+  // and no appearance canvas) that toggled internally but showed nothing,
+  // on every platform:
+  //   1. annotationMode ENABLE_FORMS, so page.render leaves interactive
+  //      form fields off the flat page canvas and emits their own-canvas
+  //      appearances into the map, instead of baking a frozen image of the
+  //      empty field into the page that can never reflect a click.
+  //   2. the SAME annotationCanvasMap instance passed to both page.render
+  //      (which populates it) and annotationLayer.render (which consumes
+  //      it). This was never a z-index/stacking issue: text fields, which
+  //      live in the same annotation layer, worked fine - a text <input>
+  //      is just visible and typeable on its own, whereas a checkbox has
+  //      nothing to show without its appearance canvas.
+  // Non-fillable PDFs have no form fields and keep the default render path.
+  const annotationCanvasMap = isFillable ? new Map() : null;
+  await page.render({
+    canvasContext: ctx,
+    viewport,
+    transform,
+    ...(isFillable
+      ? { annotationMode: pdfjsLib.AnnotationMode.ENABLE_FORMS, annotationCanvasMap }
+      : {})
+  }).promise;
 
   if (isFillable) {
     const annotations = await page.getAnnotations({ intent: "display" });
@@ -857,7 +888,7 @@ async function renderPdfPage(pdfjsLib, pdfDoc, pageNum, availableWidth, isFillab
       annotationStorage: currentViewer.pdfDoc.annotationStorage,
       linkService: pdfLinkServiceShim
     });
-    await annotationLayer.render({ annotations, renderForms: true, fieldObjects });
+    await annotationLayer.render({ annotations, renderForms: true, fieldObjects, annotationCanvasMap });
 
     // pdf.js sizes this div itself using the CSS round() function, which
     // is too recent to trust on every iPad ARML runs on (confirmed real
@@ -1134,7 +1165,15 @@ function renderRoiContacts() {
   roiDetailPane.classList.remove("active");
   roiDetailContent.innerHTML = `<p class="placeholder">Select an organization from the list to view details.</p>`;
 
-  (ARM_DATA.release_of_information || []).forEach(org => {
+  // Alphabetical by organization name, so the order doesn't depend on
+  // whatever row order the workbook happened to be built from (that's what
+  // put Fairview first). Same localeCompare sort Favorites uses; slice()
+  // first so we sort a copy rather than mutating ARM_DATA in place.
+  const orgs = (ARM_DATA.release_of_information || [])
+    .slice()
+    .sort((a, b) => a.organization.localeCompare(b.organization));
+
+  orgs.forEach(org => {
     const li = document.createElement("li");
     li.className = "roi-org-row";
     li.innerHTML = `<span>${org.organization}</span><span class="chev">›</span>`;
