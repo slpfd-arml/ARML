@@ -446,7 +446,14 @@ const ARM_DATA = {
 // build-data.js writes BUILD_ID *into*, so including its own content in the
 // hash that determines BUILD_ID would be self-referential and never settle
 // on a stable value.
-const HASHED_SHELL_FILES = ["index.html", "app.js", "style.css", "manifest.json", "insurance-guide-text.js"];
+// vendor/pdfjs/annotation-layer.css is included because ARML actively
+// maintains an override block in it (the checkbox/radio checkmark fix) -
+// without it here, a CSS-only change to that file would leave BUILD_ID
+// unchanged and the fix would never reach a device whose service worker
+// already cached the old copy. The rest of vendor/pdfjs/ is left out: it's
+// large, effectively never edited by hand, and only changes on a
+// deliberate pdf.js upgrade that also touches one of the files below.
+const HASHED_SHELL_FILES = ["index.html", "app.js", "style.css", "manifest.json", "insurance-guide-text.js", "vendor/pdfjs/annotation-layer.css"];
 
 function readShellFileForHash(relName) {
   const p = path.join(siteRoot, relName);
