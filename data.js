@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-13T19:40:22.627Z",
+    "generated": "2026-08-13T22:03:22.049Z",
     "resource_count": 165,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
     "version": "3.1.17",
-    "buildId": "3.1.17+49006acc23e8",
-    "dataHash": "49006acc23e8"
+    "buildId": "3.1.17+f1344e4373b2",
+    "dataHash": "f1344e4373b2"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4223,7 +4223,7 @@ const ARM_DATA = {
       "tty": "",
       "website": "https://peopleincorporated.org/programs/intensive-residential-treatment-services-irts/",
       "address": "",
-      "notes": "Referral form: <a href=\"https://peopleincorporated.org/irts-referral-form/\">",
+      "notes": "<a href=\"https://peopleincorporated.org/irts-referral-form/\" referral form>",
       "keywords": "residential, treatment, Mental health, in-patient, People, incorporated",
       "categories": [
         "Mental Health & Substance Use"
