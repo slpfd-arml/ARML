@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-13T19:33:10.821Z",
+    "generated": "2026-08-13T19:40:22.627Z",
     "resource_count": 165,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
     "version": "3.1.17",
-    "buildId": "3.1.17+421fb185ba9f",
-    "dataHash": "421fb185ba9f"
+    "buildId": "3.1.17+49006acc23e8",
+    "dataHash": "49006acc23e8"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4209,7 +4209,7 @@ const ARM_DATA = {
       "subContacts": []
     },
     {
-      "name": "Intensive Residential Treatment Services",
+      "name": "People Incorporated Intensive Residential Treatment Services",
       "parent": "People Incorporated",
       "type": "Mental Health Services",
       "services": "Per website: Our Intensive Residential Treatment Services (IRTS) program integrates mental health, medical, and substance use care in a 24-hour, supervised setting. A step below hospitalization in our community-based system of care, these services help adults who need a high level of treatment and assistance in a structured environment. Individuals 18 years of age or older with a diagnosis of a mental illness who meet eligibility as designated by the Minnesota Department of Human Services (DHS).",
@@ -4223,8 +4223,8 @@ const ARM_DATA = {
       "tty": "",
       "website": "https://peopleincorporated.org/programs/intensive-residential-treatment-services-irts/",
       "address": "",
-      "notes": "Referral form : peopleincorporated.org/irts-referral-form/",
-      "keywords": "residential, treatment, Mental health, in-patient",
+      "notes": "Referral form: <a href=\"https://peopleincorporated.org/irts-referral-form/\">",
+      "keywords": "residential, treatment, Mental health, in-patient, People, incorporated",
       "categories": [
         "Mental Health & Substance Use"
       ],
