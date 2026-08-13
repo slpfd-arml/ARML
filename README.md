@@ -33,6 +33,18 @@ New_ARM_Library.xlsx  →  build-data.js  →  data.js  →  index.html + app.js
      (the data)          (the compiler)   (the output)      (the app itself)
 ```
 
+That build script runs in one of two places, depending on how the workbook
+was edited:
+
+- **On GitHub, automatically** — when ARML Editor's browser version commits
+  a workbook change, a GitHub Action
+  (`.github/workflows/rebuild-on-workbook-change.yml`) runs `build-data.js`
+  and commits the regenerated files. Nobody runs anything.
+- **On your own machine** — when you edit the workbook by hand or use ARML
+  Editor's local version.
+
+Same script, same output either way.
+
 ---
 
 ## Installing
@@ -57,18 +69,36 @@ Either way, the app works fully offline after the first load — all reference P
 | `icons/` | App icons and small inline-SVG icon assets |
 | `Assets/` | Every PDF the app links to — screening tools, ROI forms, resource flyers |
 | `ARM-Builder/` | The build script (`build-data.js`) and the source workbook (`New_ARM_Library.xlsx`) that generates `data.js` |
+| `.github/workflows/` | The GitHub Action that rebuilds `data.js` automatically whenever the workbook changes — this is what makes ARML Editor's browser version work without anyone running a build |
 | `VERSION` | Plain-text current version number |
+
+**ARML Editor now lives in its own repo:**
+[github.com/slpfd-arml/ARML-Editor](https://github.com/slpfd-arml/ARML-Editor),
+with its own README. It used to be a folder inside this one. See the next
+section for why.
 
 ---
 
 ## For daily maintenance: adding/editing/deleting resources
 
-**No coding knowledge required.** The recommended way to add, edit, or delete a resource is **ARML Editor** — a form-based tool that runs locally and handles everything:
+**No coding knowledge required.** The recommended way to add, edit, or delete a resource is **ARML Editor** — a form-based tool that handles everything:
 
-1. **Double-click** `ARML Editor/start-ARML-editor.bat`
-2. A page opens in your browser with two tabs: **Add New** and **Edit or Delete Existing**
-3. Fill in the form (or search and pick an existing resource to edit/delete), upload any PDFs, hit **Save**
-4. The workbook updates, the build runs automatically, and — if GitHub publishing is turned on (see `ARML Editor/config.json`) — it pushes straight to GitHub. No separate build step, no manual upload.
+1. Open **https://slpfd-arml.github.io/ARML-Editor/** in Chrome or Edge
+2. Paste in a GitHub token the first time (one-time setup — see ARML Editor's own README)
+3. Two tabs: **Add New** and **Edit or Delete Existing**
+4. Fill in the form (or search and pick an existing resource to edit/delete), attach any PDFs, hit **Save**
+5. The workbook updates on GitHub, a GitHub Action rebuilds the app data automatically, and devices see it within a few minutes. No build step, no manual upload, nothing to install.
+
+**It's a webpage, not a program.** No Node.js, no `.exe`, no admin rights,
+no local server. That's deliberate: it removes essentially every dependency
+a City IT environment is likely to block. It can also be installed as a
+desktop app (Chrome/Edge → install icon in the address bar) if you'd rather
+launch it from a taskbar icon than a bookmark.
+
+**A local version still exists** (`start-ARML-editor.bat`, requires Node.js)
+as a fallback for the case where GitHub's API is blocked at the firewall
+while ordinary web browsing still works. It's documented in ARML Editor's
+README and is not deprecated.
 
 ARML Editor also catches likely mistakes before they happen: it warns if you're about to create an exact duplicate or something suspiciously similar to an existing resource, and any delete requires typing the resource's exact name to confirm — there's no one-click way to remove something by accident.
 
@@ -85,29 +115,76 @@ Either path ends the same way: the workbook gets updated, the build runs, and th
 
 ## ARML Editor in depth
 
-ARML Editor lives in the `ARML Editor/` folder and is a small local tool, not a website — running `start-ARML-editor.bat` starts a tiny local web server on this machine and opens it in a browser tab. Nothing about it is hosted anywhere; it only ever talks to `localhost` and (optionally) GitHub.
+ARML Editor lives in its own repo —
+[github.com/slpfd-arml/ARML-Editor](https://github.com/slpfd-arml/ARML-Editor)
+— and **has its own README, which is the authoritative guide to it.** What
+follows is only what an ARML maintainer needs to know about how the two
+fit together.
 
-**What it does on every save:** writes your change into `ARM-Builder/New_ARM_Library.xlsx` → runs the same build script the manual workflow above uses → if GitHub publishing is turned on, pushes the rebuilt files straight to GitHub. All three steps happen automatically; there's nothing to run separately.
+**Why it's a separate repo now.** It was originally a folder inside this
+one. Splitting it lets each publish to its own GitHub Pages site, keeps an
+internal admin tool out of the same site as the medic-facing library, and
+lets them be updated independently. Cross-repo API calls are the normal
+case for GitHub — the Editor being hosted elsewhere doesn't limit what it
+can do here.
 
-**Getting it running the first time:**
-1. `ARML Editor/start-ARML-editor.bat` needs a copy of Node.js to run at all. It looks in `ARML Editor/node-portable/` first, and only falls back to checking for a system-wide Node.js install if that folder is empty.
-2. **About that portable copy of Node.js — a note on trust:** `node-portable/node.exe`, if present, is the official Node.js Windows binary downloaded directly from nodejs.org, code-signed by the OpenJS Foundation (the same organization that maintains Node.js itself) — it isn't some unofficial or repackaged executable. That said, code-signing doesn't guarantee a City IT environment will let it run: some organizations block *any* `.exe` launched from a USB drive outright via Group Policy, regardless of who signed it, and some antivirus/endpoint tools flag unfamiliar executables on first run even when legitimate (Windows SmartScreen's "Windows protected your PC" prompt is the most common form of this — it's a warning, not a block, and "More info → Run anyway" gets past it *if* the person running it has permission to do so). If this is a concern for your department's machines, it's worth testing on a representative machine (or asking IT) before relying on the portable copy for the actual hand-off. If it does get blocked, nothing is lost: **the launcher automatically falls back to a normal, system-installed Node.js** (see the "What you DO need" section below for the download link) with no code changes required — it's a fallback path, not a hard requirement.
-3. If neither a portable nor a system Node.js is found, the launcher says so plainly and points at nodejs.org rather than failing silently.
+**What it does on save:** commits the updated workbook (and any attached
+PDFs) straight to *this* repo via the GitHub API. It does **not** run the
+build itself — that's the Action's job (next section).
 
-**Turning on auto-publish to GitHub (optional, one-time):** by default, saves in ARML Editor stay local — the workbook and rebuilt files update, but nothing gets pushed anywhere until you push it yourself using one of the "For deployment" methods above. To have it publish automatically on every save instead:
-1. On GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens** → generate one scoped to just the ARML repo, with **Contents: Read and write** permission only (nothing broader).
-2. Open `ARML Editor/config.json` in a text editor and fill in `enabled: true`, plus `owner`, `repo`, `branch`, and `token`.
-3. Restart ARML Editor. A status line near the top of the page confirms whether it's live, and to what repo.
+**The token.** ARML Editor needs a fine-grained GitHub Personal Access
+Token scoped to just this repo with **Contents: Read and write**. In the
+browser version it's stored in that browser's `localStorage`, on that
+machine only — never in a file, never committed anywhere. Each person and
+each browser needs their own, which is the safer arrangement: revoking one
+doesn't disturb anyone else. Full setup steps are in ARML Editor's README.
 
-**This token is a real credential — treat it like a password.** It lives only in `ARML Editor/config.json`, which the project's `.gitignore` already excludes from version control specifically so it's never accidentally committed anywhere, including to the very repo it publishes to. Don't email it, don't paste it into a chat tool, and if it's ever exposed, revoke it on GitHub immediately and generate a new one.
+**Its status light** answers "will Save actually work right now?" — it
+checks the token's real write permission against this repo, so it catches a
+missing, revoked, or read-only token and a firewalled API. Worth pointing
+someone at before they spend ten minutes filling in a form.
 
-**If GitHub publishing fails or isn't turned on:** ARML Editor has a built-in **"Export update bundle"** button that zips up everything needed for a manual upload via the GitHub web UI method above — useful on a restrictive City network where outbound HTTPS to GitHub's API might be blocked even though normal web browsing works.
+---
+
+## The automatic rebuild (GitHub Action)
+
+`.github/workflows/rebuild-on-workbook-change.yml` is what makes the
+browser-based Editor possible.
+
+**What it does:** watches `ARM-Builder/New_ARM_Library.xlsx`. When that file
+changes on `main`, it checks out the repo, installs `ARM-Builder`'s
+dependencies, runs `node build-data.js`, and commits the regenerated
+`data.js`, `version.json`, `assets-manifest.json`, and `service-worker.js`.
+
+**Why it exists:** `build-data.js` can't run in a browser. It shells out to
+`detect-fillable.js` and `detect-ccitt-images.js`, which parse PDF binaries
+on disk with `pdf-lib`. Rather than maintain a second, browser-safe copy of
+that logic — which would have to be kept in sync by hand forever — the
+Action runs the real, unmodified script on GitHub's servers.
+
+**Checking whether it worked:** the repo's **Actions** tab. Green check =
+rebuilt and committed. Red X = the workbook change landed but the app data
+was never regenerated, so devices will keep serving the old data. Open the
+failed run to see why.
+
+**You can trigger it by hand.** The workflow has `workflow_dispatch`
+enabled — Actions tab → the workflow → "Run workflow." Useful after editing
+`build-data.js` itself, or to retry a failed run without touching the
+workbook.
+
+**It skips empty commits.** If a rebuild produces byte-identical output,
+nothing is committed — no noise in the history.
 
 ---
 
 ## For deployment: pushing updates to devices
 
-Once you've edited the workbook and run the build:
+**If you used ARML Editor's browser version, this section doesn't apply** —
+it already committed the workbook, and the Action already rebuilt and
+published. Skip to the CDN note at the bottom.
+
+The rest of this applies when you edited the workbook by hand, or used ARML
+Editor's local version. Once you've edited the workbook and run the build:
 
 **Via git (if you have it):**
 ```
@@ -138,22 +215,29 @@ Either way, the changes are live. Any medic who opens the app sees `Update avail
 
 ## What you DO need
 
-**On your maintenance machine:**
+**For normal day-to-day maintenance (adding/editing resources): nothing.**
+ARML Editor's browser version runs in Chrome or Edge and needs no install,
+no Node.js, and no admin rights. This is the expected path for almost all
+maintenance.
+
+**On a maintenance machine, only if you need to edit the workbook by hand
+or run the build locally:**
 - Node.js (for running the build) — [download from nodejs.org](https://nodejs.org/)
   - The portable zip version is fine; no admin rights needed
   - Current: v22 or later
+  - **Run `npm install` once inside `ARM-Builder/`** before the first build —
+    it needs `xlsx` and `pdf-lib`, which aren't committed to the repo
 - Excel or compatible spreadsheet app (to edit the workbook)
 - A web browser (to test locally before pushing)
 
-**Making ARML Editor fully turnkey (optional but recommended):**
-By default, `ARML Editor/start-ARML-editor.bat` needs Node.js installed on
-whatever machine runs it. To remove that requirement entirely - so the
-tool works the moment the folder is copied over, with nothing to install
-and no admin rights needed - drop a portable copy of Node.js into
-`ARML Editor/node-portable/`. Full instructions are in
-`ARML Editor/node-portable/PLACE-NODE-HERE.txt`; the launcher detects and
-uses it automatically if it's there, and falls back to a system install
-if it isn't, so this step can be done at any time, not just up front.
+**ARML Editor's local version (fallback only):**
+`start-ARML-editor.bat` needs Node.js on whatever machine runs it. A
+portable copy can be dropped into `node-portable/` to remove that
+requirement; the launcher detects it automatically and falls back to a
+system install if it isn't there. Details are in ARML Editor's own README.
+
+This is now a fallback path rather than the main one — the browser version
+needs none of it.
 
 **On user devices:**
 - iPad 2 or later, or iPhone 6 or later — the app installs via "Add to Home Screen" in Safari
@@ -201,14 +285,27 @@ Before you push updates to users, test locally:
 - If it's a persistent network block, escalate to City IT to whitelist github.com and cdn.jsdelivr.net
 
 **A resource I added isn't showing up:**
-- If you used ARML Editor: check the message it showed after saving — if it says the build or publish failed, that's why. If it says success, give it a minute and refresh the iPad's Safari.
-- If you edited the workbook directly: did you run `update-arm-library.bat` afterward? If not, the change is saved but not published.
-- Either way: did the change actually reach GitHub? If it's still just on your machine, no one else sees it.
-- If it's been 2+ minutes since you pushed and it's still not there, refresh the iPad's Safari and try again.
+- **If you used ARML Editor's browser version:** check this repo's **Actions**
+  tab first. A red X means the workbook was committed but the rebuild
+  failed, so the app data was never regenerated — that's the whole answer.
+  A green check plus under ~10 minutes elapsed means it's the CDN cache;
+  wait it out.
+- **If you used ARML Editor's local version:** check the message it showed
+  after saving — if it says the build or publish failed, that's why.
+- **If you edited the workbook directly:** did you run
+  `update-arm-library.bat` afterward? If not, the change is saved but not
+  published.
+- **In every case:** did the change actually reach GitHub? If it's still
+  only on your machine, no one else sees it.
+- If it's been 15+ minutes since the change landed and it's still missing,
+  that's worth actually investigating.
 
 **I deleted a resource by accident:**
 - Deleting is immediate and there's no undo inside ARML Editor — it removes the row from the workbook right away.
-- If you have a recent copy of `New_ARM_Library.xlsx` (a backup, or an earlier version still in `node_modules`-adjacent history if you're using git), you can manually re-add the row and rebuild.
+- **Every workbook change is a git commit**, so the previous version is
+  recoverable: on GitHub, open `ARM-Builder/New_ARM_Library.xlsx` → History
+  → pick the commit before the deletion → download that version, put it
+  back, and let the Action rebuild. This is the reliable recovery path.
 - This is exactly why ARML Editor requires typing the resource's exact name before Delete becomes clickable — it's meant to make accidental deletion hard, not impossible if you're genuinely trying to.
 
 **A PDF link is broken:**
@@ -247,12 +344,20 @@ If the time comes to hand this off to someone else:
 2. **Export the workbook** from Excel as a backup (File → Save As → `.xlsx`)
 3. **Document current resources** in a simple list (optional, but helpful for continuity)
 4. **Give them:**
-   - This README
+   - This README **and ARML Editor's README** — they're separate repos now
    - The GitHub account credentials in a private message
-   - The URL to the live app
-   - The link to the GitHub repo
+   - The URL to the live app: https://slpfd-arml.github.io/ARML/
+   - The URL to ARML Editor: https://slpfd-arml.github.io/ARML-Editor/
+   - Links to both repos (`slpfd-arml/ARML` and `slpfd-arml/ARML-Editor`)
+   - A note that **each maintainer generates their own GitHub token** for
+     ARML Editor — tokens aren't shared or handed over
 5. **They manage the account** however they see fit
-6. **Make sure they know:** ARML Editor is the normal way to add, edit, or delete resources — the workbook is what it edits, not something they need to touch by hand day to day. The app code is stable and rarely needs changes.
+6. **Make sure they know:** ARML Editor is the normal way to add, edit, or
+   delete resources — the workbook is what it edits, not something they need
+   to touch by hand day to day. The browser version needs nothing installed.
+   The app code is stable and rarely needs changes.
+7. **Point them at the Actions tab.** "Did my change publish?" is answered
+   there, and it's the single most useful thing for a new maintainer to know.
 
 ---
 
