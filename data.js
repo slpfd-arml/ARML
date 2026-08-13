@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-13T18:33:18.577Z",
-    "resource_count": 163,
+    "generated": "2026-08-13T19:23:21.676Z",
+    "resource_count": 164,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
     "version": "3.1.17",
-    "buildId": "3.1.17+ae5e074e3c03",
-    "dataHash": "ae5e074e3c03"
+    "buildId": "3.1.17+bd3102140fd6",
+    "dataHash": "bd3102140fd6"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4181,6 +4181,29 @@ const ARM_DATA = {
       "keywords": "Assertive, community, treatment, team",
       "categories": [
         "Mental Health & Substance Use"
+      ],
+      "files": [],
+      "subContacts": []
+    },
+    {
+      "name": "People Incorporated ACT Team",
+      "parent": "People Incorporated",
+      "type": "Mental Health Services",
+      "services": "",
+      "contact": "Angela Mendez",
+      "email": "angela.mendez@peopleincorporated.org",
+      "phone": "612-465-0105",
+      "altPhone": "651-774-0011",
+      "fax": "612-465-0107",
+      "altFax": "",
+      "hours": "",
+      "tty": "",
+      "website": "https://peopleincorporated.org/programs/assertive-community-treatment-act/",
+      "address": ": 2120 Park Ave. South, Minneapolis, MN 55404",
+      "notes": "",
+      "keywords": "ACT, People, Mental health",
+      "categories": [
+        "Health Care & Clinics"
       ],
       "files": [],
       "subContacts": []
