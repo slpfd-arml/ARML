@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-15T22:42:59.707Z",
+    "generated": "2026-08-15T22:43:48.770Z",
     "resource_count": 165,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
     "version": "3.1.17",
-    "buildId": "3.1.17+3f48578031cc",
-    "dataHash": "3f48578031cc"
+    "buildId": "3.1.17+fd6ea654f846",
+    "dataHash": "fd6ea654f846"
   },
   "categories": [
     "Benefits & Insurance",
@@ -1472,7 +1472,7 @@ const ARM_DATA = {
       "website": "https://mn.gov/deaf-hard-of-hearing/communication-access/mnact/index.jsp",
       "address": "444 Lafayette Rd N, St. Paul, MN 55155-3814",
       "notes": "",
-      "keywords": "MN ACT, assistive technology, amplified phone, captioned phone, hearing loss, speech disability, phone accessibility",
+      "keywords": "MN ACT, assistive technology, amplified phone, captioned phone, hearing loss, speech disability, phone accessibility, Phone, accessibility",
       "categories": [
         "Seniors & Disability"
       ],
