@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-13T22:03:22.049Z",
+    "generated": "2026-08-15T22:42:59.707Z",
     "resource_count": 165,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
     "version": "3.1.17",
-    "buildId": "3.1.17+f1344e4373b2",
-    "dataHash": "f1344e4373b2"
+    "buildId": "3.1.17+3f48578031cc",
+    "dataHash": "3f48578031cc"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4189,7 +4189,7 @@ const ARM_DATA = {
       "name": "People Incorporated ACT Team",
       "parent": "People Incorporated",
       "type": "Mental Health Services",
-      "services": "",
+      "services": "An intensive, comprehensive outpatient treatment and rehabilitative mental health services program for adults (18+) with a primary diagnosis of schizophrenia, schizoaffective disorder, a major depressive disorder with psychotic features, bipolar disorder, or other psychotic disorders. The program provides support with services in co-occurring disorder treatment, family psychoeducation and support, housing access, medication education, and more.",
       "contact": "Angela Mendez",
       "email": "angela.mendez@peopleincorporated.org",
       "phone": "612-465-0105",
@@ -4200,8 +4200,8 @@ const ARM_DATA = {
       "tty": "",
       "website": "https://peopleincorporated.org/programs/assertive-community-treatment-act/",
       "address": ": 2120 Park Ave. South, Minneapolis, MN 55404",
-      "notes": "",
-      "keywords": "ACT, People, Mental health",
+      "notes": "Individuals need to be Hennepin County residents and engage with the ACT team 2-3 times per week. Clients may be referred to programs and services by an insurance provider. Applicants with health coverage through a managed care organization must complete a chemical health assessment through their provider and obtain authorization prior to admission. A diagnostic assessment and discharge summaries from recent hospitalizations and/or previous psychiatric records are helpful to include with your referral. Referrals can come from anyone, even a self-referral, as long as a client is Hennepin County of Financial Responsibility (CFR).",
+      "keywords": "People, Mental health, Crisis, ACT, ASSERTIVE",
       "categories": [
         "Health Care & Clinics"
       ],
