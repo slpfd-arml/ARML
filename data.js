@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-15T22:43:48.770Z",
-    "resource_count": 165,
+    "generated": "2026-08-15T23:12:17.842Z",
+    "resource_count": 166,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
     "version": "3.1.17",
-    "buildId": "3.1.17+fd6ea654f846",
-    "dataHash": "fd6ea654f846"
+    "buildId": "3.1.17+faa052357c46",
+    "dataHash": "faa052357c46"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4229,6 +4229,35 @@ const ARM_DATA = {
         "Mental Health & Substance Use"
       ],
       "files": [],
+      "subContacts": []
+    },
+    {
+      "name": "RADIAS Health Assertive Community Treatment",
+      "parent": "RADIAS Health",
+      "type": "ACT Team",
+      "services": "Assertive Community Treatment (ACT) provides integrated mental health services treatment for individuals who have been diagnosed with thought disorders. Services include psychiatry, therapy, nursing, substance use disorder treatment, vocational services, case management, and peer recovery services. Teams partner with the individuals served and their natural supports to build the skills needed to manage their illness while also reaching their life goals. Common things teams help with include finding and maintaining housing, obtaining competitive employment, building social networks, and re-establishing relationships. Teams meet with people in their homes or community location of their choosing and provide services seven days a week, with crisis response services available 24 hours per day.",
+      "contact": "",
+      "email": "centralaccess@radiashealth.org",
+      "phone": "612-453-4010",
+      "altPhone": "",
+      "fax": "651-677-5714",
+      "altFax": "",
+      "hours": "",
+      "tty": "",
+      "website": "https://www.radiashealth.org/programs/community-based-services/assertive-community-treatment/",
+      "address": "",
+      "notes": "Referrals for all RADIAS programs are coordinated through their Central Access Team",
+      "keywords": "RADIAS, Health, ACT, Assertive Community Treatment, mental health",
+      "categories": [
+        "Mental Health & Substance Use"
+      ],
+      "files": [
+        {
+          "label": "ACT Referral FAQ",
+          "path": "Assets/ACT-Referral-FAQ.pdf",
+          "fillable": false
+        }
+      ],
       "subContacts": []
     }
   ],
