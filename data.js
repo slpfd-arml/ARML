@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-15T23:12:17.842Z",
+    "generated": "2026-08-16T20:23:30.225Z",
     "resource_count": 166,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 16,
-    "version": "3.1.17",
-    "buildId": "3.1.17+faa052357c46",
-    "dataHash": "faa052357c46"
+    "sub_contact_count": 9,
+    "version": "3.2.0",
+    "buildId": "3.2.0+1b7f5ddb9aee",
+    "dataHash": "1b7f5ddb9aee"
   },
   "categories": [
     "Benefits & Insurance",
@@ -162,7 +162,7 @@ const ARM_DATA = {
       "subContacts": []
     },
     {
-      "name": "Higher Ground St Paul Medical Respite",
+      "name": "Higher Ground St. Paul Medical Respite",
       "parent": "Catholic Charities Twin Cities",
       "type": "Housing / Shelter",
       "services": "Medical respite care, shelter, supportive housing",
@@ -277,7 +277,8 @@ const ARM_DATA = {
         {
           "label": "STEP",
           "path": "Assets/STEP.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -525,7 +526,8 @@ const ARM_DATA = {
         {
           "label": "Medical Assistance Transportation Card",
           "path": "Assets/Medical_Assistance_Transportation_Card.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -669,7 +671,8 @@ const ARM_DATA = {
         {
           "label": "MN Health Centers",
           "path": "Assets/MN_Health_Centers.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -721,22 +724,26 @@ const ARM_DATA = {
         {
           "label": "Hennepin County Civil Commitment",
           "path": "Assets/Hennepin_County_Civil_Commitment.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         },
         {
           "label": "Hennepin County Housing Guidance for Residents",
           "path": "Assets/Hennepin_County_Housing_Guidance_for_Residents.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         },
         {
           "label": "Hennepin County Human Services Business Card",
           "path": "Assets/Hennepin_County_Human_Services_Business_Card.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         },
         {
           "label": "Hennepin County Social Services Program Registration App",
           "path": "Assets/Hennepin_County_Social_Services_Program_Registration_App.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -765,7 +772,8 @@ const ARM_DATA = {
         {
           "label": "Tenant Resource Connections",
           "path": "Assets/Tenant_Resource_Connections.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -794,7 +802,8 @@ const ARM_DATA = {
         {
           "label": "Medical Assistance Transportation Card",
           "path": "Assets/Medical_Assistance_Transportation_Card.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -869,7 +878,8 @@ const ARM_DATA = {
         {
           "label": "MN Health Centers",
           "path": "Assets/MN_Health_Centers.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -967,7 +977,8 @@ const ARM_DATA = {
         {
           "label": "Minnesota Telephone Assistance Program Application",
           "path": "Assets/Minnesota_Telephone_Assistance_Program_Application.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1088,7 +1099,8 @@ const ARM_DATA = {
         {
           "label": "Medical Assistance Transportation Card",
           "path": "Assets/Medical_Assistance_Transportation_Card.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1117,7 +1129,8 @@ const ARM_DATA = {
         {
           "label": "MHA Pets Resource Center",
           "path": "Assets/MHA_Pets_Resource_Center.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1169,12 +1182,14 @@ const ARM_DATA = {
         {
           "label": "Metro Mobility Application",
           "path": "Assets/Metro_Mobility_Application.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         },
         {
           "label": "Metro Mobility Eligibility",
           "path": "Assets/Metro_Mobility_Eligibility.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1272,7 +1287,8 @@ const ARM_DATA = {
         {
           "label": "MN Health Centers",
           "path": "Assets/MN_Health_Centers.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1301,7 +1317,8 @@ const ARM_DATA = {
         {
           "label": "Senior LinkAge Line Overview",
           "path": "Assets/Senior_Linkage_Line.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1422,7 +1439,8 @@ const ARM_DATA = {
         {
           "label": "CADI Elderly Waiver Fact Sheet",
           "path": "Assets/CADI__and__Elderly_Waiver_Fact_Sheet.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1451,7 +1469,8 @@ const ARM_DATA = {
         {
           "label": "Minnesota Health Care Programs Guide",
           "path": "Assets/MN_DHS_Minnesota_Health_Care_Programs.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1480,7 +1499,8 @@ const ARM_DATA = {
         {
           "label": "MN ACT Program Guide",
           "path": "Assets/MN_ACT.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1509,7 +1529,8 @@ const ARM_DATA = {
         {
           "label": "MN Social Security Disability Benefits",
           "path": "Assets/MN_SS__and__Disability_Benefits.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1676,7 +1697,8 @@ const ARM_DATA = {
         {
           "label": "MyHealth",
           "path": "Assets/MyHealth.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1728,7 +1750,8 @@ const ARM_DATA = {
         {
           "label": "School Nurse Mental Health Toolkit",
           "path": "Assets/School_Nurse_Mental_Health_toolkit.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -1964,12 +1987,14 @@ const ARM_DATA = {
         {
           "label": "DayBridge Info",
           "path": "Assets/DayBridge_Info.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         },
         {
           "label": "DayBridge Application",
           "path": "Assets/DayBridge_Application.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -2159,7 +2184,8 @@ const ARM_DATA = {
         {
           "label": "Suicide Prevention Resource Center",
           "path": "Assets/Suicide_Prevention_Resource_Center.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -2211,7 +2237,8 @@ const ARM_DATA = {
         {
           "label": "HOME Program",
           "path": "Assets/HOME_Program.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -2355,21 +2382,21 @@ const ARM_DATA = {
       "subContacts": []
     },
     {
-      "name": "St. Stephen's Street Outreach",
-      "parent": "St. Stephen's Human Services",
+      "name": "Agate Housing and Services",
+      "parent": "Agate Housing and Services",
       "type": "Homelessness / Shelter Outreach",
       "services": "Street outreach, shelter access, housing, and resources for people experiencing homelessness; includes Adult Shelter Connect and shelter contacts",
       "contact": "",
       "email": "info@agatemn.org",
-      "phone": "6122482350",
+      "phone": "6128740311",
       "altPhone": "",
-      "fax": "",
+      "fax": "6128740313",
       "altFax": "",
-      "hours": "",
+      "hours": "Monday-Friday 8:30am-4pm",
       "tty": "",
-      "website": "https://ststephensmpls.org",
+      "website": "https://agatemn.org/",
       "address": "2309 Nicollet Avenue, Minneapolis, MN 55404",
-      "notes": "",
+      "notes": "Formerly St. Stephens Human Services. Some resources listed on attached pdf are outdated or no longer exist.",
       "keywords": "homeless outreach, shelter, Adult Shelter Connect, youth shelter, family shelter, housing resources",
       "categories": [
         "Housing & Shelter"
@@ -2378,109 +2405,11 @@ const ARM_DATA = {
         {
           "label": "St Stephens Street Outreach",
           "path": "Assets/St_Stephens_Street_Outreach.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
-      "subContacts": [
-        {
-          "name": "Adult Shelter Connect",
-          "category": "Single Adult Shelter Access",
-          "audience": "Single adults",
-          "purpose": "Placement access for six Minneapolis shelters for single adults",
-          "phone": "6122482350",
-          "email": "",
-          "website": "",
-          "location": "St. Olaf Church, 215 S 8th St basement, Minneapolis, MN",
-          "hours": "Walk-in: 10:00 AM–5:00 PM Monday–Friday; 1:00 PM–5:00 PM Saturday–Sunday; phone access resumes after 7:30 PM",
-          "access": "Visit Adult Shelter Connect for placement. After evening shelter check-in, call to fill unclaimed beds.",
-          "notes": "",
-          "source": "St_Stephens_Street_Outreach.pdf p.1"
-        },
-        {
-          "name": "St. Stephen's Main Office",
-          "category": "Main Office",
-          "audience": "People experiencing homelessness",
-          "purpose": "Shelter, housing, street outreach, and resource navigation",
-          "phone": "6128740311",
-          "email": "",
-          "website": "https://ststephensmpls.org",
-          "location": "2309 Nicollet Avenue, Minneapolis, MN 55404",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": "St_Stephens_Street_Outreach.pdf p.1"
-        },
-        {
-          "name": "The Bridge for Youth",
-          "category": "Youth Shelter / Services",
-          "audience": "Youth",
-          "purpose": "Youth shelter and services",
-          "phone": "6123778800",
-          "email": "",
-          "website": "",
-          "location": "2200 Emerson Ave S",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": "St_Stephens_Street_Outreach.pdf p.1"
-        },
-        {
-          "name": "YouthLink",
-          "category": "Youth Shelter / Services",
-          "audience": "Youth",
-          "purpose": "Youth shelter and services",
-          "phone": "6122521200",
-          "email": "",
-          "website": "",
-          "location": "41 N 12th St",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": "St_Stephens_Street_Outreach.pdf p.1"
-        },
-        {
-          "name": "Youth Service Network",
-          "category": "Youth Shelter / Resource Directory",
-          "audience": "Youth",
-          "purpose": "Youth shelter/resource directory available online and as an app",
-          "phone": "",
-          "email": "",
-          "website": "https://www.ysnmn.org",
-          "location": "",
-          "hours": "",
-          "access": "Use website/app to find youth shelter and resources.",
-          "notes": "",
-          "source": "St_Stephens_Street_Outreach.pdf p.1"
-        },
-        {
-          "name": "Hennepin County Shelter Team",
-          "category": "Family Shelter Access",
-          "audience": "Families",
-          "purpose": "Family shelter access and placement",
-          "phone": "6123489410",
-          "email": "",
-          "website": "",
-          "location": "",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": "St_Stephens_Street_Outreach.pdf p.1"
-        },
-        {
-          "name": "After-Hours Shelter Team",
-          "category": "After-Hours Family Shelter Access",
-          "audience": "Families",
-          "purpose": "After-hours family shelter support",
-          "phone": "6512910211",
-          "email": "",
-          "website": "",
-          "location": "",
-          "hours": "After hours",
-          "access": "",
-          "notes": "",
-          "source": "St_Stephens_Street_Outreach.pdf p.1"
-        }
-      ]
+      "subContacts": []
     },
     {
       "name": "Department of Children, Youth, and Families",
@@ -2552,7 +2481,8 @@ const ARM_DATA = {
         {
           "label": "MNSure FAQ",
           "path": "Assets/MNSure_FAQ.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -2811,7 +2741,8 @@ const ARM_DATA = {
         {
           "label": "Medical Assistance Transportation Card",
           "path": "Assets/Medical_Assistance_Transportation_Card.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -3691,7 +3622,8 @@ const ARM_DATA = {
         {
           "label": "Legal Aid Resources",
           "path": "Assets/Legal_Aid_Resources.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -3720,7 +3652,8 @@ const ARM_DATA = {
         {
           "label": "Liberty Oxygen Catalog",
           "path": "Assets/Liberty_Oxygen_Catalog.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -4127,7 +4060,7 @@ const ARM_DATA = {
       "altPhone": "",
       "fax": "",
       "altFax": "",
-      "hours": "8 a.m. – 4 p.m. Monday through Friday; 8 a.m. – 2 p.m. Saturday",
+      "hours": "8 a.m. – 4 p.m. Monday through Friday; ; 8 a.m. – 2 p.m. Saturday",
       "tty": "",
       "website": "https://cctwincities.org/services-and-locations/adult-emergency-shelters/mary-f-frey-minneapolis-opportunity-center/",
       "address": "740 East 17th Street Minneapolis, MN 55404",
@@ -4255,7 +4188,8 @@ const ARM_DATA = {
         {
           "label": "ACT Referral FAQ",
           "path": "Assets/ACT-Referral-FAQ.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ],
       "subContacts": []
@@ -4270,7 +4204,8 @@ const ARM_DATA = {
         {
           "label": "PHQ-2 / PHQ-9",
           "path": "Assets/ARM Screening Tools/PHQ2-9.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4282,7 +4217,8 @@ const ARM_DATA = {
         {
           "label": "GAD-2 / GAD-7",
           "path": "Assets/ARM Screening Tools/GAD7.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4294,7 +4230,8 @@ const ARM_DATA = {
         {
           "label": "Columbia Suicide Severity Rating Scale (C-SSRS)",
           "path": "Assets/ARM Screening Tools/C-SSRS.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4306,7 +4243,8 @@ const ARM_DATA = {
         {
           "label": "Geriatric Depression Scale (GDS)",
           "path": "Assets/ARM Screening Tools/GDS15.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4318,7 +4256,8 @@ const ARM_DATA = {
         {
           "label": "Mini Cog",
           "path": "Assets/ARM Screening Tools/Mini-Cog.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4330,7 +4269,8 @@ const ARM_DATA = {
         {
           "label": "MoCA",
           "path": "Assets/ARM Screening Tools/moca.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4342,7 +4282,8 @@ const ARM_DATA = {
         {
           "label": "AUDIT",
           "path": "Assets/ARM Screening Tools/AUDIT.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4354,7 +4295,8 @@ const ARM_DATA = {
         {
           "label": "DAST-10",
           "path": "Assets/ARM Screening Tools/DAST-10.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4366,7 +4308,8 @@ const ARM_DATA = {
         {
           "label": "CAGE AID",
           "path": "Assets/ARM Screening Tools/CAGE-AID.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4378,7 +4321,8 @@ const ARM_DATA = {
         {
           "label": "ciwa ar",
           "path": "Assets/ARM Screening Tools/ciwa-ar.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4390,7 +4334,8 @@ const ARM_DATA = {
         {
           "label": "COWS",
           "path": "Assets/ARM Screening Tools/COWS.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4402,7 +4347,8 @@ const ARM_DATA = {
         {
           "label": "SBIRT Factsheet",
           "path": "Assets/ARM Screening Tools/SBIRT_Factsheet.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4414,7 +4360,8 @@ const ARM_DATA = {
         {
           "label": "PRAPARE",
           "path": "Assets/ARM Screening Tools/PRAPARE.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4426,7 +4373,8 @@ const ARM_DATA = {
         {
           "label": "Katz ADL",
           "path": "Assets/ARM Screening Tools/Katz ADL.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4438,7 +4386,8 @@ const ARM_DATA = {
         {
           "label": "Lawton IADL",
           "path": "Assets/ARM Screening Tools/Lawton_IADL.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4450,7 +4399,8 @@ const ARM_DATA = {
         {
           "label": "TUG",
           "path": "Assets/ARM Screening Tools/TUG.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4462,7 +4412,8 @@ const ARM_DATA = {
         {
           "label": "Wong Baker FACES",
           "path": "Assets/ARM Screening Tools/Wong-Baker.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4474,7 +4425,8 @@ const ARM_DATA = {
         {
           "label": "HOME FAST",
           "path": "Assets/ARM Screening Tools/HOME_FAST.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     },
@@ -4486,7 +4438,8 @@ const ARM_DATA = {
         {
           "label": "MMAS 8",
           "path": "Assets/ARM Screening Tools/MMAS-8.pdf",
-          "fillable": false
+          "fillable": false,
+          "type": "file"
         }
       ]
     }
@@ -4505,7 +4458,8 @@ const ARM_DATA = {
         {
           "label": "Fairview-ROI.pdf",
           "path": "Assets/ROIs/Fairview-ROI.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4522,7 +4476,8 @@ const ARM_DATA = {
         {
           "label": "Allina-ROI.pdf",
           "path": "Assets/ROIs/Allina-ROI.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4539,7 +4494,8 @@ const ARM_DATA = {
         {
           "label": "North-Memorial-ROI.pdf",
           "path": "Assets/ROIs/North-Memorial-ROI.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4556,7 +4512,8 @@ const ARM_DATA = {
         {
           "label": "HCMC-ROI.pdf",
           "path": "Assets/ROIs/HCMC-ROI.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4573,7 +4530,8 @@ const ARM_DATA = {
         {
           "label": "Healthpartners-ROI.pdf",
           "path": "Assets/ROIs/Healthpartners-ROI.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4590,7 +4548,8 @@ const ARM_DATA = {
         {
           "label": "Childrens-ROI.pdf",
           "path": "Assets/ROIs/Childrens-ROI.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4607,7 +4566,8 @@ const ARM_DATA = {
         {
           "label": "Gillette-ROI.pdf",
           "path": "Assets/ROIs/Gillette-ROI.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4624,7 +4584,8 @@ const ARM_DATA = {
         {
           "label": "VHA Form 10-5345a Fill-revision.pdf",
           "path": "Assets/ROIs/VHA Form 10-5345a Fill-revision.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4641,12 +4602,14 @@ const ARM_DATA = {
         {
           "label": "RM.204.F01-PC.pdf",
           "path": "Assets/ROIs/RM.204.F01-PC.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         },
         {
           "label": "RM.204.F01-ROI-Standard.pdf",
           "path": "Assets/ROIs/RM.204.F01-ROI-Standard.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     },
@@ -4663,7 +4626,8 @@ const ARM_DATA = {
         {
           "label": "Mayo _ROI_Form.pdf",
           "path": "Assets/ROIs/Mayo _ROI_Form.pdf",
-          "fillable": true
+          "fillable": true,
+          "type": "file"
         }
       ]
     }

@@ -521,7 +521,7 @@ function showDetail(resource) {
     ${section("Overview", resource.services)}
     ${section("Contact", contactBlock(resource))}
     ${section("Related Contacts", subContactsBlock(resource))}
-    ${section("Documents & Files", fileBlock(resource))}
+    ${section("Files & External Links", fileBlock(resource))}
     ${section("Notes", resource.notes)}
   `;
 
@@ -607,12 +607,15 @@ function subContactsBlock(r) {
     .join("");
 }
 
-/* FIXED FILE BLOCK — FRIENDLY NAMES + MULTIPLE FILES */
+/* FIXED FILE BLOCK — FRIENDLY NAMES + MULTIPLE FILES + EXTERNAL LINKS */
 function fileBlock(r) {
   if (!r.files || !r.files.length) return "";
 
   return r.files
     .map(file => {
+      if (file.url) {
+        return `<p>${icon("globe")} <a href="${escapeAttr(file.url)}" target="_blank" rel="noopener">${file.label}</a></p>`;
+      }
       return `<p><a ${fileLinkAttrs(toFileUrl(file.path), file.label, file.fillable)}>${file.label}</a></p>`;
     })
     .join("");

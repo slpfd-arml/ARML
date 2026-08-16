@@ -230,16 +230,20 @@ const FILLABLE_FILENAMES = (() => {
 
 // Parses the Files column (same format on Resource List + Screening Tools):
 //   ""                                  -> []
-//   "AUDIT.pdf"                         -> [{label:"AUDIT.pdf", path:"...", fillable:auto}]
-//   "Depression Screener|PHQ-9.pdf"     -> [{label:"...", path:"...", fillable:auto}]
+//   "AUDIT.pdf"                         -> [{label:"AUDIT.pdf", path:"...", fillable:auto, type:"file"}]
+//   "Depression Screener|PHQ-9.pdf"     -> [{label:"...", path:"...", fillable:auto, type:"file"}]
 //   "A.pdf; Label|B.pdf"                -> two entries, split on ";"
+//   "Apply Online|https://a.org/apply|link" -> [{label:"...", url:"...", type:"link"}]
 //
 // "fillable" is normally decided automatically by scanning the PDF for
-// form fields. Two optional trailing markers override that when needed:
+// form fields. Three optional trailing markers override/tag an entry:
 //   "...|fillable"  - force it to open in the device's PDF app
 //   "...|inapp"     - force it to open in the in-app viewer, even though
 //                     it has form fields (useful for a reference sheet
 //                     that happens to contain a stray field)
+//   "...|link"      - this entry is an external URL, not a filename to
+//                     resolve under /Assets - opens in a new browser tab
+//                     instead of the in-app PDF viewer
 function parseFiles(raw, context) {
   if (!raw) return [];
   return String(raw)
@@ -250,17 +254,27 @@ function parseFiles(raw, context) {
       let parts = entry.split("|").map(s => cleanText(s)).filter(s => s !== "");
 
       let override = null;
+      let isLink = false;
       const last = parts.length > 1 ? parts[parts.length - 1].toLowerCase() : "";
       if (last === "fillable") { override = true; parts = parts.slice(0, -1); }
       else if (last === "inapp") { override = false; parts = parts.slice(0, -1); }
+      else if (last === "link") { isLink = true; parts = parts.slice(0, -1); }
 
-      const label = parts[0];
-      const filename = parts.length === 1 ? parts[0] : parts[parts.length - 1];
-      const resolved = resolveFile(filename, context);
+      const label = parts.length > 1 ? parts[0] : null;
+      const target = parts.length > 1 ? parts[parts.length - 1] : parts[0];
+      if (!target) return null;
+
+      if (isLink) {
+        const url = normalizeUrl(target);
+        if (!url) return null;
+        return { label: label || url, url, type: "link" };
+      }
+
+      const resolved = resolveFile(target, context);
       if (!resolved) return null;
 
       const autoFillable = FILLABLE_FILENAMES.has(path.basename(resolved).toLowerCase());
-      return { label, path: resolved, fillable: override === null ? autoFillable : override };
+      return { label: label || target, path: resolved, fillable: override === null ? autoFillable : override, type: "file" };
     })
     .filter(Boolean);
 }
@@ -357,19 +371,23 @@ const release_of_information = roiSheet
 if (!roiSheet) console.log('(No "Release of Information" sheet found - skipping ROI contacts.)');
 
 // ---------- SUB-CONTACTS (optional sheet(s)) ----------
-// Generic "Parent Resource" join: any sheet shaped this way gets nested
-// under the matching resource's detail view, keyed by exact Resource Name.
-// Currently just "St Stephens Contacts", but this isn't hardcoded to it -
-// add more sheets in the same shape and they'll join the same way.
-const SUB_CONTACT_SHEETS = ["St Stephens Contacts", "CAP-HC Contacts"];
+// Generic "Parent Resource" join: ANY sheet other than the fixed core
+// sheets below that has a "Parent Resource" header cell somewhere in it
+// is auto-discovered and joined, keyed by exact Resource Name. Used to be
+// a hardcoded list of sheet names that had to be kept in sync by hand
+// every time a new one was added - now ARML Editor's "Add Sub-Contact"
+// flow can create a brand new worksheet for a resource and have it show
+// up here automatically, no code change required.
+const CORE_SHEET_NAMES = new Set(["Read Me", "Resource List", "Release of Information", "Screening Tools"]);
+const SUB_CONTACT_SHEETS = wb.SheetNames.filter(sheetName => {
+  if (CORE_SHEET_NAMES.has(sheetName)) return false;
+  const aoa = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], { header: 1, defval: "" });
+  return aoa.some(r => cleanText(r[0]) === "Parent Resource");
+});
 let subContactCount = 0;
 
 SUB_CONTACT_SHEETS.forEach(sheetName => {
   const sheet = wb.Sheets[sheetName];
-  if (!sheet) {
-    console.log(`(No "${sheetName}" sheet found - skipping.)`);
-    return;
-  }
 
   // These sheets have a title + description row before the real header,
   // so find the header row by content instead of assuming a fixed offset.
