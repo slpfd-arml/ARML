@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T15:33:35.230Z",
-    "resource_count": 169,
+    "generated": "2026-08-17T15:40:40.188Z",
+    "resource_count": 170,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
     "version": "3.3.2",
-    "buildId": "3.3.2+8a7f14c9b6db",
-    "dataHash": "8a7f14c9b6db"
+    "buildId": "3.3.2+609d87bf8bb1",
+    "dataHash": "609d87bf8bb1"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4411,6 +4411,29 @@ const ARM_DATA = {
           "source": ""
         }
       ]
+    },
+    {
+      "name": "Simpson Housing Services",
+      "parent": "Simpson Housing Services",
+      "type": "Housing & Shelter",
+      "services": "",
+      "contact": "",
+      "email": "",
+      "phone": "",
+      "altPhone": "",
+      "fax": "",
+      "altFax": "",
+      "hours": "Monday–Thursday 9AM–4PM",
+      "tty": "",
+      "website": "https://simpsonhousing.org",
+      "address": "160 Glenwood Avenue Minneapolis, MN 55405",
+      "notes": "",
+      "keywords": "",
+      "categories": [
+        "Housing & Shelter"
+      ],
+      "files": [],
+      "subContacts": []
     }
   ],
   "screening_tools": [
