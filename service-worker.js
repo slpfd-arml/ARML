@@ -18,7 +18,7 @@
                             PDF a medic downloaded for offline use.
    ============================================================ */
 
-const BUILD_ID = '3.3.0+28e93ea13402';
+const BUILD_ID = '3.3.1+28e93ea13402';
 const SHELL_FILES = [
   "index.html",
   "style.css",
@@ -112,14 +112,27 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  /* --- Assets (PDFs): cache-first, stored in the durable asset cache --- */
+  /* --- Assets (PDFs): cache-first, stored in the durable asset cache ---
+     pdf.js streams an opened PDF with byte-Range requests, so `req` here
+     often carries a Range header. Matching/storing against `req` as-is
+     breaks caching two ways: cache.match(req) only matches a byte-for-
+     byte-identical Range, which almost never repeats, so a cached PDF
+     would silently never be served from cache again; and a network
+     fetch that forwards a Range header gets back 206 Partial Content,
+     which cache.put() throws on outright, so the file never actually
+     lands in the cache in the first place - every open, including
+     immediate re-opens of the exact same file, would re-hit the network.
+     Using the plain URL for both the lookup and the fetch sidesteps
+     both: one full 200 response per PDF, cached once, with the browser's
+     own Cache Storage slicing out whatever byte range a later request
+     (with whatever Range header) actually asks for. */
   if (isAsset(url)) {
     event.respondWith(
       caches.open(ASSET_CACHE).then(cache =>
-        cache.match(req).then(cached => {
+        cache.match(req.url).then(cached => {
           if (cached) return cached;
-          return fetch(req).then(res => {
-            if (res && res.ok) cache.put(req, res.clone());
+          return fetch(req.url).then(res => {
+            if (res && res.ok) cache.put(req.url, res.clone());
             return res;
           });
         })
