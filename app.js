@@ -41,7 +41,8 @@ const ICON_SVG = {
   clipboard: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1H9z"/><path d="M9 12l2 2 4-4"/>',
   "doc-sign": '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 15l6-6 2 2-6 6H9v-2z"/>',
   "id-card": '<rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><path d="M14 10h6M14 14h4"/>',
-  heart: '<path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/>'
+  heart: '<path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/>',
+  file: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>'
 };
 
 function icon(name, size) {
@@ -617,7 +618,7 @@ function fileBlock(r) {
       if (file.url) {
         return `<p>${icon("globe")} <a href="${escapeAttr(file.url)}" target="_blank" rel="noopener">${file.label}</a></p>`;
       }
-      return `<p><a ${fileLinkAttrs(toFileUrl(file.path), file.label, file.fillable)}>${file.label}</a></p>`;
+      return `<p>${icon("file")} <a ${fileLinkAttrs(toFileUrl(file.path), file.label, file.fillable)}>${file.label}</a></p>`;
     })
     .join("");
 }
