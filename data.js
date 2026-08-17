@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T03:27:59.591Z",
+    "generated": "2026-08-17T03:46:55.067Z",
     "resource_count": 168,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 9,
     "version": "3.2.0",
-    "buildId": "3.2.0+e4c588ffbf43",
-    "dataHash": "e4c588ffbf43"
+    "buildId": "3.2.0+cda8b58fbbd6",
+    "dataHash": "cda8b58fbbd6"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4221,7 +4221,7 @@ const ARM_DATA = {
       "notes": "",
       "keywords": "drugs, savings, prescription, coupons",
       "categories": [
-        "Health Care & Clinics"
+        "Benefits & Insurance"
       ],
       "files": [],
       "subContacts": []
