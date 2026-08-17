@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T03:46:55.067Z",
+    "generated": "2026-08-17T03:53:54.090Z",
     "resource_count": 168,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 9,
     "version": "3.2.0",
-    "buildId": "3.2.0+cda8b58fbbd6",
-    "dataHash": "cda8b58fbbd6"
+    "buildId": "3.2.0+14fa156c5e7a",
+    "dataHash": "14fa156c5e7a"
   },
   "categories": [
     "Benefits & Insurance",
@@ -104,7 +104,7 @@ const ARM_DATA = {
       "fax": "",
       "altFax": "",
       "hours": "",
-      "tty": "711",
+      "tty": "",
       "website": "https://www.bluecrossmn.com/our-plans/medical-assistance-medicaid/medical-assistance-resources/blueride-transportation",
       "address": "3400 Yankee Dr, Eagan, MN 55121",
       "notes": "",
