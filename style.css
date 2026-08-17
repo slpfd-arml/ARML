@@ -663,6 +663,23 @@ a:active {
 .footer-btn img {
   color: var(--slp-red);
   flex-shrink: 0;
+  /* One shared height for every footer icon, width left to size itself
+     from each icon's own aspect ratio. Forcing both dimensions (as the
+     old per-icon width/height attributes did) stretches any icon whose
+     native proportions aren't square - ysn-icon.svg (345x299) was being
+     squashed into a 20x20 box. Height-only keeps every icon undistorted
+     and sitting on the same visual baseline. */
+  height: 20px;
+  width: auto;
+}
+
+/* mn-icon.svg is a wordmark (~1.94:1), not a square glyph like every
+   other footer icon - at the shared 20px height it renders nearly twice
+   as wide as its neighbors, dominating the row. Scaled down (height
+   only, same aspect-preserving rule as above) so its footprint reads as
+   comparable instead of standing out. */
+#mnAdrBtn img {
+  height: 15px;
 }
 
 .footer-btn span {
