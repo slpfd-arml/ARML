@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T14:10:18.506Z",
+    "generated": "2026-08-17T14:51:02.960Z",
     "resource_count": 168,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 13,
     "version": "3.3.2",
-    "buildId": "3.3.2+78473f9cca5e",
-    "dataHash": "78473f9cca5e"
+    "buildId": "3.3.2+5030d4d92859",
+    "dataHash": "5030d4d92859"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4195,22 +4195,6 @@ const ARM_DATA = {
       ],
       "files": [
         {
-          "label": "ACT Referral FAQ",
-          "path": "Assets/ACT-Referral-FAQ.pdf",
-          "fillable": false,
-          "type": "file"
-        },
-        {
-          "label": "ACT Referral Form and Screening Tool",
-          "url": "https://www.radiashealth.org/wp-content/uploads/2024/01/RADIAS-Health-Referral.pdf",
-          "type": "link"
-        },
-        {
-          "label": "Youth ACT Referral Form",
-          "url": "https://radiashealth.na4.adobesign.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhBBuo-IVhRnsFoYhvNnm4hoxNvgY_OP57QRe6vHtGdQRGJkOLPW_JB1glr3-gbEuMc*",
-          "type": "link"
-        },
-        {
           "label": "RSS Referral Form",
           "path": "Assets/RSS-Referral.pdf",
           "fillable": true,
@@ -4221,6 +4205,22 @@ const ARM_DATA = {
           "path": "Assets/RADIAS-IRTS-Referral.pdf",
           "fillable": true,
           "type": "file"
+        },
+        {
+          "label": "ACT Referral FAQ",
+          "path": "Assets/ACT-Referral-FAQ-2.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "ACT Referral Form",
+          "url": "https://radiashealth.na4.adobesign.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhAugPzsIjyMLyyiH7M7vAXvmHyHq2eqFFsU7eChprg6e07TbfawMdmc23vIqj4MGko*",
+          "type": "link"
+        },
+        {
+          "label": "Youth ACT Referral Form",
+          "url": "https://radiashealth.na4.adobesign.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhBBuo-IVhRnsFoYhvNnm4hoxNvgY_OP57QRe6vHtGdQRGJkOLPW_JB1glr3-gbEuMc*",
+          "type": "link"
         }
       ],
       "subContacts": [
