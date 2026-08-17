@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T00:35:04.786Z",
+    "generated": "2026-08-17T00:50:33.561Z",
     "resource_count": 166,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 13,
     "version": "3.2.0",
-    "buildId": "3.2.0+814f9b157995",
-    "dataHash": "814f9b157995"
+    "buildId": "3.2.0+560f7aed829d",
+    "dataHash": "560f7aed829d"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4168,7 +4168,7 @@ const ARM_DATA = {
       "name": "RADIAS Health",
       "parent": "RADIAS Health",
       "type": "Non-Profit Mental Health Services",
-      "services": "Outpatient Individual and Group Therapy, Diagnostic Assessments, Medication Management, Dialectical Behavioral Therapy (DBT), Assertive Community Treatment (ACT), Forensic Assertive Community Treatment (FACT), Targeted Case Management, Waivered Services Case Management, Compass First Episode Psychosis Program, Community Competency Restoration, Intensive Residential Treatment Services (IRTS), Crisis Residential Services, Residential Support Services, Main Street Housing, Community Treatment Team Housing, Housing Support & Navigation Programs, Homeless Outreach Services, Pharmacy Services, Professional Training Services",
+      "services": "Mental Health non-profit offering various services including ACT,Youth ACT, out patient therapy, and emergency housing.",
       "contact": "",
       "email": "centralaccess@radiashealth.org",
       "phone": "612-453-4010",
@@ -4256,9 +4256,9 @@ const ARM_DATA = {
           "category": "ICRTS",
           "audience": "",
           "purpose": "",
-          "phone": "",
+          "phone": "612-869-2411",
           "email": "",
-          "website": "",
+          "website": "https://www.radiashealth.org/programs/intensive-crisis-residential-treatment-services/reentry-house/",
           "location": "5812 Lyndale Ave S, Minneapolis, MN 55419",
           "hours": "",
           "access": "",
