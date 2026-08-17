@@ -1100,6 +1100,10 @@ document.getElementById("waypointBtn").addEventListener("click", () => {
   window.open("https://gis.hennepin.us/waypoint/", "_blank");
 });
 
+document.getElementById("mnAdrBtn").addEventListener("click", () => {
+  window.open("https://mn.gov/adresources/", "_blank");
+});
+
 document.getElementById("ysnBtn").addEventListener("click", () => {
   window.open("https://ysnmn.org/", "_blank");
 });
