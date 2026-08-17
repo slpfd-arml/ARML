@@ -161,6 +161,41 @@ a:active {
   overscroll-behavior: none;
 }
 
+/* TAP FEEDBACK — standalone controls compress slightly on press, like a
+   native iOS button. Deliberately NOT applied to list rows (#resourceItems
+   li, .roi-org-row, .fav-list li, .all-resources-row) - those already get
+   a background highlight on :active, which is the correct native
+   UITableViewCell-style press feedback; scaling a full-width row instead
+   would read as a layout glitch, not a button press.
+   Add any new standalone button/control to this list. */
+.back-btn,
+.detail-close-btn,
+.detail-action-btn,
+.fav-heart,
+.footer-btn,
+.version-tag,
+.tools-close-btn,
+.pdf-viewer-external-btn,
+.save-nudge-continue-btn,
+.update-btn,
+.theme-toggle {
+  transition: transform 0.1s ease;
+}
+
+.back-btn:active,
+.detail-close-btn:active,
+.detail-action-btn:active,
+.fav-heart:active,
+.footer-btn:active,
+.version-tag:active,
+.tools-close-btn:active,
+.pdf-viewer-external-btn:active,
+.save-nudge-continue-btn:active,
+.update-btn:active,
+.theme-toggle:active {
+  transform: scale(0.96);
+}
+
 /* BIGGER RED SCROLLBARS */
 *::-webkit-scrollbar {
   width: 16px;
@@ -670,23 +705,41 @@ a:active {
   background: rgba(0,0,0,0.18);
 }
 
-/* SCREENING TOOLS MODAL */
+/* SCREENING TOOLS MODAL
+   display:none is gone in favor of opacity/visibility so the open/close
+   can actually transition - display can't be animated, and the previous
+   hard display:none/flex swap is what made every modal here appear with
+   an abrupt cut instead of the fade+scale-in native iOS sheets use.
+   pointer-events:none while closed keeps the (now permanently in-layout)
+   fixed overlay from silently blocking clicks to whatever's behind it.
+   background/backdrop-filter only apply in .open - with up to 6 of these
+   overlays live in the DOM at once (one per modal), computing a blur on
+   every one of them even while invisible would be wasted GPU work on an
+   iPad; moving both into .open keeps that cost scoped to whichever modal
+   is actually showing, same as the old display:none did. */
 .tools-modal {
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(3px);
   z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s ease, visibility 0s linear 0.22s;
 }
 
 .tools-modal.open {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(3px);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.22s ease;
 }
 
 /* LAYERED MODAL STACKING
@@ -732,6 +785,12 @@ a:active {
   box-shadow: 0 4px 12px rgba(0,0,0,0.35);
   overflow: hidden;
   color: var(--text-primary);
+  transform: scale(0.92);
+  transition: transform 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.tools-modal.open .tools-modal-box {
+  transform: scale(1);
 }
 
 /* Purely the scrolling region now - no box styling of its own, no
@@ -1249,7 +1308,9 @@ a:active {
     padding: calc(0.85rem + env(safe-area-inset-top)) 1rem
              calc(0.85rem + env(safe-area-inset-bottom));
     transform: translateX(100%);
-    transition: transform 0.3s ease;
+    /* iOS's own sheet-transition curve rather than plain ease - a slight
+       overshoot-free spring instead of a linear-feeling web slide. */
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
     will-change: transform;
     visibility: hidden;
     pointer-events: none;
@@ -1294,7 +1355,7 @@ a:active {
        is a full-screen view of its own now). */
     border-left: none;
     transform: translateX(100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
     will-change: transform;
     visibility: hidden;
     pointer-events: none;
@@ -1664,8 +1725,11 @@ html.theme-light .theme-toggle .sun-icon {
 
 @media (prefers-reduced-motion: reduce) {
   body, .resource-list, .resource-detail, .detail-content, .app-footer,
-  .tools-modal-box, .search-bar, .search-bar input, .list-back-bar,
-  .theme-toggle-knob {
+  .tools-modal, .tools-modal-box, .roi-detail-pane, .search-bar,
+  .search-bar input, .list-back-bar, .theme-toggle-knob,
+  .back-btn, .detail-close-btn, .detail-action-btn, .fav-heart,
+  .footer-btn, .version-tag, .tools-close-btn, .pdf-viewer-external-btn,
+  .save-nudge-continue-btn, .update-btn, .theme-toggle {
     transition: none;
   }
 }
