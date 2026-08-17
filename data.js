@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T14:51:02.960Z",
-    "resource_count": 168,
+    "generated": "2026-08-17T15:33:35.230Z",
+    "resource_count": 169,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 13,
+    "sub_contact_count": 16,
     "version": "3.3.2",
-    "buildId": "3.3.2+5030d4d92859",
-    "dataHash": "5030d4d92859"
+    "buildId": "3.3.2+8a7f14c9b6db",
+    "dataHash": "8a7f14c9b6db"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4342,6 +4342,75 @@ const ARM_DATA = {
         }
       ],
       "subContacts": []
+    },
+    {
+      "name": "SpringPath Mental Health Services",
+      "parent": "ResCare Minnesota, Inc.",
+      "type": "Mental Health Services",
+      "services": "ACT, FACT, and IRTS service provider",
+      "contact": "",
+      "email": "",
+      "phone": "7635376612",
+      "altPhone": "",
+      "fax": "7635377162",
+      "altFax": "",
+      "hours": "",
+      "tty": "",
+      "website": "https://springpathmentalhealth.com/",
+      "address": "6120 Earle Brown Drive, Suite 100 Brooklyn Center, MN 55430",
+      "notes": "Previously ResCare Minnesota",
+      "keywords": "ACT, Assertive, Community, Treatment, Mental, Health, ResCare, IRTS, Residential",
+      "categories": [
+        "Mental Health & Substance Use"
+      ],
+      "files": [],
+      "subContacts": [
+        {
+          "name": "Transitions on Broadway",
+          "category": "IRTS",
+          "audience": "",
+          "purpose": "",
+          "phone": "7635887626",
+          "fax": "",
+          "email": "",
+          "website": "",
+          "location": "3776 W Broadway, Minneapolis, MN 55422",
+          "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        },
+        {
+          "name": "Northwest Residence",
+          "category": "IRTS",
+          "audience": "",
+          "purpose": "",
+          "phone": "7635663650",
+          "fax": "",
+          "email": "",
+          "website": "",
+          "location": "4408 69th Ave N, Brooklyn Center, MN 55429",
+          "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        },
+        {
+          "name": "Phoenix Place",
+          "category": "IRTS",
+          "audience": "",
+          "purpose": "",
+          "phone": "7635368110",
+          "fax": "",
+          "email": "",
+          "website": "",
+          "location": "4901 W BROADWAY AVE Crystal, MN 55429",
+          "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        }
+      ]
     }
   ],
   "screening_tools": [
