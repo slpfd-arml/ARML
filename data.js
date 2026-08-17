@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T02:34:59.533Z",
-    "resource_count": 166,
+    "generated": "2026-08-17T02:51:42.676Z",
+    "resource_count": 167,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 9,
     "version": "3.2.0",
-    "buildId": "3.2.0+33423a6218c7",
-    "dataHash": "33423a6218c7"
+    "buildId": "3.2.0+71d48113bb8f",
+    "dataHash": "71d48113bb8f"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4201,6 +4201,29 @@ const ARM_DATA = {
           "type": "file"
         }
       ],
+      "subContacts": []
+    },
+    {
+      "name": "GoodRx",
+      "parent": "GoodRx",
+      "type": "For-Profit Drug Discounter",
+      "services": "GoodRx tracks prescription drug prices and provides users with drug savings coupons.",
+      "contact": "",
+      "email": "",
+      "phone": "",
+      "altPhone": "",
+      "fax": "",
+      "altFax": "",
+      "hours": "",
+      "tty": "",
+      "website": "https://www.goodrx.com/",
+      "address": "",
+      "notes": "",
+      "keywords": "drugs, savings, prescription, coupons",
+      "categories": [
+        "Health Care & Clinics"
+      ],
+      "files": [],
       "subContacts": []
     }
   ],
