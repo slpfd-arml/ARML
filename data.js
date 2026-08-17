@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T05:19:53.447Z",
+    "generated": "2026-08-17T05:43:30.553Z",
     "resource_count": 168,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 9,
-    "version": "3.2.2",
-    "buildId": "3.2.2+18ae50f8f03c",
-    "dataHash": "18ae50f8f03c"
+    "sub_contact_count": 13,
+    "version": "3.2.3",
+    "buildId": "3.2.3+ffe15f863bb2",
+    "dataHash": "ffe15f863bb2"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4174,10 +4174,10 @@ const ARM_DATA = {
       "subContacts": []
     },
     {
-      "name": "RADIAS Health Assertive Community Treatment",
+      "name": "RADIAS Health",
       "parent": "RADIAS Health",
-      "type": "ACT Team",
-      "services": "Assertive Community Treatment (ACT) provides integrated mental health services treatment for individuals who have been diagnosed with thought disorders. Services include psychiatry, therapy, nursing, substance use disorder treatment, vocational services, case management, and peer recovery services. Teams partner with the individuals served and their natural supports to build the skills needed to manage their illness while also reaching their life goals. Common things teams help with include finding and maintaining housing, obtaining competitive employment, building social networks, and re-establishing relationships. Teams meet with people in their homes or community location of their choosing and provide services seven days a week, with crisis response services available 24 hours per day.",
+      "type": "Non-Profit Mental Health Services",
+      "services": "Mental Health non-profit offering various services including ACT,Youth ACT, out patient therapy, and emergency housing.",
       "contact": "",
       "email": "centralaccess@radiashealth.org",
       "phone": "612-453-4010",
@@ -4186,10 +4186,10 @@ const ARM_DATA = {
       "altFax": "",
       "hours": "",
       "tty": "",
-      "website": "https://www.radiashealth.org/programs/community-based-services/assertive-community-treatment/",
+      "website": "https://www.radiashealth.org/",
       "address": "",
       "notes": "Referrals for all RADIAS programs are coordinated through their Central Access Team",
-      "keywords": "RADIAS, Health, ACT, Assertive Community Treatment, mental health",
+      "keywords": "RADIAS, Health, ACT, Assertive Community Treatment, mental health, Youth, Pharmacy, Crisis, Residential",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -4199,9 +4199,86 @@ const ARM_DATA = {
           "path": "Assets/ACT-Referral-FAQ.pdf",
           "fillable": false,
           "type": "file"
+        },
+        {
+          "label": "RADIAS Health IRTS Referral",
+          "path": "Assets/RADIAS-Health-IRTS-Referral.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "ACT Referral Form and Screening Tool",
+          "url": "https://www.radiashealth.org/wp-content/uploads/2024/01/RADIAS-Health-Referral.pdf",
+          "type": "link"
+        },
+        {
+          "label": "Youth ACT Referral Form",
+          "url": "https://radiashealth.na4.adobesign.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhBBuo-IVhRnsFoYhvNnm4hoxNvgY_OP57QRe6vHtGdQRGJkOLPW_JB1glr3-gbEuMc*",
+          "type": "link"
         }
       ],
-      "subContacts": []
+      "subContacts": [
+        {
+          "name": "Assertive Community Treatment",
+          "category": "ACT Team",
+          "audience": "",
+          "purpose": "Assertive Community Treatment (ACT) provides integrated mental health services treatment for individuals who have been diagnosed with thought disorders. Services include psychiatry, therapy, nursing, substance use disorder treatment, vocational services, case management, and peer recovery services.",
+          "phone": "612-435-7207",
+          "fax": "",
+          "email": "",
+          "website": "https://www.radiashealth.org/programs/community-based-services/assertive-community-treatment/",
+          "location": "",
+          "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        },
+        {
+          "name": "Youth ACT",
+          "category": "ACT Team",
+          "audience": "",
+          "purpose": "Youth ACT (also known as Intensive Rehabilitative Mental Health Services) are services provided by a multidisciplinary team directed toward youth ages 14-20 with a serious mental illness or co-occurring mental illness and substance use disorder.",
+          "phone": "612-453-4020",
+          "fax": "",
+          "email": "",
+          "website": "https://www.radiashealth.org/programs/community-based-services/youth-act/",
+          "location": "",
+          "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        },
+        {
+          "name": "Out Patient Clinic",
+          "category": "Out Patient Mental Health Services",
+          "audience": "",
+          "purpose": "individual and group therapy, diagnostic assessments, medication management, Dialectical Behavioral Therapy",
+          "phone": "651-389-4680",
+          "fax": "",
+          "email": "outpatientclinic@radiashealth.org",
+          "website": "https://www.radiashealth.org/programs/outpatient-behavioral-health-clinic/",
+          "location": "166 4th Street East, Suite 200, Saint Paul, MN 55101",
+          "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        },
+        {
+          "name": "ReEntry House",
+          "category": "ICRTS",
+          "audience": "",
+          "purpose": "",
+          "phone": "612-869-2411",
+          "fax": "",
+          "email": "",
+          "website": "https://www.radiashealth.org/programs/intensive-crisis-residential-treatment-services/reentry-house/",
+          "location": "5812 Lyndale Ave S, Minneapolis, MN 55419",
+          "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        }
+      ]
     },
     {
       "name": "GoodRx",
