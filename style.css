@@ -150,7 +150,10 @@ a:active {
    Add any new scroll container to this list. */
 #resourceItems,
 .resource-detail,
-.tools-modal-content {
+.tools-modal-content,
+.pdf-pages-container,
+.roi-org-list,
+.roi-detail-pane {
   -webkit-overflow-scrolling: touch;
   /* "none" rather than "contain": contain still lets the container itself
      rubber-band at its own limits, which is the judder you see at the top
