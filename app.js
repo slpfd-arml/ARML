@@ -595,6 +595,7 @@ function subContactsBlock(r) {
           ${meta ? `<p class="sub-contact-meta">${meta}</p>` : ""}
           ${purpose ? `<p>${purpose}</p>` : ""}
           ${c.phone ? `<p>${icon("phone")} <a href="${telHref(c.phone)}">${formatPhone(c.phone)}</a></p>` : ""}
+          ${c.fax ? `<p><strong>Fax:</strong> ${formatPhone(c.fax)}</p>` : ""}
           ${c.email ? `<p>${icon("mail")} <a href="mailto:${c.email}">${c.email}</a></p>` : ""}
           ${c.website ? `<p>${icon("globe")} <a href="${c.website}" target="_blank" rel="noopener">Visit Website</a></p>` : ""}
           ${locationHtml ? `<p>${locationHtml}</p>` : ""}

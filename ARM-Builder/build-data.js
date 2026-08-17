@@ -417,6 +417,7 @@ SUB_CONTACT_SHEETS.forEach(sheetName => {
       audience: cleanText(row["Audience"]),
       purpose: cleanText(row["Services / Purpose"]),
       phone: cleanText(row["Phone"]),
+      fax: cleanText(row["Fax"]),
       email: cleanText(row["Email"]),
       website: normalizeUrl(row["Website"]),
       location: cleanText(row["Location"]),

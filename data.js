@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T00:50:33.561Z",
+    "generated": "2026-08-17T00:17:47.333Z",
     "resource_count": 166,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 13,
+    "sub_contact_count": 9,
     "version": "3.2.0",
-    "buildId": "3.2.0+560f7aed829d",
-    "dataHash": "560f7aed829d"
+    "buildId": "3.2.0+a5ea55343c37",
+    "dataHash": "a5ea55343c37"
   },
   "categories": [
     "Benefits & Insurance",
@@ -311,6 +311,7 @@ const ARM_DATA = {
           "audience": "",
           "purpose": "Grant paid directly to utility provider to help cover gas/electric bills. Funded by LIHEAP.",
           "phone": "9529303541",
+          "fax": "",
           "email": "eap@caphennepin.org",
           "website": "https://caphennepin.org/energy-assistance/",
           "location": "",
@@ -325,6 +326,7 @@ const ARM_DATA = {
           "audience": "",
           "purpose": "Pays for vehicle repairs to maintain safe/reliable transportation to work. Requires completing CAP-HC's Financial Wellness Workshop as part of the application.",
           "phone": "9529339639",
+          "fax": "",
           "email": "vehiclerepair@caphennepin.org",
           "website": "https://caphennepin.org/vehicle-repair/",
           "location": "",
@@ -339,6 +341,7 @@ const ARM_DATA = {
           "audience": "",
           "purpose": "One-time payment up to $1,000 for past-due rent or security deposit. Requires completing Financial Wellness OR Renter's Rights Workshop as part of the application.",
           "phone": "9529339639",
+          "fax": "",
           "email": "rentalassistance@caphennepin.org",
           "website": "https://caphennepin.org/rental-assistance/",
           "location": "",
@@ -353,6 +356,7 @@ const ARM_DATA = {
           "audience": "",
           "purpose": "PROGRAM PAUSED indefinitely (funding exceeded demand). Normally helps pay past-due water bills. Will reopen when funding allows; no timeline available.",
           "phone": "",
+          "fax": "",
           "email": "water@caphennepin.org",
           "website": "https://caphennepin.org/water-assistance/",
           "location": "",
@@ -367,6 +371,7 @@ const ARM_DATA = {
           "audience": "",
           "purpose": "In-person Navigator help completing MNsure health insurance applications for low/no-cost coverage. Does NOT itself process MNsure applications - a separate CAP-HC intake application is required first.",
           "phone": "9529339639",
+          "fax": "",
           "email": "CAPHCMNsure@caphennepin.org",
           "website": "https://caphennepin.org/mnsure-assistance/",
           "location": "",
@@ -381,6 +386,7 @@ const ARM_DATA = {
           "audience": "",
           "purpose": "Resume support, interview training, job search assistance, and more to help find a living-wage job.",
           "phone": "9529339639",
+          "fax": "",
           "email": "employmentreadiness@caphennepin.org",
           "website": "https://caphennepin.org/employment-readiness-services/",
           "location": "",
@@ -395,6 +401,7 @@ const ARM_DATA = {
           "audience": "",
           "purpose": "Free workshops (FDIC Money Smart curriculum) on budgeting, credit, and asset protection, plus free 1:1 counseling with a certified counselor (credit report review, goal planning).",
           "phone": "9529339639",
+          "fax": "",
           "email": "financialwellness@caphennepin.org",
           "website": "https://caphennepin.org/financial-wellness/",
           "location": "",
@@ -409,6 +416,7 @@ const ARM_DATA = {
           "audience": "",
           "purpose": "Free workshops on renter rights/responsibilities, fair housing law, and affordable housing, plus 1:1 counseling on budgeting for rent, lease/deposit guidance, and landlord-tenant issues.",
           "phone": "9529339639",
+          "fax": "",
           "email": "renterrights@caphennepin.org",
           "website": "https://caphennepin.org/renter-workshops-counseling/",
           "location": "",
@@ -423,6 +431,7 @@ const ARM_DATA = {
           "audience": "",
           "purpose": "HUD-certified Home Stretch homebuyer workshops (mortgage process, home shopping; $40 fee waived if income-eligible) plus free 1:1 HUD-certified counseling (credit review, mortgage readiness, down-payment assistance programs).",
           "phone": "9529339639",
+          "fax": "",
           "email": "homebuyereducation@caphennepin.org",
           "website": "https://caphennepin.org/homebuyer-services/",
           "location": "",
@@ -4165,10 +4174,10 @@ const ARM_DATA = {
       "subContacts": []
     },
     {
-      "name": "RADIAS Health",
+      "name": "RADIAS Health Assertive Community Treatment",
       "parent": "RADIAS Health",
-      "type": "Non-Profit Mental Health Services",
-      "services": "Mental Health non-profit offering various services including ACT,Youth ACT, out patient therapy, and emergency housing.",
+      "type": "ACT Team",
+      "services": "Assertive Community Treatment (ACT) provides integrated mental health services treatment for individuals who have been diagnosed with thought disorders. Services include psychiatry, therapy, nursing, substance use disorder treatment, vocational services, case management, and peer recovery services. Teams partner with the individuals served and their natural supports to build the skills needed to manage their illness while also reaching their life goals. Common things teams help with include finding and maintaining housing, obtaining competitive employment, building social networks, and re-establishing relationships. Teams meet with people in their homes or community location of their choosing and provide services seven days a week, with crisis response services available 24 hours per day.",
       "contact": "",
       "email": "centralaccess@radiashealth.org",
       "phone": "612-453-4010",
@@ -4177,10 +4186,10 @@ const ARM_DATA = {
       "altFax": "",
       "hours": "",
       "tty": "",
-      "website": "https://www.radiashealth.org/",
+      "website": "https://www.radiashealth.org/programs/community-based-services/assertive-community-treatment/",
       "address": "",
       "notes": "Referrals for all RADIAS programs are coordinated through their Central Access Team",
-      "keywords": "RADIAS, Health, ACT, Assertive Community Treatment, mental health, Youth, Pharmacy, Crisis, Residential",
+      "keywords": "RADIAS, Health, ACT, Assertive Community Treatment, mental health",
       "categories": [
         "Mental Health & Substance Use"
       ],
@@ -4190,82 +4199,9 @@ const ARM_DATA = {
           "path": "Assets/ACT-Referral-FAQ.pdf",
           "fillable": false,
           "type": "file"
-        },
-        {
-          "label": "RADIAS Health IRTS Referral",
-          "path": "Assets/RADIAS-Health-IRTS-Referral.pdf",
-          "fillable": false,
-          "type": "file"
-        },
-        {
-          "label": "ACT Referral Form and Screening Tool",
-          "url": "https://www.radiashealth.org/wp-content/uploads/2024/01/RADIAS-Health-Referral.pdf",
-          "type": "link"
-        },
-        {
-          "label": "Youth ACT Referral Form",
-          "url": "https://radiashealth.na4.adobesign.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhBBuo-IVhRnsFoYhvNnm4hoxNvgY_OP57QRe6vHtGdQRGJkOLPW_JB1glr3-gbEuMc*",
-          "type": "link"
         }
       ],
-      "subContacts": [
-        {
-          "name": "Assertive Community Treatment",
-          "category": "ACT Team",
-          "audience": "",
-          "purpose": "Assertive Community Treatment (ACT) provides integrated mental health services treatment for individuals who have been diagnosed with thought disorders. Services include psychiatry, therapy, nursing, substance use disorder treatment, vocational services, case management, and peer recovery services.",
-          "phone": "612-435-7207",
-          "email": "",
-          "website": "https://www.radiashealth.org/programs/community-based-services/assertive-community-treatment/",
-          "location": "",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": ""
-        },
-        {
-          "name": "Youth ACT",
-          "category": "ACT Team",
-          "audience": "",
-          "purpose": "Youth ACT (also known as Intensive Rehabilitative Mental Health Services) are services provided by a multidisciplinary team directed toward youth ages 14-20 with a serious mental illness or co-occurring mental illness and substance use disorder.",
-          "phone": "612-453-4020",
-          "email": "",
-          "website": "https://www.radiashealth.org/programs/community-based-services/youth-act/",
-          "location": "",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": ""
-        },
-        {
-          "name": "Out Patient Clinic",
-          "category": "Out Patient Mental Health Services",
-          "audience": "",
-          "purpose": "individual and group therapy, diagnostic assessments, medication management, Dialectical Behavioral Therapy",
-          "phone": "651-389-4680",
-          "email": "outpatientclinic@radiashealth.org",
-          "website": "https://www.radiashealth.org/programs/outpatient-behavioral-health-clinic/",
-          "location": "166 4th Street East, Suite 200, Saint Paul, MN 55101",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": ""
-        },
-        {
-          "name": "ReEntry House",
-          "category": "ICRTS",
-          "audience": "",
-          "purpose": "",
-          "phone": "612-869-2411",
-          "email": "",
-          "website": "https://www.radiashealth.org/programs/intensive-crisis-residential-treatment-services/reentry-house/",
-          "location": "5812 Lyndale Ave S, Minneapolis, MN 55419",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": ""
-        }
-      ]
+      "subContacts": []
     }
   ],
   "screening_tools": [

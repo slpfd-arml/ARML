@@ -1,5 +1,5 @@
 {
-  "buildId": "3.2.0+560f7aed829d",
+  "buildId": "3.2.0+a5ea55343c37",
   "shell": [
     "index.html",
     "style.css",
@@ -65,7 +65,6 @@
     "Assets/Metro_Mobility_Eligibility.pdf",
     "Assets/Minnesota_Telephone_Assistance_Program_Application.pdf",
     "Assets/MyHealth.pdf",
-    "Assets/RADIAS-Health-IRTS-Referral.pdf",
     "Assets/ROIs/Allina-ROI.pdf",
     "Assets/ROIs/Childrens-ROI.pdf",
     "Assets/ROIs/Fairview-ROI.pdf",
