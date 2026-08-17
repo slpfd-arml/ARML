@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T02:51:42.676Z",
-    "resource_count": 167,
+    "generated": "2026-08-17T03:27:59.591Z",
+    "resource_count": 168,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 9,
     "version": "3.2.0",
-    "buildId": "3.2.0+71d48113bb8f",
-    "dataHash": "71d48113bb8f"
+    "buildId": "3.2.0+e4c588ffbf43",
+    "dataHash": "e4c588ffbf43"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4224,6 +4224,40 @@ const ARM_DATA = {
         "Health Care & Clinics"
       ],
       "files": [],
+      "subContacts": []
+    },
+    {
+      "name": "Veterans Services",
+      "parent": "Hennepin County",
+      "type": "Local CVSO Office",
+      "services": "",
+      "contact": "",
+      "email": "vetservices@hennepin.us",
+      "phone": "6123483300",
+      "altPhone": "",
+      "fax": "6123361373",
+      "altFax": "",
+      "hours": "Monday-Friday 8:00AM-4:30 PM",
+      "tty": "",
+      "website": "https://www.hennepincounty.gov/services/assistance/veterans-services",
+      "address": "",
+      "notes": "",
+      "keywords": "health, veteran, veterans, service, officer, VA, advocate, CVSO",
+      "categories": [
+        "Benefits & Insurance"
+      ],
+      "files": [
+        {
+          "label": "https://hcvetsvcs.powerappsportals.us/Intake-form/",
+          "url": "https://hcvetsvcs.powerappsportals.us/Intake-form/",
+          "type": "link"
+        },
+        {
+          "label": "Minnesota Association of Veteran Service Officers- Hennepin County",
+          "url": "https://www.macvso.org/find-a-cvso.html?county=Hennepin+County",
+          "type": "link"
+        }
+      ],
       "subContacts": []
     }
   ],
