@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T15:40:40.188Z",
+    "generated": "2026-08-17T15:50:23.390Z",
     "resource_count": 170,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
     "version": "3.3.2",
-    "buildId": "3.3.2+609d87bf8bb1",
-    "dataHash": "609d87bf8bb1"
+    "buildId": "3.3.2+200a7776c2b7",
+    "dataHash": "200a7776c2b7"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4432,7 +4432,14 @@ const ARM_DATA = {
       "categories": [
         "Housing & Shelter"
       ],
-      "files": [],
+      "files": [
+        {
+          "label": "Simpson Brochure",
+          "path": "Assets/Simpson-Brochure.pdf",
+          "fillable": false,
+          "type": "file"
+        }
+      ],
       "subContacts": []
     }
   ],

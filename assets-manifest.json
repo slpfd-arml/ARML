@@ -1,5 +1,5 @@
 {
-  "buildId": "3.3.2+609d87bf8bb1",
+  "buildId": "3.3.2+200a7776c2b7",
   "shell": [
     "index.html",
     "style.css",
@@ -83,6 +83,7 @@
     "Assets/STEP.pdf",
     "Assets/School_Nurse_Mental_Health_toolkit.pdf",
     "Assets/Senior_Linkage_Line.pdf",
+    "Assets/Simpson-Brochure.pdf",
     "Assets/St_Stephens_Street_Outreach.pdf",
     "Assets/Suicide_Prevention_Resource_Center.pdf",
     "Assets/Tenant_Resource_Connections.pdf"
