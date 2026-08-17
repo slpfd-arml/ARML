@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T00:17:47.333Z",
-    "resource_count": 166,
+    "generated": "2026-08-17T03:53:54.090Z",
+    "resource_count": 168,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 9,
     "version": "3.2.0",
-    "buildId": "3.2.0+a5ea55343c37",
-    "dataHash": "a5ea55343c37"
+    "buildId": "3.2.0+14fa156c5e7a",
+    "dataHash": "14fa156c5e7a"
   },
   "categories": [
     "Benefits & Insurance",
@@ -104,7 +104,7 @@ const ARM_DATA = {
       "fax": "",
       "altFax": "",
       "hours": "",
-      "tty": "711",
+      "tty": "",
       "website": "https://www.bluecrossmn.com/our-plans/medical-assistance-medicaid/medical-assistance-resources/blueride-transportation",
       "address": "3400 Yankee Dr, Eagan, MN 55121",
       "notes": "",
@@ -3882,7 +3882,7 @@ const ARM_DATA = {
       "contact": "",
       "email": "development@bridgeforyouth.org",
       "phone": "6123778800",
-      "altPhone": "",
+      "altPhone": "6122306601",
       "fax": "6123776426",
       "altFax": "",
       "hours": "",
@@ -4199,6 +4199,63 @@ const ARM_DATA = {
           "path": "Assets/ACT-Referral-FAQ.pdf",
           "fillable": false,
           "type": "file"
+        }
+      ],
+      "subContacts": []
+    },
+    {
+      "name": "GoodRx",
+      "parent": "GoodRx",
+      "type": "For-Profit Drug Discounter",
+      "services": "GoodRx tracks prescription drug prices and provides users with drug savings coupons.",
+      "contact": "",
+      "email": "",
+      "phone": "",
+      "altPhone": "",
+      "fax": "",
+      "altFax": "",
+      "hours": "",
+      "tty": "",
+      "website": "https://www.goodrx.com/",
+      "address": "",
+      "notes": "",
+      "keywords": "drugs, savings, prescription, coupons",
+      "categories": [
+        "Benefits & Insurance"
+      ],
+      "files": [],
+      "subContacts": []
+    },
+    {
+      "name": "Veterans Services",
+      "parent": "Hennepin County",
+      "type": "Local CVSO Office",
+      "services": "",
+      "contact": "",
+      "email": "vetservices@hennepin.us",
+      "phone": "6123483300",
+      "altPhone": "",
+      "fax": "6123361373",
+      "altFax": "",
+      "hours": "Monday-Friday 8:00AM-4:30 PM",
+      "tty": "",
+      "website": "https://www.hennepincounty.gov/services/assistance/veterans-services",
+      "address": "",
+      "notes": "",
+      "keywords": "health, veteran, veterans, service, officer, VA, advocate, CVSO",
+      "categories": [
+        "Benefits & Insurance"
+      ],
+      "files": [
+        {
+          "label": "https://hcvetsvcs.powerappsportals.us/Intake-form/",
+          "url": "https://hcvetsvcs.powerappsportals.us/Intake-form/",
+          "type": "link"
+        },
+        {
+          "label": "Minnesota Association of Veteran Service Officers- Hennepin County",
+          "url": "https://www.macvso.org/find-a-cvso.html?county=Hennepin+County",
+          "type": "link"
         }
       ],
       "subContacts": []
