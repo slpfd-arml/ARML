@@ -1,5 +1,5 @@
 {
-  "buildId": "3.3.2+78473f9cca5e",
+  "buildId": "3.3.2+200a7776c2b7",
   "shell": [
     "index.html",
     "style.css",
@@ -13,6 +13,7 @@
     "icons/icon-192.png",
     "icons/icon-512.png",
     "icons/mn-icon.svg",
+    "icons/mnicon.svg",
     "icons/slp-patch-small.png",
     "icons/slp-patch.ico",
     "icons/slp-patch.png",
@@ -25,7 +26,7 @@
     "vendor/pdfjs/wasm/openjpeg.wasm"
   ],
   "assets": [
-    "Assets/ACT-Referral-FAQ.pdf",
+    "Assets/ACT-Referral-FAQ-2.pdf",
     "Assets/ARM Screening Tools/AUDIT.pdf",
     "Assets/ARM Screening Tools/C-SSRS.pdf",
     "Assets/ARM Screening Tools/CAGE-AID.pdf",
@@ -82,6 +83,7 @@
     "Assets/STEP.pdf",
     "Assets/School_Nurse_Mental_Health_toolkit.pdf",
     "Assets/Senior_Linkage_Line.pdf",
+    "Assets/Simpson-Brochure.pdf",
     "Assets/St_Stephens_Street_Outreach.pdf",
     "Assets/Suicide_Prevention_Resource_Center.pdf",
     "Assets/Tenant_Resource_Connections.pdf"
