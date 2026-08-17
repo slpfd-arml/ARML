@@ -1266,6 +1266,11 @@ function setUpdateUI(state, info) {
   clearTimeout(statusTimer);
 
   updateBtn.classList.remove("available", "busy", "problem");
+  // Cleared unconditionally rather than only on "idle" - otherwise a
+  // tooltip set by a failed attempt (below, in "problem") outlives that
+  // failure: a retry that succeeds and lands on "current" would keep
+  // showing the old failure text on hover with no failure to explain.
+  updateBtn.removeAttribute("title");
 
   switch (state) {
     case "checking":
@@ -1321,7 +1326,6 @@ function setUpdateUI(state, info) {
       updateBtn.hidden = true;
       updateBtn.disabled = false;
       updateLabel.textContent = "Update";
-      updateBtn.removeAttribute("title");
       break;
   }
 }
@@ -1332,7 +1336,17 @@ async function checkForUpdate(manual) {
   // A background check must not silently wipe a problem the user hasn't
   // acted on yet - otherwise a partial download reports itself for two
   // seconds and then quietly disappears. Manual checks may override it.
-  if (updateState === "problem" && !manual) return;
+  // Captured before anything below can change updateState, since it's
+  // consulted again after the network round-trip.
+  const hadTopupProblem = updateState === "problem" && lastPrecacheReason === "topup";
+  // A topup problem doesn't BLOCK the check itself the way a real failed
+  // update does - it's just some PDFs that didn't cache, not a failed
+  // app update, and letting it block every future automatic check would
+  // mean a real update goes undetected until someone happens to notice
+  // the stuck "retry" button and taps it manually. It still must not be
+  // silently cleared by a check that finds nothing new to report, though
+  // - see the branches below.
+  if (updateState === "problem" && !manual && !hadTopupProblem) return;
 
   if (manual) setUpdateUI("checking");
 
@@ -1356,11 +1370,12 @@ async function checkForUpdate(manual) {
       // "is everything downloaded for offline use", so use it to top up
       // the PDF cache rather than just reporting a version number back.
       runTopUp();
-    } else {
+    } else if (!hadTopupProblem) {
       setUpdateUI("idle");
     }
   } catch (err) {
-    setUpdateUI(manual ? "offline" : "idle");
+    if (manual) setUpdateUI("offline");
+    else if (!hadTopupProblem) setUpdateUI("idle");
   }
 }
 

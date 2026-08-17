@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T15:50:23.390Z",
-    "resource_count": 170,
+    "generated": "2026-08-17T15:52:32.911Z",
+    "resource_count": 168,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 16,
-    "version": "3.3.2",
-    "buildId": "3.3.2+200a7776c2b7",
-    "dataHash": "200a7776c2b7"
+    "sub_contact_count": 13,
+    "version": "3.3.3",
+    "buildId": "3.3.3+92b1262a6b71",
+    "dataHash": "92b1262a6b71"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4195,6 +4195,22 @@ const ARM_DATA = {
       ],
       "files": [
         {
+          "label": "ACT Referral FAQ",
+          "path": "Assets/ACT-Referral-FAQ.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "ACT Referral Form and Screening Tool",
+          "url": "https://www.radiashealth.org/wp-content/uploads/2024/01/RADIAS-Health-Referral.pdf",
+          "type": "link"
+        },
+        {
+          "label": "Youth ACT Referral Form",
+          "url": "https://radiashealth.na4.adobesign.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhBBuo-IVhRnsFoYhvNnm4hoxNvgY_OP57QRe6vHtGdQRGJkOLPW_JB1glr3-gbEuMc*",
+          "type": "link"
+        },
+        {
           "label": "RSS Referral Form",
           "path": "Assets/RSS-Referral.pdf",
           "fillable": true,
@@ -4205,22 +4221,6 @@ const ARM_DATA = {
           "path": "Assets/RADIAS-IRTS-Referral.pdf",
           "fillable": true,
           "type": "file"
-        },
-        {
-          "label": "ACT Referral FAQ",
-          "path": "Assets/ACT-Referral-FAQ-2.pdf",
-          "fillable": false,
-          "type": "file"
-        },
-        {
-          "label": "ACT Referral Form",
-          "url": "https://radiashealth.na4.adobesign.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhAugPzsIjyMLyyiH7M7vAXvmHyHq2eqFFsU7eChprg6e07TbfawMdmc23vIqj4MGko*",
-          "type": "link"
-        },
-        {
-          "label": "Youth ACT Referral Form",
-          "url": "https://radiashealth.na4.adobesign.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhBBuo-IVhRnsFoYhvNnm4hoxNvgY_OP57QRe6vHtGdQRGJkOLPW_JB1glr3-gbEuMc*",
-          "type": "link"
         }
       ],
       "subContacts": [
@@ -4339,105 +4339,6 @@ const ARM_DATA = {
           "label": "Minnesota Association of Veteran Service Officers- Hennepin County",
           "url": "https://www.macvso.org/find-a-cvso.html?county=Hennepin+County",
           "type": "link"
-        }
-      ],
-      "subContacts": []
-    },
-    {
-      "name": "SpringPath Mental Health Services",
-      "parent": "ResCare Minnesota, Inc.",
-      "type": "Mental Health Services",
-      "services": "ACT, FACT, and IRTS service provider",
-      "contact": "",
-      "email": "",
-      "phone": "7635376612",
-      "altPhone": "",
-      "fax": "7635377162",
-      "altFax": "",
-      "hours": "",
-      "tty": "",
-      "website": "https://springpathmentalhealth.com/",
-      "address": "6120 Earle Brown Drive, Suite 100 Brooklyn Center, MN 55430",
-      "notes": "Previously ResCare Minnesota",
-      "keywords": "ACT, Assertive, Community, Treatment, Mental, Health, ResCare, IRTS, Residential",
-      "categories": [
-        "Mental Health & Substance Use"
-      ],
-      "files": [],
-      "subContacts": [
-        {
-          "name": "Transitions on Broadway",
-          "category": "IRTS",
-          "audience": "",
-          "purpose": "",
-          "phone": "7635887626",
-          "fax": "",
-          "email": "",
-          "website": "",
-          "location": "3776 W Broadway, Minneapolis, MN 55422",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": ""
-        },
-        {
-          "name": "Northwest Residence",
-          "category": "IRTS",
-          "audience": "",
-          "purpose": "",
-          "phone": "7635663650",
-          "fax": "",
-          "email": "",
-          "website": "",
-          "location": "4408 69th Ave N, Brooklyn Center, MN 55429",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": ""
-        },
-        {
-          "name": "Phoenix Place",
-          "category": "IRTS",
-          "audience": "",
-          "purpose": "",
-          "phone": "7635368110",
-          "fax": "",
-          "email": "",
-          "website": "",
-          "location": "4901 W BROADWAY AVE Crystal, MN 55429",
-          "hours": "",
-          "access": "",
-          "notes": "",
-          "source": ""
-        }
-      ]
-    },
-    {
-      "name": "Simpson Housing Services",
-      "parent": "Simpson Housing Services",
-      "type": "Housing & Shelter",
-      "services": "",
-      "contact": "",
-      "email": "",
-      "phone": "",
-      "altPhone": "",
-      "fax": "",
-      "altFax": "",
-      "hours": "Monday–Thursday 9AM–4PM",
-      "tty": "",
-      "website": "https://simpsonhousing.org",
-      "address": "160 Glenwood Avenue Minneapolis, MN 55405",
-      "notes": "",
-      "keywords": "",
-      "categories": [
-        "Housing & Shelter"
-      ],
-      "files": [
-        {
-          "label": "Simpson Brochure",
-          "path": "Assets/Simpson-Brochure.pdf",
-          "fillable": false,
-          "type": "file"
         }
       ],
       "subContacts": []
