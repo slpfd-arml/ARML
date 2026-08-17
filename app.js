@@ -1254,6 +1254,11 @@ versionTag.textContent = INSTALLED_VERSION ? `ARML v${INSTALLED_VERSION}` : "ARM
 
 let updateState = "idle";
 let statusTimer = null;
+// Which kind of PRECACHE_ALL run is in flight/last attempted - "update" for
+// a real new build, "topup" for re-filling the PDF cache when nothing
+// actually changed. A retry tap on the problem state needs to redo the
+// same kind of run, not silently upgrade a topup into a full update.
+let lastPrecacheReason = "update";
 
 function setUpdateUI(state, info) {
   updateState = state;
@@ -1346,8 +1351,13 @@ async function checkForUpdate(manual) {
 
     if (remote.buildId && remote.buildId !== INSTALLED_BUILD) {
       setUpdateUI("available");
+    } else if (manual) {
+      // Already current - a manual tap is also the person's way of asking
+      // "is everything downloaded for offline use", so use it to top up
+      // the PDF cache rather than just reporting a version number back.
+      runTopUp();
     } else {
-      setUpdateUI(manual ? "current" : "idle");
+      setUpdateUI("idle");
     }
   } catch (err) {
     setUpdateUI(manual ? "offline" : "idle");
@@ -1379,6 +1389,7 @@ function waitForNewController(reg) {
 async function runUpdate() {
   if (IS_FILE_PROTOCOL) return;
 
+  lastPrecacheReason = "update";
   setUpdateUI("downloading", { done: 0, total: 0 });
 
   if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller) {
@@ -1398,13 +1409,35 @@ async function runUpdate() {
       location.reload();
       return;
     }
-    target.postMessage({ type: "PRECACHE_ALL" });
+    target.postMessage({ type: "PRECACHE_ALL", reason: "update" });
   } catch (err) {
     setUpdateUI("problem", {
       short: "Update failed — retry",
       detail: String(err && err.message ? err.message : err)
     });
   }
+}
+
+// Same PRECACHE_ALL walk as a real update, minus everything that's only
+// needed because a new shell might be arriving: no reg.update(), no wait
+// for a new controller to take over, and no reload once it's done. This
+// is what a version-badge tap does once it finds the build already
+// current - re-download every PDF in assets-manifest.json into the
+// durable asset cache so a medic who never opened a given PDF before
+// losing signal still has it.
+async function runTopUp() {
+  if (IS_FILE_PROTOCOL) return;
+
+  if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller) {
+    // No active worker to hand this to - "up to date" is already the
+    // honest answer, there's nothing more this tap can do.
+    setUpdateUI("current");
+    return;
+  }
+
+  lastPrecacheReason = "topup";
+  setUpdateUI("downloading", { done: 0, total: 0 });
+  navigator.serviceWorker.controller.postMessage({ type: "PRECACHE_ALL", reason: "topup" });
 }
 
 if ("serviceWorker" in navigator) {
@@ -1417,6 +1450,25 @@ if ("serviceWorker" in navigator) {
     }
 
     if (msg.type === "PRECACHE_DONE") {
+      if (msg.reason === "topup") {
+        // Nothing about the shell changed, so there's nothing a reload
+        // would pick up - and forcing one would just interrupt whatever
+        // the person's in the middle of for no reason. The failure (if
+        // any) is reported right here instead of via the sessionStorage
+        // handoff below, which exists only to survive a reload this path
+        // never does - stashing it anyway would leave a stale flag to
+        // surface confusingly on some unrelated future reload.
+        if (msg.failed && msg.failed.length) {
+          setUpdateUI("problem", {
+            short: "Some files didn't cache — retry",
+            detail: `${msg.failed.length} file(s) couldn't be downloaded for offline use.`
+          });
+        } else {
+          setUpdateUI("current");
+        }
+        return;
+      }
+
       // Reload so the page picks up the freshly cached shell and data -
       // but only if the files that actually determine "are we caught up"
       // (data.js, version.json) are confirmed present. Reloading
@@ -1453,7 +1505,13 @@ if ("serviceWorker" in navigator) {
 }
 
 updateBtn.addEventListener("click", () => {
-  if (updateState === "available" || updateState === "problem") runUpdate();
+  if (updateState === "available") { runUpdate(); return; }
+  // A retry after a failure redoes whichever kind of run failed - retrying
+  // a failed topup as a full "update" would wait on reg.update() and
+  // reload at the end, both pointless when no new build is involved.
+  if (updateState === "problem") {
+    if (lastPrecacheReason === "topup") runTopUp(); else runUpdate();
+  }
 });
 
 versionTag.addEventListener("click", () => checkForUpdate(true));
