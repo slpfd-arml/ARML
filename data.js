@@ -1,6 +1,6 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-17T00:17:47.333Z",
+    "generated": "2026-08-17T00:57:55.001Z",
     "resource_count": 166,
     "screening_count": 19,
     "roi_count": 10,
