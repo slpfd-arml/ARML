@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T18:15:40.071Z",
+    "generated": "2026-08-18T18:20:17.406Z",
     "resource_count": 172,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 25,
     "version": "3.4.0",
-    "buildId": "3.4.0+98fa06581b82",
-    "dataHash": "98fa06581b82"
+    "buildId": "3.4.0+752189a045f5",
+    "dataHash": "752189a045f5"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4594,7 +4594,7 @@ const ARM_DATA = {
       "name": "Planned Parenthood North Central States",
       "parent": "Planned Parenthood",
       "type": "Family Planning and Health Care Provider",
-      "services": "Provider of Reproductive and Sexual Health care services across the upper-midwest. Services include: Abortion, Birth Control, Emergency Contraception (Morning-After Pill), Gender-Affirming Care, HIV Services, Mental Health, Pregnancy Testing and Planning, Prenatal and Postpartum Services, Sexual and Reproductive Concerns, STD Testing and Treatment, Vaccines, Wellness and Preventive Care",
+      "services": "Provider of Reproductive and Sexual Health care services across the upper-midwest. Services include: Abortion, Birth Control, Emergency Contraception (Morning-After Pill), Gender-Affirming Care, HIV Services, Mental Health, Pregnancy Testing and Planning, Prenatal and Postpartum Services, Sexual and Reproductive Concerns, STD Testing and Treatment, Vaccines, Wellness and Preventive Care In-person and telehealth appointments are available.",
       "contact": "",
       "email": "",
       "phone": "1.800.230.7526",
@@ -4606,7 +4606,7 @@ const ARM_DATA = {
       "website": "https://www.plannedparenthood.org/planned-parenthood-north-central-states",
       "address": "",
       "notes": "",
-      "keywords": "",
+      "keywords": "Planned Parenthood, sexual, reproductive, mental health, abortion, HIV, AIDS, STD, testing, telehealth",
       "categories": [
         "Health Care & Clinics"
       ],
