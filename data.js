@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T17:29:35.302Z",
-    "resource_count": 169,
+    "generated": "2026-08-18T17:46:02.989Z",
+    "resource_count": 170,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 20,
     "version": "3.4.0",
-    "buildId": "3.4.0+4e6923bac958",
-    "dataHash": "4e6923bac958"
+    "buildId": "3.4.0+1061d60e388b",
+    "dataHash": "1061d60e388b"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4490,6 +4490,45 @@ const ARM_DATA = {
           "source": ""
         }
       ]
+    },
+    {
+      "name": "St. Louis Park Housing Authority",
+      "parent": "City of St. Louis Park",
+      "type": "Local government public housing",
+      "services": "The Public Housing Program provides clean, safe and affordable living environments for eligible low-income individuals and families. Those eligible for public housing pay 30% of their adjusted income for rent. Public housing units are owned and managed by the St. Louis Park Housing Authority (HA). Current units within the city include: 110 units in a low-rise apartment building (108 one-bedroom units and 2 two-bedroom units). This building is designated for general occupancy; however, a priority is given for elderly and disabled applicants. 37 single-family homes (3 to 5 bedrooms) for families with children. 12 two-bedroom apartment units located at Louisiana Court. These units are owned by Project for Pride in Living and managed by MetroPlains Management.",
+      "contact": "",
+      "email": "waitinglist@stlouisparkmn.gov",
+      "phone": "9529242579",
+      "altPhone": "",
+      "fax": "",
+      "altFax": "",
+      "hours": "",
+      "tty": "",
+      "website": "https://www.stlouisparkmn.gov/government/departments-divisions/housing/rental-assistance-housing-authority/public-housing",
+      "address": "5005 Minnetonka Blvd, St Louis Park, MN 55416",
+      "notes": "Applicants must meet eligibility requirements in order to qualify for public housing. Requirements include: Meeting income guidelines at or below 80% area median income Meeting occupancy standards based on bedroom size Passing a rental screening process, including past rental history, criminal history check and review of credit history Applications for public housing are only accepted when the waiting list is open.",
+      "keywords": "Public, Housing, Rent, Income Adjusted",
+      "categories": [
+        "Housing & Shelter"
+      ],
+      "files": [
+        {
+          "label": "Online Applicant Portal",
+          "url": "https://housing-slpmn.securecafe.com/onlineleasing/st-louis-park-housing-authority/guestlogin.aspx?utm_nooverride=1&propleadsource_1787017=portal&_yTrackUser=NDQxOTk2MDc1MCMxOTIxNjg3ODkz-vrZNMJRdElM%253d&_yTrackVisit=NzEzODI1NDIzNSMxNTc2NTU1NDc2-%252fhCtaYkSHf8%253d&_yTrackReqDT=00371720261808",
+          "type": "link"
+        },
+        {
+          "label": "Housing Authority Website",
+          "url": "https://housing.slpmn.us/",
+          "type": "link"
+        },
+        {
+          "label": "Housing Division Contact Directory",
+          "url": "https://www.stlouisparkmn.gov/government/staff-directory/-selcat-19",
+          "type": "link"
+        }
+      ],
+      "subContacts": []
     }
   ],
   "screening_tools": [
