@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T19:03:56.499Z",
+    "generated": "2026-08-18T19:09:57.244Z",
     "resource_count": 173,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 26,
     "version": "3.4.0",
-    "buildId": "3.4.0+cb9ee7e4d3b9",
-    "dataHash": "cb9ee7e4d3b9"
+    "buildId": "3.4.0+871610a3fa3c",
+    "dataHash": "871610a3fa3c"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4675,7 +4675,7 @@ const ARM_DATA = {
       "website": "https://www.jfcsmn.org/",
       "address": "5905 Golden Valley Rd, Golden Valley, MN 55422",
       "notes": "",
-      "keywords": "",
+      "keywords": "Jewish, Family, Children, Mental health, senior, case management, kosher, meals on wheels, holocaust survivor, dementia",
       "categories": [
         "Immigrant / Culturally Specific"
       ],
