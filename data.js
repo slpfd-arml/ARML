@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T17:17:07.403Z",
-    "resource_count": 170,
+    "generated": "2026-08-18T17:17:26.934Z",
+    "resource_count": 169,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 18,
     "version": "3.4.0",
-    "buildId": "3.4.0+e40a400d3250",
-    "dataHash": "e40a400d3250"
+    "buildId": "3.4.0+ce659400ca58",
+    "dataHash": "ce659400ca58"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4125,35 +4125,6 @@ const ARM_DATA = {
         "Mental Health & Substance Use"
       ],
       "files": [],
-      "subContacts": []
-    },
-    {
-      "name": "People Incorporated Intensive Residential Treatment Services",
-      "parent": "People Incorporated",
-      "type": "Mental Health Services",
-      "services": "Per website: Our Intensive Residential Treatment Services (IRTS) program integrates mental health, medical, and substance use care in a 24-hour, supervised setting. A step below hospitalization in our community-based system of care, these services help adults who need a high level of treatment and assistance in a structured environment. Individuals 18 years of age or older with a diagnosis of a mental illness who meet eligibility as designated by the Minnesota Department of Human Services (DHS).",
-      "contact": "",
-      "email": "IRTS@peopleincorporated.org",
-      "phone": "651-774-0011",
-      "altPhone": "",
-      "fax": "",
-      "altFax": "",
-      "hours": "Monday-Friday 7:00 AM–5:00 PM",
-      "tty": "",
-      "website": "https://peopleincorporated.org/programs/intensive-residential-treatment-services-irts/",
-      "address": "",
-      "notes": "",
-      "keywords": "residential, treatment, Mental health, in-patient, People, incorporated",
-      "categories": [
-        "Mental Health & Substance Use"
-      ],
-      "files": [
-        {
-          "label": "Referral Form",
-          "url": "https://peopleincorporated.org/irts-referral-form/",
-          "type": "link"
-        }
-      ],
       "subContacts": []
     },
     {
