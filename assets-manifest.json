@@ -1,5 +1,5 @@
 {
-  "buildId": "3.4.0+3bcf1a589d02",
+  "buildId": "3.4.0+125aba39f5f7",
   "shell": [
     "index.html",
     "style.css",
@@ -13,6 +13,7 @@
     "icons/icon-192.png",
     "icons/icon-512.png",
     "icons/mn-icon.svg",
+    "icons/mnicon.svg",
     "icons/slp-patch-small.png",
     "icons/slp-patch.ico",
     "icons/slp-patch.png",

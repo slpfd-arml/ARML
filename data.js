@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T05:30:54.162Z",
-    "resource_count": 170,
+    "generated": "2026-08-18T17:14:31.480Z",
+    "resource_count": 171,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 16,
+    "sub_contact_count": 18,
     "version": "3.4.0",
-    "buildId": "3.4.0+3bcf1a589d02",
-    "dataHash": "3bcf1a589d02"
+    "buildId": "3.4.0+125aba39f5f7",
+    "dataHash": "125aba39f5f7"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4447,6 +4447,66 @@ const ARM_DATA = {
         }
       ],
       "subContacts": []
+    },
+    {
+      "name": "People Incorporated",
+      "parent": "People Incorporated",
+      "type": "Non-Profit Mental Health Services",
+      "services": "Non-Profit mental health provider with services including ACT, RCS, IRTS, outpatient programs, youth services, and case management.",
+      "contact": "",
+      "email": "info@peopleincorporated.org",
+      "phone": "651-565-1564",
+      "altPhone": "",
+      "fax": "",
+      "altFax": "",
+      "hours": "Monday–Friday 7 am–5 pm",
+      "tty": "",
+      "website": "https://peopleincorporated.org/",
+      "address": "3000 Ames Crossing Road, Suite 600, Eagan, MN 55121",
+      "notes": "",
+      "keywords": "People, Incorporated, INC, ACT, IRTS, Assertive, Community, Treatment, Intensive, Residential, Housing, Case, Management",
+      "categories": [
+        "Mental Health & Substance Use"
+      ],
+      "files": [
+        {
+          "label": "IRTS Referral Form",
+          "url": "https://peopleincorporated.org/irts-referral-form/",
+          "type": "link"
+        }
+      ],
+      "subContacts": [
+        {
+          "name": "Intensive Residential Treatment Services",
+          "category": "IRTS",
+          "audience": "",
+          "purpose": "Per website: Our Intensive Residential Treatment Services (IRTS) program integrates mental health, medical, and substance use care in a 24-hour, supervised setting. A step below hospitalization in our community-based system of care, these services help adults who need a high level of treatment and assistance in a structured environment. Individuals 18 years of age or older with a diagnosis of a mental illness who meet eligibility as designated by the Minnesota Department of Human Services (DHS).",
+          "phone": "6517740011",
+          "fax": "",
+          "email": "IRTS@peopleincorporated.org",
+          "website": "https://peopleincorporated.org/programs/intensive-residential-treatment-services-irts/",
+          "location": "",
+          "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        },
+        {
+          "name": "Assertive Community Treatment",
+          "category": "ACT Team",
+          "audience": "",
+          "purpose": "An intensive, comprehensive outpatient treatment and rehabilitative mental health services program for adults (18+) with a primary diagnosis of schizophrenia, schizoaffective disorder, a major depressive disorder with psychotic features, bipolar disorder, or other psychotic disorders. The program provides support with services in co-occurring disorder treatment, family psychoeducation and support, housing access, medication education, and more.",
+          "phone": "(612) 465-0105",
+          "fax": "(612) 465-0107",
+          "email": "angela.mendez@peopleincorporated.org",
+          "website": "https://peopleincorporated.org/programs/assertive-community-treatment-act/",
+          "location": "2120 Park Ave. South Minneapolis, MN 55404",
+          "hours": "",
+          "access": "",
+          "notes": "Individuals need to be Hennepin County residents and engage with the ACT team 2-3 times per week. Clients may be referred to programs and services by an insurance provider. Applicants with health coverage through a managed care organization must complete a chemical health assessment through their provider and obtain authorization prior to admission. A diagnostic assessment and discharge summaries from recent hospitalizations and/or previous psychiatric records are helpful to include with your referral. Referrals can come from anyone, even a self-referral, as long as a client is Hennepin County of Financial Responsibility (CFR).",
+          "source": ""
+        }
+      ]
     }
   ],
   "screening_tools": [
