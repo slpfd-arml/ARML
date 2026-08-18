@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T17:58:08.730Z",
-    "resource_count": 171,
+    "generated": "2026-08-18T18:15:40.071Z",
+    "resource_count": 172,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 22,
+    "sub_contact_count": 25,
     "version": "3.4.0",
-    "buildId": "3.4.0+b31dcfd65ea8",
-    "dataHash": "b31dcfd65ea8"
+    "buildId": "3.4.0+98fa06581b82",
+    "dataHash": "98fa06581b82"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4584,6 +4584,75 @@ const ARM_DATA = {
           "website": "",
           "location": "",
           "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        }
+      ]
+    },
+    {
+      "name": "Planned Parenthood North Central States",
+      "parent": "Planned Parenthood",
+      "type": "Family Planning and Health Care Provider",
+      "services": "Provider of Reproductive and Sexual Health care services across the upper-midwest. Services include: Abortion, Birth Control, Emergency Contraception (Morning-After Pill), Gender-Affirming Care, HIV Services, Mental Health, Pregnancy Testing and Planning, Prenatal and Postpartum Services, Sexual and Reproductive Concerns, STD Testing and Treatment, Vaccines, Wellness and Preventive Care",
+      "contact": "",
+      "email": "",
+      "phone": "1.800.230.7526",
+      "altPhone": "",
+      "fax": "",
+      "altFax": "",
+      "hours": "",
+      "tty": "",
+      "website": "https://www.plannedparenthood.org/planned-parenthood-north-central-states",
+      "address": "",
+      "notes": "",
+      "keywords": "",
+      "categories": [
+        "Health Care & Clinics"
+      ],
+      "files": [],
+      "subContacts": [
+        {
+          "name": "Brooklyn Park Health Center",
+          "category": "Clinic",
+          "audience": "",
+          "purpose": "",
+          "phone": "7635603050",
+          "fax": "",
+          "email": "",
+          "website": "https://www.plannedparenthood.org/health-center/minnesota/brooklyn-park/55445/brooklyn-park-clinic-2671-90720",
+          "location": "7532 Brooklyn Blvd., Brooklyn Park, MN 55443",
+          "hours": "Monday-Thursday 9AM-6PM, Friday 9AM-5PM, Saturday-Sunday Closed",
+          "access": "",
+          "notes": "",
+          "source": ""
+        },
+        {
+          "name": "Eden Prairie Health Center",
+          "category": "Clinic",
+          "audience": "",
+          "purpose": "",
+          "phone": "9526534499",
+          "fax": "",
+          "email": "",
+          "website": "https://www.plannedparenthood.org/health-center/minnesota/eden-prairie/55344/eden-prairie-clinic-3376-90720",
+          "location": "582 Prairie Center Dr., Suite 215 Eden Prairie, MN 55344",
+          "hours": "Monday 8 am - 4 am, Tuesday 10 am - 6 pm, Wednesday 8 am - 4 pm, Thursday 10 am - 6 pm, Friday 8 am - 4 pm, Saturday-Sunday Closed",
+          "access": "",
+          "notes": "",
+          "source": ""
+        },
+        {
+          "name": "Minneapolis Health Center",
+          "category": "Clinic",
+          "audience": "",
+          "purpose": "",
+          "phone": "6138236300",
+          "fax": "",
+          "email": "",
+          "website": "https://www.plannedparenthood.org/health-center/minnesota/minneapolis/55408/minneapolis-clinic-2719-90720",
+          "location": "1200 Lagoon Avenue Minneapolis, MN 55408",
+          "hours": "Monday-Friday 9 am - 7 pm, Saturday-Sunday 9 am - 5 pm",
           "access": "",
           "notes": "",
           "source": ""
