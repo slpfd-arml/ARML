@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T17:17:26.934Z",
+    "generated": "2026-08-18T17:29:35.302Z",
     "resource_count": 169,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 18,
+    "sub_contact_count": 20,
     "version": "3.4.0",
-    "buildId": "3.4.0+ce659400ca58",
-    "dataHash": "ce659400ca58"
+    "buildId": "3.4.0+4e6923bac958",
+    "dataHash": "4e6923bac958"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4400,7 +4400,7 @@ const ARM_DATA = {
       "name": "People Incorporated",
       "parent": "People Incorporated",
       "type": "Non-Profit Mental Health Services",
-      "services": "Non-Profit mental health provider with services including ACT, RCS, IRTS, outpatient programs, youth services, and case management.",
+      "services": "Non-Profit mental health provider with services including ACT, RCS, IRTS, outpatient programs, youth services, Deaf and Hard of Hearing Services (DHHS), and case management.",
       "contact": "",
       "email": "info@peopleincorporated.org",
       "phone": "651-565-1564",
@@ -4408,7 +4408,7 @@ const ARM_DATA = {
       "fax": "",
       "altFax": "",
       "hours": "Monday–Friday 7 am–5 pm",
-      "tty": "",
+      "tty": "651-288-3463",
       "website": "https://peopleincorporated.org/",
       "address": "3000 Ames Crossing Road, Suite 600, Eagan, MN 55121",
       "notes": "",
@@ -4420,6 +4420,11 @@ const ARM_DATA = {
         {
           "label": "IRTS Referral Form",
           "url": "https://peopleincorporated.org/irts-referral-form/",
+          "type": "link"
+        },
+        {
+          "label": "Long Term Residential Services Referral Form",
+          "url": "https://peopleincorporated.org/long-term-residential-services-referral-form/",
           "type": "link"
         }
       ],
@@ -4452,6 +4457,36 @@ const ARM_DATA = {
           "hours": "",
           "access": "",
           "notes": "Individuals need to be Hennepin County residents and engage with the ACT team 2-3 times per week. Clients may be referred to programs and services by an insurance provider. Applicants with health coverage through a managed care organization must complete a chemical health assessment through their provider and obtain authorization prior to admission. A diagnostic assessment and discharge summaries from recent hospitalizations and/or previous psychiatric records are helpful to include with your referral. Referrals can come from anyone, even a self-referral, as long as a client is Hennepin County of Financial Responsibility (CFR).",
+          "source": ""
+        },
+        {
+          "name": "Residental Services",
+          "category": "Housing",
+          "audience": "",
+          "purpose": "",
+          "phone": "",
+          "fax": "",
+          "email": "",
+          "website": "https://peopleincorporated.org/programs/residential-services/",
+          "location": "",
+          "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        },
+        {
+          "name": "Access & Recovery Center (ARC)",
+          "category": "Outreach Team",
+          "audience": "",
+          "purpose": "Conntects people experiencing homelessness or housing instability with resources",
+          "phone": "",
+          "fax": "",
+          "email": "ARCOutreachteam@peopleincorporated.org",
+          "website": "https://peopleincorporated.org/programs/residential-services/access-recovery-center-arc-outreach-team/",
+          "location": "317 York Avenue St. Paul, MN 55130",
+          "hours": "",
+          "access": "",
+          "notes": "",
           "source": ""
         }
       ]
