@@ -812,7 +812,27 @@ async function openPdfViewerAttempt(url, label, isFillable, isRetry) {
       return openPdfViewerAttempt(url, label, isFillable, true);
     }
 
-    setPdfViewerStatus(`Couldn't load this document (${err && err.message ? err.message : "unknown error"}). Close and try again.`, true);
+    // What's actually useful to tell someone here depends on whether the
+    // automatic repair above already ran. If it did (isRetry) and STILL
+    // failed, "try again" is actively misleading - reopening just repeats
+    // the same evict-and-refetch cycle and fails the same way, because a
+    // fresh copy was already fetched from the network and was ALSO bad.
+    // That points at either no connection to fetch a fresh copy with, or
+    // the file itself being damaged at the source - two different
+    // problems that need two different next steps, not one generic
+    // "try again" that fits neither.
+    let advice;
+    if (!navigator.onLine) {
+      advice = isRetry
+        ? "You're offline, and re-downloading this file to repair it needs a connection. Reconnect and try again."
+        : "You're offline. If this file was never fully downloaded for offline use, reconnect and try again.";
+    } else if (isRetry) {
+      advice = "Already re-downloaded this file once and it failed again the same way - the document itself may be damaged. Let whoever maintains the resource library know it needs to be re-uploaded.";
+    } else {
+      advice = "Close and try again.";
+    }
+
+    setPdfViewerStatus(`Couldn't load this document (${err && err.message ? err.message : "unknown error"}). ${advice}`, true);
   }
 }
 

@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T04:36:07.800Z",
+    "generated": "2026-08-18T04:40:03.064Z",
     "resource_count": 170,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 16,
-    "version": "3.3.5",
-    "buildId": "3.3.5+6cb6345e38bc",
-    "dataHash": "6cb6345e38bc"
+    "version": "3.3.6",
+    "buildId": "3.3.6+af2a5b59a628",
+    "dataHash": "af2a5b59a628"
   },
   "categories": [
     "Benefits & Insurance",
