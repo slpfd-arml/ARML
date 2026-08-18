@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T17:46:02.989Z",
-    "resource_count": 170,
+    "generated": "2026-08-18T17:58:08.730Z",
+    "resource_count": 171,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 20,
+    "sub_contact_count": 22,
     "version": "3.4.0",
-    "buildId": "3.4.0+1061d60e388b",
-    "dataHash": "1061d60e388b"
+    "buildId": "3.4.0+b31dcfd65ea8",
+    "dataHash": "b31dcfd65ea8"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4529,6 +4529,66 @@ const ARM_DATA = {
         }
       ],
       "subContacts": []
+    },
+    {
+      "name": "Day One",
+      "parent": "Cornerstone MN",
+      "type": "Domestica Violence/Crime Victim Advocacy",
+      "services": "Operates Crisis lines and resources for victims of domestic violence and general crime.",
+      "contact": "",
+      "email": "",
+      "phone": "9528840376",
+      "altPhone": "",
+      "fax": "",
+      "altFax": "",
+      "hours": "",
+      "tty": "",
+      "website": "https://dayoneservices.org/",
+      "address": "1000 E 80th St. Bloomington, MN 55420",
+      "notes": "",
+      "keywords": "crime, domestic, violence, sheltering, animals, pet, fostering, hotline, Cornerstone, Day One",
+      "categories": [
+        "Domestic Violence & Safety"
+      ],
+      "files": [
+        {
+          "label": "Cornerstone Website",
+          "url": "https://cornerstonemn.org/",
+          "type": "link"
+        }
+      ],
+      "subContacts": [
+        {
+          "name": "Crisis Hotline",
+          "category": "Hotline",
+          "audience": "",
+          "purpose": "",
+          "phone": "1.866.223.1111",
+          "fax": "",
+          "email": "safety@dayoneservices.org",
+          "website": "",
+          "location": "",
+          "hours": "",
+          "access": "",
+          "notes": "Text line: (612) 399-9995",
+          "source": ""
+        },
+        {
+          "name": "General Crime Hotline",
+          "category": "",
+          "audience": "",
+          "purpose": "Text Line: (612) 399.9977",
+          "phone": "1.866.385.2699",
+          "fax": "",
+          "email": "safety@dayoneservices.org",
+          "website": "",
+          "location": "",
+          "hours": "",
+          "access": "",
+          "notes": "",
+          "source": ""
+        }
+      ]
     }
   ],
   "screening_tools": [
