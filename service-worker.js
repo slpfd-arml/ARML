@@ -18,7 +18,7 @@
                             PDF a medic downloaded for offline use.
    ============================================================ */
 
-const BUILD_ID = '3.3.4+144dc4c1cdc7';
+const BUILD_ID = '3.3.5+6cb6345e38bc';
 const SHELL_FILES = [
   "index.html",
   "style.css",
@@ -181,6 +181,26 @@ self.addEventListener('message', event => {
 
   if (msg.type === 'PRECACHE_ALL') {
     event.waitUntil(precacheAll(msg.reason || 'update'));
+  }
+
+  // A PDF that failed to open (pdf.js threw parsing it) is often not a
+  // bad source file - it's a stuck cache entry, e.g. one corrupted by a
+  // since-fixed caching bug, that the asset cache's own design (never
+  // wiped across updates, on purpose, so an update can't silently delete
+  // a PDF a medic already has offline) will otherwise keep serving
+  // forever. The page asks for this one entry to be dropped so its own
+  // retry actually re-fetches from the network instead of getting the
+  // same broken bytes back out of the cache. Replies straight to the
+  // requesting client, not broadcast - other tabs have no reason to hear
+  // about a page they didn't ask to evict anything from.
+  if (msg.type === 'EVICT_ASSET' && msg.url) {
+    event.waitUntil(
+      caches.open(ASSET_CACHE)
+        .then(cache => cache.delete(msg.url))
+        .then(() => {
+          if (event.source) event.source.postMessage({ type: 'ASSET_EVICTED', url: msg.url });
+        })
+    );
   }
 });
 

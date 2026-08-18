@@ -687,7 +687,39 @@ function setPdfViewerStatus(text, isError) {
   pdfPagesContainer.innerHTML = `<p class="pdf-viewer-status${isError ? " error" : ""}">${escapeAttr(text)}</p>`;
 }
 
+// Asks the service worker to drop one URL from the durable asset cache,
+// and waits for confirmation before returning - a retry that fired
+// before the delete actually landed would just hit the same broken
+// cache entry again. Resolves false (rather than hanging) if there's no
+// service worker to ask, or it doesn't answer within a few seconds.
+function evictCachedAsset(url) {
+  if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller) {
+    return Promise.resolve(false);
+  }
+  return new Promise(resolve => {
+    let settled = false;
+    const onMessage = event => {
+      if (event.data && event.data.type === "ASSET_EVICTED" && event.data.url === url) {
+        finish(true);
+      }
+    };
+    const finish = result => {
+      if (settled) return;
+      settled = true;
+      navigator.serviceWorker.removeEventListener("message", onMessage);
+      resolve(result);
+    };
+    navigator.serviceWorker.addEventListener("message", onMessage);
+    navigator.serviceWorker.controller.postMessage({ type: "EVICT_ASSET", url });
+    setTimeout(() => finish(false), 3000);
+  });
+}
+
 async function openPdfViewer(url, label, isFillable) {
+  return openPdfViewerAttempt(url, label, isFillable, false);
+}
+
+async function openPdfViewerAttempt(url, label, isFillable, isRetry) {
   pdfViewerTitle.textContent = label || "Document";
   // Always "Save" regardless of whether this file is fillable - a
   // person switching between forms shouldn't have to notice the label
@@ -764,9 +796,23 @@ async function openPdfViewer(url, label, isFillable) {
         "PDFs can't open like this. Chrome (and most browsers) block the background worker pdf.js needs when a page is opened directly as a file:// URL. Serve this folder over a local server instead - e.g. run `python3 -m http.server` in this folder, then open http://localhost:8000 - and it'll work the same way it will once this is actually hosted on GitHub Pages.",
         true
       );
-    } else {
-      setPdfViewerStatus(`Couldn't load this document (${err && err.message ? err.message : "unknown error"}). Close and try again.`, true);
+      return;
     }
+
+    // A load failure is often not a bad file - it's a stuck cache entry
+    // (e.g. one corrupted by a since-fixed caching bug) that nothing
+    // ever clears on its own, since the asset cache is deliberately kept
+    // forever across updates so a medic's already-downloaded PDFs
+    // survive them. A person in the field has no way to know "clear
+    // your cache" is the fix, let alone do it with no signal - so try
+    // that automatically, once, before giving up. If the modal got
+    // closed while this first attempt was failing, there's nothing left
+    // to retry into.
+    if (!isRetry && currentViewer.sourceUrl === url && (await evictCachedAsset(url)) && currentViewer.sourceUrl === url) {
+      return openPdfViewerAttempt(url, label, isFillable, true);
+    }
+
+    setPdfViewerStatus(`Couldn't load this document (${err && err.message ? err.message : "unknown error"}). Close and try again.`, true);
   }
 }
 
