@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T19:09:57.244Z",
+    "generated": "2026-08-18T19:11:15.715Z",
     "resource_count": 173,
     "screening_count": 19,
     "roi_count": 10,
     "sub_contact_count": 26,
     "version": "3.4.0",
-    "buildId": "3.4.0+871610a3fa3c",
-    "dataHash": "871610a3fa3c"
+    "buildId": "3.4.0+9acd3a6717a5",
+    "dataHash": "9acd3a6717a5"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4533,7 +4533,7 @@ const ARM_DATA = {
     {
       "name": "Day One",
       "parent": "Cornerstone MN",
-      "type": "Domestica Violence/Crime Victim Advocacy",
+      "type": "Domestic Violence/Crime Victim Advocacy",
       "services": "Operates Crisis lines and resources for victims of domestic violence and general crime.",
       "contact": "",
       "email": "",
