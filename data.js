@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T18:20:17.406Z",
-    "resource_count": 172,
+    "generated": "2026-08-18T19:03:56.499Z",
+    "resource_count": 173,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 25,
+    "sub_contact_count": 26,
     "version": "3.4.0",
-    "buildId": "3.4.0+752189a045f5",
-    "dataHash": "752189a045f5"
+    "buildId": "3.4.0+cb9ee7e4d3b9",
+    "dataHash": "cb9ee7e4d3b9"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4653,6 +4653,117 @@ const ARM_DATA = {
           "website": "https://www.plannedparenthood.org/health-center/minnesota/minneapolis/55408/minneapolis-clinic-2719-90720",
           "location": "1200 Lagoon Avenue Minneapolis, MN 55408",
           "hours": "Monday-Friday 9 am - 7 pm, Saturday-Sunday 9 am - 5 pm",
+          "access": "",
+          "notes": "",
+          "source": ""
+        }
+      ]
+    },
+    {
+      "name": "Jewish Family and Children's Service of Minnesota",
+      "parent": "JFCS",
+      "type": "Religious Non-Profit",
+      "services": "Services include counseling and mental heath services, transportation, case management, senior companionship, and kosher meals on wheels, and more.",
+      "contact": "",
+      "email": "jfcs@jfcsmn.org",
+      "phone": "9525460616",
+      "altPhone": "",
+      "fax": "9525931778",
+      "altFax": "",
+      "hours": "Monday-Tuesday 8:30 am to 5:00 pm, Wednesday 8:30 am to 7:00 pm, Thursday 8:30 am to 5:00 pm, Friday 8:30 am to 4:00 pm",
+      "tty": "",
+      "website": "https://www.jfcsmn.org/",
+      "address": "5905 Golden Valley Rd, Golden Valley, MN 55422",
+      "notes": "",
+      "keywords": "",
+      "categories": [
+        "Immigrant / Culturally Specific"
+      ],
+      "files": [
+        {
+          "label": "Garber Transportation Flyer",
+          "path": "Assets/Garber_Transportation_Overview_26.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "Accompanied Transportation Services flyer",
+          "path": "Assets/Accompanied-Transportation-Services_flyer.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "Care Planning Consultation flyer",
+          "path": "Assets/Care-Planning-Consultation_flyer.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "Case Management flyer",
+          "path": "Assets/Case-Management_flyer.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "Dementia Caregiver Connect flyer",
+          "path": "Assets/Dementia-Caregiver-Connect-flyer.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "Dementia Friends Flyer",
+          "path": "Assets/Dementia-Friends-Flyer_24.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "Holocaust Survivor flyer",
+          "path": "Assets/Holocaust-Survivor_flyer.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "Kosher Meals On Wheels flyer",
+          "path": "Assets/MOW-flyer_26.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "MemoryCafe flyer",
+          "path": "Assets/MemoryCafe-flyer_25.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "Shopping Services flyer",
+          "path": "Assets/Shopping-Services_flyer.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "Recovery Resource Guide",
+          "path": "Assets/Recovery-Resource-Guide.pdf",
+          "fillable": false,
+          "type": "file"
+        },
+        {
+          "label": "Garber Transportation Inquiry Form",
+          "url": "https://www.jfcsmn.org/garber-transportation-program-inquiry/",
+          "type": "link"
+        }
+      ],
+      "subContacts": [
+        {
+          "name": "Intake & Resource Connection",
+          "category": "",
+          "audience": "",
+          "purpose": "JFCS’ first response to questions or requests for help.",
+          "phone": "952-542-4843",
+          "fax": "",
+          "email": "intake@jfcsmn.org",
+          "website": "https://www.jfcsmn.org/help/",
+          "location": "",
+          "hours": "",
           "access": "",
           "notes": "",
           "source": ""
