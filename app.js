@@ -22,7 +22,7 @@ function formatPhone(raw) {
   if (digits.length === 11 && digits[0] === "1") {
     return `(${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
   }
-  return String(raw); // not a clean 10-digit number — show as typed rather than mangle it
+  return escapeHtml(String(raw)); // not a clean 10-digit number — show as typed rather than mangle it
 }
 
 function telHref(raw) {
@@ -339,7 +339,7 @@ function formatAddress(raw, plain) {
     const m = addr.match(/^(.*?),?\s*([A-Z]{2})\s+(\d{5}(?:-\d{4})?)\s*(\([^)]*\))?$/);
     const mapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(addr)}`;
     if (!m) {
-      return wrap(addr, mapsUrl);
+      return wrap(escapeHtml(addr), mapsUrl);
     }
     let rest = m[1].replace(/,\s*$/, "");
     const lastComma = rest.lastIndexOf(",");
@@ -353,7 +353,10 @@ function formatAddress(raw, plain) {
       street = words.join(" ");
     }
     const note = m[4] ? ` ${m[4]}` : "";
-    return wrap(`${street}<br>${city}, ${m[2]} ${m[3]}${note}`, mapsUrl);
+    // Escaped individually, THEN joined with the literal <br> - escaping
+    // the already-assembled string would turn that intentional line
+    // break into visible "&lt;br&gt;" text instead of a real one.
+    return wrap(`${escapeHtml(street)}<br>${escapeHtml(city)}, ${escapeHtml(m[2])} ${escapeHtml(m[3])}${escapeHtml(note)}`, mapsUrl);
   }
 
   return String(raw).split(";").map(s => s.trim()).filter(Boolean).map(parseOne).join("<br><br>");
@@ -391,6 +394,7 @@ function formatHours(raw) {
     .map(s => s.trim())
     .filter(Boolean)
     .map(s => s.replace(/(AM|PM)\s+and\s+(\d)/gi, "$1, $2"))
+    .map(escapeHtml)
     .join("<br>");
 }
 
@@ -442,7 +446,7 @@ function showCategoryList() {
     const count = ARM_DATA.resources.filter(r => (r.categories || []).includes(cat)).length;
     const row = document.createElement("li");
     row.className = "category-row";
-    row.innerHTML = `<span>${cat}</span><span><span class="cat-count">${count}</span><span class="chev">›</span></span>`;
+    row.innerHTML = `<span>${escapeHtml(cat)}</span><span><span class="cat-count">${count}</span><span class="chev">›</span></span>`;
     row.addEventListener("click", () => {
       const filtered = ARM_DATA.resources.filter(r => (r.categories || []).includes(cat));
       showResourceList(filtered, cat);
@@ -480,10 +484,22 @@ function renderResources(list) {
 
   const sorted = [...list].sort((a, b) => a.name.localeCompare(b.name));
 
+  // A search with zero matches used to leave this list silently blank -
+  // indistinguishable from "still loading" or a rendering bug. The back
+  // bar above already says what was searched for; this is what confirms
+  // the search actually ran and genuinely found nothing.
+  if (!sorted.length) {
+    const li = document.createElement("li");
+    li.className = "placeholder";
+    li.textContent = "No matches found.";
+    resourceItems.appendChild(li);
+    return;
+  }
+
   sorted.forEach(r => {
     const li = document.createElement("li");
     li.className = "resource-row";
-    li.innerHTML = `<span>${r.name}</span><span class="chev">›</span>`;
+    li.innerHTML = `<span>${escapeHtml(r.name)}</span><span class="chev">›</span>`;
 
     li.addEventListener("click", () => {
       document.querySelectorAll("#resourceItems li").forEach(item => {
@@ -508,22 +524,22 @@ function showDetail(resource) {
   const favActive = isFavorite(resource.name);
   detailContent.innerHTML = `
     <div class="detail-heading-row">
-      <h2>${resource.name}</h2>
+      <h2>${escapeHtml(resource.name)}</h2>
       <button class="fav-heart${favActive ? " active" : ""}" id="favHeartBtn" aria-label="Toggle favorite" aria-pressed="${favActive}">${heartIcon(favActive)}</button>
     </div>
-    ${resource.parent ? `<div class="detail-parent">${resource.parent}</div>` : ""}
-    ${resource.type ? `<div class="detail-type">${resource.type}</div>` : ""}
+    ${resource.parent ? `<div class="detail-parent">${escapeHtml(resource.parent)}</div>` : ""}
+    ${resource.type ? `<div class="detail-type">${escapeHtml(resource.type)}</div>` : ""}
     ${(resource.phone || resource.website) ? `
       <div class="detail-actions">
         ${resource.phone ? `<a class="detail-action-btn primary" href="${telHref(resource.phone)}">${icon("phone")} Call</a>` : ""}
-        ${resource.website ? `<a class="detail-action-btn" href="${resource.website}" target="_blank">${icon("globe")} Website</a>` : ""}
+        ${resource.website ? `<a class="detail-action-btn" href="${escapeAttr(resource.website)}" target="_blank">${icon("globe")} Website</a>` : ""}
       </div>
     ` : ""}
-    ${section("Overview", resource.services)}
+    ${section("Overview", linkifyLine(resource.services || ""))}
     ${section("Contact", contactBlock(resource))}
     ${section("Related Contacts", subContactsBlock(resource))}
     ${section("Files & External Links", fileBlock(resource))}
-    ${section("Notes", resource.notes)}
+    ${section("Notes", linkifyLine(resource.notes || ""))}
   `;
 
   document.getElementById("favHeartBtn").addEventListener("click", () => {
@@ -559,7 +575,7 @@ function contactBlock(r, opts) {
     ${r.fax ? `<p><strong>Fax:</strong> ${formatPhone(r.fax)}</p>` : ""}
     ${r.altFax ? `<p><strong>Alt Fax:</strong> ${formatPhone(r.altFax)}</p>` : ""}
     ${r.tty ? `<p><strong>TTY:</strong> <a href="${telHref(r.tty)}">${formatPhone(r.tty)}</a></p>` : ""}
-    ${r.email ? `<p>${icon("mail")} <a href="mailto:${r.email}">${r.email}</a></p>` : ""}
+    ${r.email ? `<p>${icon("mail")} <a href="mailto:${escapeAttr(r.email)}">${escapeHtml(r.email)}</a></p>` : ""}
     ${r.address ? `<p>${formatAddress(r.address, opts.plainAddress)}</p>` : ""}
     ${r.hours ? `<p><strong>Hours:</strong><br>${formatHours(r.hours)}</p>` : ""}
   `;
@@ -583,7 +599,7 @@ function subContactsBlock(r) {
       // single map link would be misleading, not helpful.
       const looksLikeAddress = c.location && /\d{5}(-\d{4})?\s*(\([^)]*\))?\s*$/.test(c.location);
       const locationHtml = c.location
-        ? (looksLikeAddress ? formatAddress(c.location) : `${icon("pin")} ${c.location}`)
+        ? (looksLikeAddress ? formatAddress(c.location) : `${icon("pin")} ${escapeHtml(c.location)}`)
         : "";
 
       const purpose = stripExpiredText(c.purpose);
@@ -592,17 +608,17 @@ function subContactsBlock(r) {
 
       return `
         <div class="sub-contact">
-          <h4>${c.name}</h4>
-          ${meta ? `<p class="sub-contact-meta">${meta}</p>` : ""}
-          ${purpose ? `<p>${purpose}</p>` : ""}
+          <h4>${escapeHtml(c.name)}</h4>
+          ${meta ? `<p class="sub-contact-meta">${escapeHtml(meta)}</p>` : ""}
+          ${purpose ? `<p>${linkifyLine(purpose)}</p>` : ""}
           ${c.phone ? `<p>${icon("phone")} <a href="${telHref(c.phone)}">${formatPhone(c.phone)}</a></p>` : ""}
           ${c.fax ? `<p><strong>Fax:</strong> ${formatPhone(c.fax)}</p>` : ""}
-          ${c.email ? `<p>${icon("mail")} <a href="mailto:${c.email}">${c.email}</a></p>` : ""}
-          ${c.website ? `<p>${icon("globe")} <a href="${c.website}" target="_blank" rel="noopener">Visit Website</a></p>` : ""}
+          ${c.email ? `<p>${icon("mail")} <a href="mailto:${escapeAttr(c.email)}">${escapeHtml(c.email)}</a></p>` : ""}
+          ${c.website ? `<p>${icon("globe")} <a href="${escapeAttr(c.website)}" target="_blank" rel="noopener">Visit Website</a></p>` : ""}
           ${locationHtml ? `<p>${locationHtml}</p>` : ""}
           ${c.hours ? `<p><strong>Hours:</strong><br>${formatHours(c.hours)}</p>` : ""}
-          ${access ? `<p><strong>Access:</strong> ${access}</p>` : ""}
-          ${notes ? `<p><strong>Notes:</strong> ${notes}</p>` : ""}
+          ${access ? `<p><strong>Access:</strong> ${linkifyLine(access)}</p>` : ""}
+          ${notes ? `<p><strong>Notes:</strong> ${linkifyLine(notes)}</p>` : ""}
         </div>
       `;
     })
@@ -616,9 +632,9 @@ function fileBlock(r) {
   return r.files
     .map(file => {
       if (file.url) {
-        return `<p>${icon("globe")} <a href="${escapeAttr(file.url)}" target="_blank" rel="noopener">${file.label}</a></p>`;
+        return `<p>${icon("globe")} <a href="${escapeAttr(file.url)}" target="_blank" rel="noopener">${escapeHtml(file.label)}</a></p>`;
       }
-      return `<p>${icon("file")} <a ${fileLinkAttrs(toFileUrl(file.path), file.label, file.fillable)}>${file.label}</a></p>`;
+      return `<p>${icon("file")} <a ${fileLinkAttrs(toFileUrl(file.path), file.label, file.fillable)}>${escapeHtml(file.label)}</a></p>`;
     })
     .join("");
 }
@@ -733,6 +749,16 @@ async function openPdfViewerAttempt(url, label, isFillable, isRetry) {
   setPdfViewerStatus("Loading…");
   pdfViewerModal.classList.add("open");
 
+  // Tracks whether the document itself finished loading before whatever
+  // throws below - the eviction/retry logic further down must only ever
+  // fire for a failure to LOAD the file (the class of failure a
+  // corrupted cache entry actually causes). A crash while rendering a
+  // specific page, or reading a fillable form's field definitions, means
+  // the file itself is already known-good - evicting and re-fetching an
+  // identical, perfectly fine cached copy would accomplish nothing on a
+  // retry except throwing away offline access to it for no reason.
+  let loaded = false;
+
   try {
     const pdfjsLib = await loadPdfjs();
     const loadingTask = pdfjsLib.getDocument({
@@ -751,6 +777,7 @@ async function openPdfViewerAttempt(url, label, isFillable, isRetry) {
     });
     currentViewer.loadingTask = loadingTask;
     const pdfDoc = await loadingTask.promise;
+    loaded = true;
 
     // A stale close (person tapped the ✕ while this was still loading)
     // must not go on to render into a modal that's no longer open.
@@ -807,8 +834,8 @@ async function openPdfViewerAttempt(url, label, isFillable, isRetry) {
     // your cache" is the fix, let alone do it with no signal - so try
     // that automatically, once, before giving up. If the modal got
     // closed while this first attempt was failing, there's nothing left
-    // to retry into.
-    if (!isRetry && currentViewer.sourceUrl === url && (await evictCachedAsset(url)) && currentViewer.sourceUrl === url) {
+    // to retry into. Gated on `!loaded` - see its declaration above.
+    if (!loaded && !isRetry && currentViewer.sourceUrl === url && (await evictCachedAsset(url)) && currentViewer.sourceUrl === url) {
       return openPdfViewerAttempt(url, label, isFillable, true);
     }
 
@@ -1009,14 +1036,14 @@ function renderScreeningTools() {
 
     const toolLink = (tool.files && tool.files.length)
       ? tool.files
-          .map(f => `<a ${fileLinkAttrs(toFileUrl(f.path), f.label, f.fillable)}>${f.label}</a>`)
+          .map(f => `<a ${fileLinkAttrs(toFileUrl(f.path), f.label, f.fillable)}>${escapeHtml(f.label)}</a>`)
           .join(", ")
-      : tool.tool;
+      : escapeHtml(tool.tool);
 
     row.innerHTML = `
-      <td>${tool.domain}</td>
+      <td>${escapeHtml(tool.domain)}</td>
       <td>${toolLink}</td>
-      <td>${tool.purpose}</td>
+      <td>${escapeHtml(tool.purpose)}</td>
     `;
 
     toolsTableBody.appendChild(row);
@@ -1220,7 +1247,7 @@ function renderRoiContacts() {
   orgs.forEach(org => {
     const li = document.createElement("li");
     li.className = "roi-org-row";
-    li.innerHTML = `<span>${org.organization}</span><span class="chev">›</span>`;
+    li.innerHTML = `<span>${escapeHtml(org.organization)}</span><span class="chev">›</span>`;
     li.addEventListener("click", () => showRoiOrgDetail(org, li));
     roiOrgList.appendChild(li);
   });
@@ -1234,9 +1261,9 @@ function showRoiOrgDetail(org, li) {
   // have (phone, altPhone, fax, altFax, email, address, files) - nothing
   // ROI-specific needs duplicating here.
   roiDetailContent.innerHTML = `
-    <h2>${org.organization}</h2>
+    <h2>${escapeHtml(org.organization)}</h2>
     ${section("Contact", contactBlock(org, { plainAddress: true }))}
-    ${section("Notes", org.notes)}
+    ${section("Notes", linkifyLine(org.notes || ""))}
     ${section("Forms", fileBlock(org))}
   `;
   roiDetailPane.scrollTop = 0;

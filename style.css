@@ -1274,6 +1274,19 @@ a:active {
     min-height: 0;
   }
 
+  /* Nothing selected yet means .resource-detail is just showing its
+     empty "select a resource" placeholder - capping the list to 45% in
+     that state leaves more than half the screen sitting unused below an
+     empty box, while the list itself (the thing actually being browsed)
+     is cramped to a handful of visible rows. Once something IS selected
+     there's real content to give room to, so it reverts to the normal
+     45%/55% split. Browsers without :has() support simply keep that
+     split all the time - the same behavior this had before, not a
+     broken one. */
+  .split-pane:not(:has(.resource-detail.detail-active)) .resource-list {
+    flex: 1 1 auto;
+  }
+
   /* ROI Contacts keeps its list/detail split side-by-side all the way
      down to the iPhone breakpoint below (only iPhone gets the full
      slide-over) - widening the modal here on iPad-portrait-width

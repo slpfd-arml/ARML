@@ -18,7 +18,7 @@
                             PDF a medic downloaded for offline use.
    ============================================================ */
 
-const BUILD_ID = '3.3.6+447be90dc8dc';
+const BUILD_ID = '3.4.0+3bcf1a589d02';
 const SHELL_FILES = [
   "index.html",
   "style.css",
@@ -32,7 +32,6 @@ const SHELL_FILES = [
   "icons/icon-192.png",
   "icons/icon-512.png",
   "icons/mn-icon.svg",
-  "icons/mnicon.svg",
   "icons/slp-patch-small.png",
   "icons/slp-patch.ico",
   "icons/slp-patch.png",
