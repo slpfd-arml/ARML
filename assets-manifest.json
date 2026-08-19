@@ -1,5 +1,5 @@
 {
-  "buildId": "3.4.0+f56e6174a3d4",
+  "buildId": "3.4.0+eb769abab01a",
   "shell": [
     "index.html",
     "style.css",
@@ -27,6 +27,7 @@
   ],
   "assets": [
     "Assets/ACT-Referral-FAQ-2.pdf",
+    "Assets/AOS_Brochure_Tri_Fold_Final.pdf",
     "Assets/ARM Screening Tools/AUDIT.pdf",
     "Assets/ARM Screening Tools/C-SSRS.pdf",
     "Assets/ARM Screening Tools/CAGE-AID.pdf",

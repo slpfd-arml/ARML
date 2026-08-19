@@ -1,13 +1,13 @@
 const ARM_DATA = {
   "meta": {
-    "generated": "2026-08-18T19:17:55.236Z",
-    "resource_count": 173,
+    "generated": "2026-08-19T23:58:18.248Z",
+    "resource_count": 174,
     "screening_count": 19,
     "roi_count": 10,
-    "sub_contact_count": 26,
+    "sub_contact_count": 29,
     "version": "3.4.0",
-    "buildId": "3.4.0+f56e6174a3d4",
-    "dataHash": "f56e6174a3d4"
+    "buildId": "3.4.0+eb769abab01a",
+    "dataHash": "eb769abab01a"
   },
   "categories": [
     "Benefits & Insurance",
@@ -4766,6 +4766,82 @@ const ARM_DATA = {
           "hours": "",
           "access": "",
           "notes": "",
+          "source": ""
+        }
+      ]
+    },
+    {
+      "name": "Vail Communities",
+      "parent": "Vail Communities",
+      "type": "Nonprofit Mental Health Services",
+      "services": "Nonprofit organization that provides community-based recovery services for adults with serious mental illnesses. Programs include clubhouses, targeted case management, and Assertive Outreach.",
+      "contact": "",
+      "email": "info@vailcommunities.org",
+      "phone": "952-938-9622",
+      "altPhone": "",
+      "fax": "",
+      "altFax": "",
+      "hours": "",
+      "tty": "",
+      "website": "https://vailcommunities.org/",
+      "address": "23 9th Ave. S., Hopkins, MN 55343",
+      "notes": "",
+      "keywords": "Vail, Communities, Day program, clubhouse, mental health, Targeted, case management, AOC",
+      "categories": [
+        "Mental Health & Substance Use"
+      ],
+      "files": [
+        {
+          "label": "AOS Brochure",
+          "path": "Assets/AOS_Brochure_Tri_Fold_Final.pdf",
+          "fillable": false,
+          "type": "file"
+        }
+      ],
+      "subContacts": [
+        {
+          "name": "Targeted Case Management",
+          "category": "Case Management",
+          "audience": "",
+          "purpose": "",
+          "phone": "(952) 945-4275",
+          "fax": "",
+          "email": "kfaber@vailcommunities.org",
+          "website": "https://vailcommunities.org/targeted-case-management",
+          "location": "",
+          "hours": "",
+          "access": "",
+          "notes": "Contact information is for Kristen Farber, Case Management Program Assistant.",
+          "source": ""
+        },
+        {
+          "name": "Hopkins Clubhouse",
+          "category": "Day Program",
+          "audience": "",
+          "purpose": "",
+          "phone": "(952) 297-8908",
+          "fax": "952) 938-7934",
+          "email": "nroehl@vailcommunities.org",
+          "website": "https://vailcommunities.org/hopkins-clubhouse",
+          "location": "15 9th Ave S., Hopkins, MN 55343",
+          "hours": "Mon-Fri 8:30a-4:30p, Open until 6:30p on Thursday Evenings",
+          "access": "",
+          "notes": "Intake Coordinator Nikki Roehl (she/her) Phone: 952-300-5378",
+          "source": ""
+        },
+        {
+          "name": "Uptown Clubhouse",
+          "category": "Day Program",
+          "audience": "",
+          "purpose": "",
+          "phone": "952) 297-8900",
+          "fax": "(952) 938-7934",
+          "email": "eisaacson@vailcommunities.org",
+          "website": "https://vailcommunities.org/uptown-clubhouse",
+          "location": "1412 W. 36th St., Mpls, MN 55408",
+          "hours": "Mon-Fri 8:30a-4:30p, Open until 6:30p on Wednesday Evenings",
+          "access": "",
+          "notes": "Intake Coordinator Elaine Isaacson (she/her) Phone: 612-760-3147",
           "source": ""
         }
       ]
